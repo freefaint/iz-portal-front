@@ -1,0 +1,107 @@
+{
+  "extends": [
+    "react-app",
+    "eslint:recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "prettier"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "no-undef": 1,
+    "no-console": 1,
+    "import/no-anonymous-default-export": 1,
+    "import/no-named-as-default-member": 1,
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react*",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "styled-components",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "effector*",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@material-ui*",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "axios",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "date-fns",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "assets/*",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "components/*",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "common/*",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "styles/*",
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }],
+    "no-unused-vars": 0,
+    "no-debugger": 1,
+    "no-const-assign": 1,
+    "no-eval": 1,
+    "no-empty": [2, { "allowEmptyCatch": true }],
+    "no-var": 1,
+    "require-await": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ],
+  "globals": {
+    "JSX": "readonly"
+  }
+}
