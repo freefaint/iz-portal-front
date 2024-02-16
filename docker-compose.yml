@@ -1,0 +1,22 @@
+version: '3.5'
+
+networks:
+  default:
+    external:
+      name: macvlan111
+
+services:
+  frontend:
+    container_name: ${STAND}_portal-frontend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    labels:
+      org.label-schema.group: ${COMPOSE_PROJECT_NAME}
+    restart: "no"
+    networks:
+      default:
+        aliases:
+            - portal-frontend.dcs.infosec.ru
+    ports:
+      - "80:80"
