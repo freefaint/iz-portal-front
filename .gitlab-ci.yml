@@ -1,0 +1,50 @@
+variables:
+    STAND: ${CI_COMMIT_REF_SLUG}
+    COMPOSE_PROJECT_NAME: portal_${STAND}
+
+stages:
+    - test
+    - build
+    - deploy
+  
+test:
+    image: node:18.19.0
+    stage: test
+    before_script:
+        - yarn install
+    script:
+        - yarn test --coverage --passWithNoTests
+    tags:
+        - docker-sandbox02
+    only:
+        - merge_requests
+        - dev
+
+build_job:
+    image: node:18.19.0
+    stage: build
+    before_script:
+        - yarn install --network-timeout 18000
+    script:
+        - yarn build
+    artifacts:
+        paths:
+            - build/
+        expire_in: 1 day
+    tags:
+        - docker-sandbox02
+    only:
+        - merge_requests
+        - dev
+
+deploy:
+    stage: deploy
+    image: docker/compose
+    script:
+        - docker-compose up --force-recreate -d --build
+    only:
+        - dev
+    dependencies:
+        - build_job
+    tags:
+        - shell_sandbox02
