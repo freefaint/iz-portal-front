@@ -103,7 +103,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 }));
 
 export default function MiniDrawer() {
-  console.log('');
+  // console.log('');
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
