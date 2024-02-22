@@ -1,5 +1,9 @@
 version: '3.5'
 
+volumes:
+  portal_dev_ssl:
+    external: true
+
 networks:
   default:
     external:
@@ -14,6 +18,8 @@ services:
     labels:
       org.label-schema.group: ${COMPOSE_PROJECT_NAME}
     restart: "no"
+    volumes:
+      - portal_dev_ssl:/https:ro  
     networks:
       default:
         aliases:
