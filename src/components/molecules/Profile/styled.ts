@@ -62,27 +62,6 @@ const ActionCard = styled.div`
     font-size: 12px;
   }
 `;
-const ActionTableFlex = styled.div<{
-  ids: number;
-  idk: number;
-}>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 12px;
-  font-size: 12px;
-  /* background-color: rgba(25, 118, 210, 1); */
-  /* background-color: #fff; */
-  border: 1px solid rgba(25, 118, 210, 1);
-  color: #1976d2;
-  cursor: pointer;
-  border-top-left-radius: ${(props) => (props.idk === 0 ? '20px' : '0px')};
-  border-bottom-left-radius: ${(props) => (props.idk === 0 ? '20px' : '0px')};
-  border-bottom-right-radius: ${(props) => (props.idk === props.ids ? '20px' : '0px')};
-  border-top-right-radius: ${(props) => (props.idk === props.ids ? '20px' : '0px')};
-`;
 
 const ActionBorder = styled.div`
   display: flex;
@@ -109,9 +88,45 @@ const Active = styled.div`
   }
 `;
 
+const Justify = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ActionTableFlex = styled.div<{
+  ids: number;
+  idk: number;
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  font-size: 12px;
+  /* background-color: rgba(25, 118, 210, 1); */
+  /* background-color: #fff; */
+  border: 1px solid rgba(25, 118, 210, 1);
+  color: #1976d2;
+  cursor: pointer;
+  border-top-left-radius: ${(props) => (props.idk === 0 ? '20px' : '0px')};
+  border-bottom-left-radius: ${(props) => (props.idk === 0 ? '20px' : '0px')};
+  border-bottom-right-radius: ${(props) => (props.idk === props.ids ? '20px' : '0px')};
+  border-top-right-radius: ${(props) => (props.idk === props.ids ? '20px' : '0px')};
+`;
+
+const ModalH = styled.div`
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+`;
+
 export const Styled = {
   Account,
   ErrorInfo,
+  Justify,
+  ModalH,
   AccountCardBlock,
   IconCard,
   InfoCard,

@@ -1,7 +1,7 @@
 import { useState, MouseEvent } from 'react';
 
-// import Profile from '@root/components/pages/profile/Profile';
-import SearchPage from '@root/components/pages/search/Search';
+import Profile from '@root/components/pages/profile/Profile';
+// import SearchPage from '@root/components/pages/search/Search';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -308,8 +308,8 @@ export default function MiniDrawer() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {/* <Profile /> */}
-        <SearchPage />
+        <Profile />
+        {/* <SearchPage /> */}
       </Box>
     </Box>
   );
