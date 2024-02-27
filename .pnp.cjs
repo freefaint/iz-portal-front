@@ -43,6 +43,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.19"],\
           ["@typescript-eslint/eslint-plugin", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:7.0.1"],\
           ["@typescript-eslint/parser", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:7.0.1"],\
+          ["avrora", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.0.58"],\
           ["craco-esbuild", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.5.2"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:9.1.0"],\
@@ -59,6 +60,7 @@ const RAW_RUNTIME_STATE =
           ["pretty-quick", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:4.0.0"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:18.2.0"],\
+          ["react-router-dom", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:6.22.1"],\
           ["react-scripts", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:5.0.1"],\
           ["styled-components", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:5.3.11"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
@@ -5049,6 +5051,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@remix-run/router", [\
+      ["npm:1.15.1", {\
+        "packageLocation": "./.yarn/cache/@remix-run-router-npm-1.15.1-7a18033173-d262285d15.zip/node_modules/@remix-run/router/",\
+        "packageDependencies": [\
+          ["@remix-run/router", "npm:1.15.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@rollup/plugin-babel", [\
       ["npm:5.3.1", {\
         "packageLocation": "./.yarn/cache/@rollup-plugin-babel-npm-5.3.1-6039a4d033-eb3ee5fedd.zip/node_modules/@rollup/plugin-babel/",\
@@ -7384,6 +7395,28 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/available-typed-arrays-npm-1.0.6-46d3afbf21-c1e2e3d3a6.zip/node_modules/available-typed-arrays/",\
         "packageDependencies": [\
           ["available-typed-arrays", "npm:1.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["avrora", [\
+      ["npm:0.0.58", {\
+        "packageLocation": "./.yarn/cache/avrora-npm-0.0.58-1306fd59c2-fc3bdd6c01.zip/node_modules/avrora/",\
+        "packageDependencies": [\
+          ["avrora", "npm:0.0.58"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.0.58", {\
+        "packageLocation": "./.yarn/__virtual__/avrora-virtual-9dcff0604a/0/cache/avrora-npm-0.0.58-1306fd59c2-fc3bdd6c01.zip/node_modules/avrora/",\
+        "packageDependencies": [\
+          ["avrora", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.0.58"],\
+          ["@types/react", "npm:18.2.55"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15707,6 +15740,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.19"],\
           ["@typescript-eslint/eslint-plugin", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:7.0.1"],\
           ["@typescript-eslint/parser", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:7.0.1"],\
+          ["avrora", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.0.58"],\
           ["craco-esbuild", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.5.2"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:9.1.0"],\
@@ -15723,6 +15757,7 @@ const RAW_RUNTIME_STATE =
           ["pretty-quick", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:4.0.0"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:18.2.0"],\
+          ["react-router-dom", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:6.22.1"],\
           ["react-scripts", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:5.0.1"],\
           ["styled-components", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:5.3.11"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
@@ -17858,6 +17893,57 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/react-refresh-npm-0.11.0-c0a4e59e76-1275699e2e.zip/node_modules/react-refresh/",\
         "packageDependencies": [\
           ["react-refresh", "npm:0.11.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-router", [\
+      ["npm:6.22.1", {\
+        "packageLocation": "./.yarn/cache/react-router-npm-6.22.1-bb2dee0df3-f6e814b8e3.zip/node_modules/react-router/",\
+        "packageDependencies": [\
+          ["react-router", "npm:6.22.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:7e4069aad09ab5c1b5813fa8c31cd79ede0149d6f35fe0622ac0992233bf0fa9804ed4c5eea7b163a4f6d13b8a40ebd860c4c24fec96964371907af82615fc78#npm:6.22.1", {\
+        "packageLocation": "./.yarn/__virtual__/react-router-virtual-5a600c4d92/0/cache/react-router-npm-6.22.1-bb2dee0df3-f6e814b8e3.zip/node_modules/react-router/",\
+        "packageDependencies": [\
+          ["react-router", "virtual:7e4069aad09ab5c1b5813fa8c31cd79ede0149d6f35fe0622ac0992233bf0fa9804ed4c5eea7b163a4f6d13b8a40ebd860c4c24fec96964371907af82615fc78#npm:6.22.1"],\
+          ["@remix-run/router", "npm:1.15.1"],\
+          ["@types/react", "npm:18.2.55"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-router-dom", [\
+      ["npm:6.22.1", {\
+        "packageLocation": "./.yarn/cache/react-router-dom-npm-6.22.1-d8be1b4f15-73ab964083.zip/node_modules/react-router-dom/",\
+        "packageDependencies": [\
+          ["react-router-dom", "npm:6.22.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:6.22.1", {\
+        "packageLocation": "./.yarn/__virtual__/react-router-dom-virtual-7e4069aad0/0/cache/react-router-dom-npm-6.22.1-d8be1b4f15-73ab964083.zip/node_modules/react-router-dom/",\
+        "packageDependencies": [\
+          ["react-router-dom", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:6.22.1"],\
+          ["@remix-run/router", "npm:1.15.1"],\
+          ["@types/react", "npm:18.2.55"],\
+          ["@types/react-dom", "npm:18.2.19"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:18.2.0"],\
+          ["react-router", "virtual:7e4069aad09ab5c1b5813fa8c31cd79ede0149d6f35fe0622ac0992233bf0fa9804ed4c5eea7b163a4f6d13b8a40ebd860c4c24fec96964371907af82615fc78#npm:6.22.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -26317,8 +26403,8 @@ class ZipFS extends BasePortableFakeFS {
       const type = this.listings.has(p)
         ? fs.constants.S_IFDIR
         : this.isSymbolicLink(entry)
-        ? fs.constants.S_IFLNK
-        : fs.constants.S_IFREG;
+          ? fs.constants.S_IFLNK
+          : fs.constants.S_IFREG;
       const defaultMode = type === fs.constants.S_IFDIR ? 493 : 420;
       const mode = type | (this.getUnixMode(entry, defaultMode) & 511);
       const crc = this.libzip.struct.statCrc(stat);
@@ -27159,8 +27245,8 @@ function applyPatch(pnpapi, opts) {
       const absoluteRequest = npath.isAbsolute(request)
         ? request
         : parentDirectory !== null
-        ? npath.resolve(parentDirectory, request)
-        : null;
+          ? npath.resolve(parentDirectory, request)
+          : null;
       if (absoluteRequest !== null) {
         const apiPath =
           parent && parentDirectory === npath.dirname(absoluteRequest)
@@ -27373,9 +27459,7 @@ function createErrorType(code, messageCreator, errorType) {
 const ERR_PACKAGE_IMPORT_NOT_DEFINED = createErrorType(
   `ERR_PACKAGE_IMPORT_NOT_DEFINED`,
   (specifier, packagePath, base) => {
-    return `Package import specifier "${specifier}" is not defined${
-      packagePath ? ` in package ${packagePath}package.json` : ``
-    } imported from ${base}`;
+    return `Package import specifier "${specifier}" is not defined${packagePath ? ` in package ${packagePath}package.json` : ``} imported from ${base}`;
   },
   TypeError,
 );
@@ -27393,17 +27477,11 @@ const ERR_INVALID_PACKAGE_TARGET = createErrorType(
       typeof target === `string` && !isImport && target.length && !StringPrototypeStartsWith(target, `./`);
     if (key === `.`) {
       assert__default.default(isImport === false);
-      return `Invalid "exports" main target ${JSONStringify(
-        target,
-      )} defined in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${
-        relError ? `; targets must start with "./"` : ``
-      }`;
+      return `Invalid "exports" main target ${JSONStringify(target)} defined in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${relError ? `; targets must start with "./"` : ``}`;
     }
     return `Invalid "${isImport ? `imports` : `exports`}" target ${JSONStringify(
       target,
-    )} defined for '${key}' in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${
-      relError ? `; targets must start with "./"` : ``
-    }`;
+    )} defined for '${key}' in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${relError ? `; targets must start with "./"` : ``}`;
   },
   Error,
 );
@@ -27419,9 +27497,7 @@ const ERR_PACKAGE_PATH_NOT_EXPORTED = createErrorType(
   (pkgPath, subpath, base = void 0) => {
     if (subpath === '.')
       return `No "exports" main defined in ${pkgPath}package.json${base ? ` imported from ${base}` : ''}`;
-    return `Package subpath '${subpath}' is not defined by "exports" in ${pkgPath}package.json${
-      base ? ` imported from ${base}` : ''
-    }`;
+    return `Package subpath '${subpath}' is not defined by "exports" in ${pkgPath}package.json${base ? ` imported from ${base}` : ''}`;
   },
   Error,
 );
@@ -27532,9 +27608,7 @@ function throwImportNotDefined(specifier, packageJSONUrl, base) {
   );
 }
 function throwInvalidSubpath(subpath, packageJSONUrl, internal, base) {
-  const reason = `request is not a valid subpath for the "${
-    internal ? 'imports' : 'exports'
-  }" resolution of ${url.fileURLToPath(packageJSONUrl)}`;
+  const reason = `request is not a valid subpath for the "${internal ? 'imports' : 'exports'}" resolution of ${url.fileURLToPath(packageJSONUrl)}`;
   throw new ERR_INVALID_MODULE_SPECIFIER(subpath, reason, base && url.fileURLToPath(base));
 }
 function throwInvalidPackageTarget(subpath, target, packageJSONUrl, internal, base) {
@@ -27718,9 +27792,7 @@ function emitTrailingSlashPatternDeprecation(match, pjsonUrl, base) {
   if (emittedPackageWarnings.has(pjsonPath + '|' + match)) return;
   emittedPackageWarnings.add(pjsonPath + '|' + match);
   process.emitWarning(
-    `Use of deprecated trailing slash pattern mapping "${match}" in the "exports" field module resolution of the package at ${pjsonPath}${
-      base ? ` imported from ${url.fileURLToPath(base)}` : ''
-    }. Mapping specifiers ending in "/" is no longer supported.`,
+    `Use of deprecated trailing slash pattern mapping "${match}" in the "exports" field module resolution of the package at ${pjsonPath}${base ? ` imported from ${url.fileURLToPath(base)}` : ''}. Mapping specifiers ending in "/" is no longer supported.`,
     'DeprecationWarning',
     'DEP0155',
   );
@@ -28521,9 +28593,7 @@ Required by: ${issuerForDisplay}
           if (brokenAncestors.every((ancestor) => isDependencyTreeRoot(ancestor))) {
             error = makeError(
               ErrorCode.MISSING_PEER_DEPENDENCY,
-              `${
-                issuerLocator.name
-              } tried to access ${dependencyName} (a peer dependency) but it isn't provided by your application; this makes the require call ambiguous and unsound.
+              `${issuerLocator.name} tried to access ${dependencyName} (a peer dependency) but it isn't provided by your application; this makes the require call ambiguous and unsound.
 
 Required package: ${dependencyName}${dependencyName !== requestForDisplay ? ` (via "${requestForDisplay}")` : ``}
 Required by: ${issuerLocator.name}@${issuerLocator.reference} (via ${issuerForDisplay})
@@ -28545,9 +28615,7 @@ ${brokenAncestors
           } else {
             error = makeError(
               ErrorCode.MISSING_PEER_DEPENDENCY,
-              `${
-                issuerLocator.name
-              } tried to access ${dependencyName} (a peer dependency) but it isn't provided by its ancestors; this makes the require call ambiguous and unsound.
+              `${issuerLocator.name} tried to access ${dependencyName} (a peer dependency) but it isn't provided by its ancestors; this makes the require call ambiguous and unsound.
 
 Required package: ${dependencyName}${dependencyName !== requestForDisplay ? ` (via "${requestForDisplay}")` : ``}
 Required by: ${issuerLocator.name}@${issuerLocator.reference} (via ${issuerForDisplay})
@@ -28584,11 +28652,7 @@ Required by: ${issuerForDisplay}
           } else {
             error = makeError(
               ErrorCode.UNDECLARED_DEPENDENCY,
-              `${
-                issuerLocator.name
-              } tried to access ${dependencyName}. While this module is usually interpreted as a Node builtin, your resolver is running inside a non-Node resolution context where such builtins are ignored. Since ${dependencyName} isn't otherwise declared in ${
-                issuerLocator.name
-              }'s dependencies, this makes the require call ambiguous and unsound.
+              `${issuerLocator.name} tried to access ${dependencyName}. While this module is usually interpreted as a Node builtin, your resolver is running inside a non-Node resolution context where such builtins are ignored. Since ${dependencyName} isn't otherwise declared in ${issuerLocator.name}'s dependencies, this makes the require call ambiguous and unsound.
 
 Required package: ${dependencyName}${dependencyName !== requestForDisplay ? ` (via "${requestForDisplay}")` : ``}
 Required by: ${issuerForDisplay}
@@ -28615,9 +28679,7 @@ Required by: ${issuerForDisplay}
           } else {
             error = makeError(
               ErrorCode.UNDECLARED_DEPENDENCY,
-              `${
-                issuerLocator.name
-              } tried to access ${dependencyName}, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+              `${issuerLocator.name} tried to access ${dependencyName}, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
 
 Required package: ${dependencyName}${dependencyName !== requestForDisplay ? ` (via "${requestForDisplay}")` : ``}
 Required by: ${issuerLocator.name}@${issuerLocator.reference} (via ${issuerForDisplay})
@@ -28652,9 +28714,7 @@ Required by: ${issuerLocator.name}@${issuerLocator.reference} (via ${issuerForDi
           ErrorCode.MISSING_DEPENDENCY,
           `A dependency seems valid but didn't get installed for some reason. This might be caused by a partial install, such as dev vs prod.
 
-Required package: ${dependencyLocator.name}@${dependencyLocator.reference}${
-            dependencyLocator.name !== requestForDisplay ? ` (via "${requestForDisplay}")` : ``
-          }
+Required package: ${dependencyLocator.name}@${dependencyLocator.reference}${dependencyLocator.name !== requestForDisplay ? ` (via "${requestForDisplay}")` : ``}
 Required by: ${issuerLocator.name}@${issuerLocator.reference} (via ${issuerForDisplay})
 `,
           {
@@ -28865,9 +28925,7 @@ function makeManager(pnpapi, opts) {
     const stats = opts.fakeFs.statSync(pnpApiPath);
     if (stats.mtime > apiEntry.stats.mtime) {
       process.emitWarning(
-        `[Warning] The runtime detected new information in a PnP file; reloading the API instance (${npath.fromPortablePath(
-          pnpApiPath,
-        )})`,
+        `[Warning] The runtime detected new information in a PnP file; reloading the API instance (${npath.fromPortablePath(pnpApiPath)})`,
       );
       apiEntry.stats = stats;
       apiEntry.instance = loadApiInstance(pnpApiPath);
