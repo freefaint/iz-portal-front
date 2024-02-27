@@ -65,8 +65,6 @@ const NewsList = () => {
 };
 
 const NewsItem = ({ id, title, date, text }: any) => {
-  const { data } = useContext(RegistryDataContext);
-
   return (
     <>
       <Link to={`/news/${id}`}>
