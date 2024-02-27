@@ -1,5 +1,8 @@
-const CracoEsbuildPlugin = require("craco-esbuild");
-const webpack = require("webpack");
+const path = require('path');
+
+const CracoAlias = require('craco-alias');
+const CracoEsbuildPlugin = require('craco-esbuild');
+const webpack = require('webpack');
 
 module.exports = {
   plugins: [
@@ -7,8 +10,19 @@ module.exports = {
       plugin: CracoEsbuildPlugin,
       options: {
         esbuildMinimizerOptions: {
-          target: "es2015",
+          target: 'es2015',
           css: true, //  OptimizeCssAssetsWebpackPlugin being replaced by esbuild.
+        },
+      },
+    },
+    {
+      plugin: CracoAlias,
+      options: {
+        source: 'tsconfig',
+        tsConfigPath: path.resolve(__dirname, './tsconfig.json'),
+        aliases: {
+          '@components': path.resolve(__dirname, './src/components'),
+          '@utils': path.resolve(__dirname, './src/utils'),
         },
       },
     },
