@@ -6,7 +6,7 @@ export const About = () => {
   return (
     <>
       <Typography variant="h4">О компании</Typography>
-      <img src={aboutImgSrc} />
+      <img src={aboutImgSrc} alt="" />
     </>
   );
 };

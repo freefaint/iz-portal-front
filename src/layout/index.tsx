@@ -17,14 +17,10 @@ import {
 } from '@mui/icons-material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -43,7 +39,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import AvatarSrc from '../assets/img/avatar.jpg';
-import LogoSrc from '../assets/img/logo.png';
+import LogoSrc from '../assets/img/logo4.png';
 
 const drawerWidth = 240;
 
@@ -128,12 +124,10 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
     setOpen(false);
   };
 
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -182,7 +176,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
               textDecoration: 'none',
             }}
           >
-            <img style={{ height: '3rem' }} alt="" src={LogoSrc} />
+            <img style={{ height: '3rem', marginTop: '0.375rem' }} alt="" src={LogoSrc} />
           </Typography>
 
           {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -301,7 +295,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
             </Tooltip>
 
             <Tooltip title="Help">
-              <Link target="_blank" to="http://help/">
+              <Link target="_blank" to="https://help/">
                 <IconButton onClick={handleCloseNavMenu}>
                   <Help />
                 </IconButton>
