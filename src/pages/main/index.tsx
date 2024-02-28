@@ -1,8 +1,10 @@
 import { useContext, useMemo } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { Box, Link as MuiLink, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import { RegistryDataContext, RegistryProvider } from 'avrora';
+
+import { NeutralLink } from '../../components/atoms/NeutralLink';
 
 const genNew = (id: string) => {
   return {
@@ -67,11 +69,11 @@ const NewsList = () => {
 const NewsItem = ({ id, title, date, text }: any) => {
   return (
     <>
-      <Link to={`/news/${id}`}>
-        <MuiLink>
+      <NeutralLink to={`/news/${id}`}>
+        <Link>
           <Typography variant="h6">{title}</Typography>
-        </MuiLink>
-      </Link>
+        </Link>
+      </NeutralLink>
 
       <Box style={{ margin: '0rem 0' }}>{text}</Box>
 

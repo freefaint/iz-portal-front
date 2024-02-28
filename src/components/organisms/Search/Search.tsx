@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 
-import SearchTable from '@root/components/molecules/Search/SearchTable';
-
 import { Switch, TextField } from '@mui/material';
 
 import { BackgroundSearch, MoreSwitch, SearchLabel, SwitchBlock, SwitchText } from './styled';
+import SearchTable from '../../molecules/Search/SearchTable';
 
 type Contact = {
   name: string;

@@ -1,6 +1,5 @@
-import ButtonTitle from '@root/components/atoms/Buttons/ButtonTitle';
-
 import { Styled } from './styled';
+import ButtonTitle from '../../atoms/Buttons/ButtonTitle';
 
 export const ProfileErrorInfo = () => {
   return (

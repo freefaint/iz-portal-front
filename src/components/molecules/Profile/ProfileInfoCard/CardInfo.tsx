@@ -1,8 +1,7 @@
 import { FC } from 'react';
 
-import { ProfileBreadCrumbs } from '@root/components/atoms/BreadCrumbs/ProfileBreadCrumbs';
-
 import { Styled } from './styled';
+import { ProfileBreadCrumbs } from '../../../atoms/BreadCrumbs/ProfileBreadCrumbs';
 
 export const CardInfo: FC<any> = ({ props }) => {
   const handleEmail = () => {

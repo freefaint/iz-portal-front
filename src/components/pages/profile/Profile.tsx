@@ -2,12 +2,11 @@ import { FC, useEffect, useState } from 'react';
 
 // import axios from 'axios';
 
-import Error from '@root/components/atoms/Error/Error';
-import Profile from '@root/components/organisms/Profile/Profile';
-
 import { CircularProgress } from '@mui/material';
 
 import { ProfileMocks } from './mocks';
+import Error from '../../atoms/Error/Error';
+import Profile from '../../organisms/Profile/Profile';
 import { Styled } from '../styled';
 import { EpageStatus } from '../types';
 

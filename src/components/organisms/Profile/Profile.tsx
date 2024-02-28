@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 
-import ProfileAccountCard from '@root/components/molecules/Profile/profileAccountCard';
-import ProfileActionTable from '@root/components/molecules/Profile/profileActionTable';
-import ProfileErrorInfo from '@root/components/molecules/Profile/profileErrorInfo';
-
 import { useProfileData } from './hooks/useProfileData';
 import { Styled } from './styled';
+import ProfileAccountCard from '../../molecules/Profile/profileAccountCard';
+import ProfileActionTable from '../../molecules/Profile/profileActionTable';
+import ProfileErrorInfo from '../../molecules/Profile/profileErrorInfo';
 
 export const Profile: FC<any> = ({ data }) => {
   const { accountInfo, accountActions } = useProfileData(data);

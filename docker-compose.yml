@@ -17,12 +17,12 @@ services:
       dockerfile: Dockerfile
     labels:
       org.label-schema.group: ${COMPOSE_PROJECT_NAME}
-    restart: "no"
+    restart: 'no'
     volumes:
-      - portal_dev_ssl:/https:ro  
+      - portal_dev_ssl:/https:ro
     networks:
       default:
         aliases:
-            - portal-frontend.dcs.infosec.ru
+          - portal-frontend.dcs.infosec.ru
     ports:
-      - "80:80"
+      - '80:80'
