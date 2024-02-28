@@ -40,10 +40,9 @@ import Typography from '@mui/material/Typography';
 
 import AvatarSrc from '../assets/img/avatar.jpg';
 import LogoSrc from '../assets/img/logo4.png';
+import { NeutralLink } from '../components/atoms/NeutralLink';
 
 const drawerWidth = 240;
-
-const settings = ['Профиль', 'Выход'];
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -324,11 +323,15 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              <NeutralLink to="/profile">
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Профиль</Typography>
                 </MenuItem>
-              ))}
+              </NeutralLink>
+
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Выход</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -367,7 +370,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
               </ListItemButton>
             </NeutralLink>
 
-            <NeutralLink to="//employee">
+            <NeutralLink to="/employee">
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -428,8 +431,3 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
     </Box>
   );
 }
-
-const NeutralLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-`;

@@ -3,10 +3,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import Profile from './components/pages/profile/Profile';
+import SearchPage from './components/pages/search/Search';
 import Layout from './layout';
 import { About } from './pages/about';
 import { Main } from './pages/main';
-import { Registry } from './pages/registry';
+// import { Registry } from './pages/registry';
 
 const theme = createTheme({
   typography: {
@@ -29,8 +31,9 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" Component={Main} />
+            <Route path="/profile" Component={Profile} />
             <Route path="/news/:id?" Component={Main} />
-            <Route path="/employee/:id?" Component={Registry} />
+            <Route path="/employee/:id?" Component={SearchPage} />
 
             <Route path="/about" Component={About} />
           </Routes>
