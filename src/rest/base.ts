@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Сервис документов на ознакомление работнику
- * Сервис документов на ознакомление работнику
+ * Портал Информзащита
+ * Описание API для взаимодействия с порталом
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -17,7 +17,7 @@ import { Configuration } from './configuration';
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 
-export const BASE_PATH = 'http://portal.ocp.corp.myservices.digital/api/drservice'.replace(/\/+$/, '');
+export const BASE_PATH = 'https://portal-front.dcs.infosec.ru/api/v1'.replace(/\/+$/, '');
 
 /**
  *

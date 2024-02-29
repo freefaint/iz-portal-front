@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Сервис документов на ознакомление работнику
- * Сервис документов на ознакомление работнику
+ * Портал Информзащита
+ * Описание API для взаимодействия с порталом
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -34,188 +34,252 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  *
  * @export
- * @interface AcquaintedDocumentDto
+ * @interface EmployeeDto
  */
-export interface AcquaintedDocumentDto {
+export interface EmployeeDto {
   /**
-   * Идентификатор документа
+   * ID
    * @type {string}
-   * @memberof AcquaintedDocumentDto
+   * @memberof EmployeeDto
    */
   id: string;
   /**
-   * Название документа
+   * Имя
    * @type {string}
-   * @memberof AcquaintedDocumentDto
+   * @memberof EmployeeDto
    */
   name: string;
   /**
-   * Ознакомиться до
+   * Телефон
    * @type {string}
-   * @memberof AcquaintedDocumentDto
+   * @memberof EmployeeDto
    */
-  getAcquaintedTill: string;
+  phone: string;
   /**
-   * Название документа, если было совпадение с query
+   * Email
    * @type {string}
-   * @memberof AcquaintedDocumentDto
+   * @memberof EmployeeDto
    */
-  matchedName?: string;
+  email: string;
   /**
-   * Дата публикации документа
+   * Подразделение
    * @type {string}
-   * @memberof AcquaintedDocumentDto
+   * @memberof EmployeeDto
+   */
+  department?: string;
+}
+/**
+ *
+ * @export
+ * @interface EmployeesListDto
+ */
+export interface EmployeesListDto {
+  /**
+   * Общее количество
+   * @type {number}
+   * @memberof EmployeesListDto
+   */
+  total: number;
+  /**
+   *
+   * @type {EmployeeDto}
+   * @memberof EmployeesListDto
+   */
+  items: EmployeeDto;
+}
+/**
+ *
+ * @export
+ * @interface Filter
+ */
+export interface Filter {
+  /**
+   * Имя фильтра
+   * @type {string}
+   * @memberof Filter
+   */
+  name: string;
+  /**
+   * Значение
+   * @type {any}
+   * @memberof Filter
+   */
+  value: any;
+}
+/**
+ * Данные для входа.
+ * @export
+ * @interface LoginRequestBody
+ */
+export interface LoginRequestBody {
+  /**
+   * Имя пользователя
+   * @type {string}
+   * @memberof LoginRequestBody
+   */
+  login: string;
+  /**
+   * Пароль
+   * @type {string}
+   * @memberof LoginRequestBody
+   */
+  password: string;
+}
+/**
+ *
+ * @export
+ * @interface NewsDto
+ */
+export interface NewsDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof NewsDto
+   */
+  id: string;
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof NewsDto
+   */
+  title: string;
+  /**
+   * Текст
+   * @type {string}
+   * @memberof NewsDto
+   */
+  text: string;
+  /**
+   * Ссылка на картинку
+   * @type {string}
+   * @memberof NewsDto
+   */
+  img: string;
+  /**
+   * Дата создания
+   * @type {string}
+   * @memberof NewsDto
    */
   date: string;
-  /**
-   * Дата ознакомления
-   * @type {string}
-   * @memberof AcquaintedDocumentDto
-   */
-  acquaintedDate?: string;
-  /**
-   * Документ просмотрен
-   * @type {boolean}
-   * @memberof AcquaintedDocumentDto
-   */
-  viewed: boolean;
 }
 /**
  *
  * @export
- * @interface DocumentDto
+ * @interface NewsListDto
  */
-export interface DocumentDto {
+export interface NewsListDto {
   /**
-   * Название документа
-   * @type {string}
-   * @memberof DocumentDto
+   * Общее количество
+   * @type {number}
+   * @memberof NewsListDto
    */
-  name: string;
-  /**
-   * Ознакомиться до
-   * @type {string}
-   * @memberof DocumentDto
-   */
-  getAcquaintedTill: string;
+  total: number;
   /**
    *
-   * @type {FileDto}
-   * @memberof DocumentDto
+   * @type {NewsDto}
+   * @memberof NewsListDto
    */
-  file: FileDto;
-}
-/**
- * Файл документа
- * @export
- * @interface FileDto
- */
-export interface FileDto {
-  /**
-   * Имя прилагаемого файла с расширением
-   * @type {string}
-   * @memberof FileDto
-   */
-  name: string;
-  /**
-   * Тип прилагаемого файла
-   * @type {string}
-   * @memberof FileDto
-   */
-  mimeType: string;
-  /**
-   * Длина прилагаемого файла
-   * @type {string}
-   * @memberof FileDto
-   */
-  fileSize?: string;
-  /**
-   * Прилагаемый исполнителем файл
-   * @type {string}
-   * @memberof FileDto
-   */
-  fileData?: string;
+  items: NewsDto;
 }
 /**
  *
  * @export
- * @interface PublishedDocumentDto
+ * @interface Order
  */
-export interface PublishedDocumentDto {
+export interface Order {
   /**
-   * Идентификатор документа
+   * Имя поля
    * @type {string}
-   * @memberof PublishedDocumentDto
+   * @memberof Order
+   */
+  type?: string;
+  /**
+   * Обратная сорировка
+   * @type {boolean}
+   * @memberof Order
+   */
+  desc: boolean;
+}
+/**
+ *
+ * @export
+ * @interface ProfileDto
+ */
+export interface ProfileDto {
+  /**
+   * ID пользователя
+   * @type {string}
+   * @memberof ProfileDto
    */
   id: string;
   /**
-   * Название документа
+   * Фио пользователя
    * @type {string}
-   * @memberof PublishedDocumentDto
+   * @memberof ProfileDto
    */
   name: string;
   /**
-   * Ознакомиться до
+   * Ссылка на фотографию пользователя
    * @type {string}
-   * @memberof PublishedDocumentDto
+   * @memberof ProfileDto
    */
-  getAcquaintedTill: string;
-  /**
-   *
-   * @type {number}
-   * @memberof PublishedDocumentDto
-   */
-  signedCount: number;
-  /**
-   *
-   * @type {number}
-   * @memberof PublishedDocumentDto
-   */
-  receiversCount: number;
+  avatar: string;
 }
 /**
- * Документы и параметры рассылки на ознакомление.
+ *
  * @export
- * @interface SendDocsToGetAcquaintedDto
+ * @interface RequestBody
  */
-export interface SendDocsToGetAcquaintedDto {
+export interface RequestBody {
   /**
-   * Документы для ознакомления
-   * @type {Array<DocumentDto>}
-   * @memberof SendDocsToGetAcquaintedDto
+   * Строка поиска
+   * @type {string}
+   * @memberof RequestBody
    */
-  documents: Array<DocumentDto>;
+  search: string;
   /**
-   * Идентификаторы подразделениий – в адресаты включаются  работники как самого подразделения, так и всех его  дочерних
-   * @type {Array<string>}
-   * @memberof SendDocsToGetAcquaintedDto
+   *
+   * @type {Order}
+   * @memberof RequestBody
    */
-  orgStructureIds: Array<string>;
+  order: Order;
   /**
-   * Коды должностей.
-   * @type {Array<string>}
-   * @memberof SendDocsToGetAcquaintedDto
+   * Начать с номера элемента
+   * @type {number}
+   * @memberof RequestBody
    */
-  positions: Array<string>;
+  skip: number;
+  /**
+   * Лимит количества
+   * @type {number}
+   * @memberof RequestBody
+   */
+  limit: number;
+  /**
+   *
+   * @type {Filter}
+   * @memberof RequestBody
+   */
+  filters: Filter;
 }
 
 /**
- * AdminApi - axios parameter creator
+ * AuthApi - axios parameter creator
  * @export
  */
-export const AdminApiAxiosParamCreator = function (configuration?: Configuration) {
+export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
-     * Получение отчёта об ознакомлении с документом
-     * @summary Получение отчёта об ознакомлении с документом
-     * @param {string} id Идентификатор документа
+     * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
+     * @summary Получение данных текущей сессии
+     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getDocumentAcquaintanceStatusReport: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getDocumentAcquaintanceStatusReport', 'id', id);
-      const localVarPath = `/documents/{id}/report`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+    getUser: async (loginRequestBody: LoginRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'loginRequestBody' is not null or undefined
+      assertParamExists('getUser', 'loginRequestBody', loginRequestBody);
+      const localVarPath = `/user`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -227,9 +291,12 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(loginRequestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -237,98 +304,16 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       };
     },
     /**
-     * Получение исходного документа
-     * @summary Получение исходного документа
-     * @param {string} id Идентификатор документа
+     * Вход в систему по логину и паролю. Сервер устанавливает куку httpOnly secure с токеном, соответственно лиент не может ей управлять.
+     * @summary Вход в систему
+     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getOriginalDocument: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getOriginalDocument', 'id', id);
-      const localVarPath = `/documents/{id}/original`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Получение списка отправленных на ознакомление документов
-     * @summary Получение списка отправленных на ознакомление документов
-     * @param {string} [query] Строка поиска по названию документов
-     * @param {number} [page] Номер страницы результатов поиска, начиная с 1
-     * @param {number} [pageSize] Размер страницы результатов поиска
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSentToGetAcquaintedDocuments: async (
-      query?: string,
-      page?: number,
-      pageSize?: number,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/documents/published`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      if (query !== undefined) {
-        localVarQueryParameter['query'] = query;
-      }
-
-      if (page !== undefined) {
-        localVarQueryParameter['page'] = page;
-      }
-
-      if (pageSize !== undefined) {
-        localVarQueryParameter['pageSize'] = pageSize;
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Отправка документов на ознакомление
-     * @summary Отправка документов на ознакомление
-     * @param {SendDocsToGetAcquaintedDto} sendDocsToGetAcquaintedDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    sendDocumentsToGetAcquainted: async (
-      sendDocsToGetAcquaintedDto: SendDocsToGetAcquaintedDto,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'sendDocsToGetAcquaintedDto' is not null or undefined
-      assertParamExists('sendDocumentsToGetAcquainted', 'sendDocsToGetAcquaintedDto', sendDocsToGetAcquaintedDto);
-      const localVarPath = `/documents`;
+    login: async (loginRequestBody: LoginRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'loginRequestBody' is not null or undefined
+      assertParamExists('login', 'loginRequestBody', loginRequestBody);
+      const localVarPath = `/login`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -345,11 +330,35 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        sendDocsToGetAcquaintedDto,
-        localVarRequestOptions,
-        configuration,
-      );
+      localVarRequestOptions.data = serializeDataIfNeeded(loginRequestBody, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * При вызове сервер очищает куку с токеном пользователя.
+     * @summary Завершение сессии
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    logout: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/logout`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
         url: toPathString(localVarUrlObj),
@@ -360,312 +369,188 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
 };
 
 /**
- * AdminApi - functional programming interface
+ * AuthApi - functional programming interface
  * @export
  */
-export const AdminApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = AdminApiAxiosParamCreator(configuration);
+export const AuthApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration);
   return {
     /**
-     * Получение отчёта об ознакомлении с документом
-     * @summary Получение отчёта об ознакомлении с документом
-     * @param {string} id Идентификатор документа
+     * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
+     * @summary Получение данных текущей сессии
+     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getDocumentAcquaintanceStatusReport(
-      id: string,
+    async getUser(
+      loginRequestBody: LoginRequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getDocumentAcquaintanceStatusReport(id, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProfileDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(loginRequestBody, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Получение исходного документа
-     * @summary Получение исходного документа
-     * @param {string} id Идентификатор документа
+     * Вход в систему по логину и паролю. Сервер устанавливает куку httpOnly secure с токеном, соответственно лиент не может ей управлять.
+     * @summary Вход в систему
+     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getOriginalDocument(
-      id: string,
+    async login(
+      loginRequestBody: LoginRequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getOriginalDocument(id, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProfileDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.login(loginRequestBody, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Получение списка отправленных на ознакомление документов
-     * @summary Получение списка отправленных на ознакомление документов
-     * @param {string} [query] Строка поиска по названию документов
-     * @param {number} [page] Номер страницы результатов поиска, начиная с 1
-     * @param {number} [pageSize] Размер страницы результатов поиска
+     * При вызове сервер очищает куку с токеном пользователя.
+     * @summary Завершение сессии
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getSentToGetAcquaintedDocuments(
-      query?: string,
-      page?: number,
-      pageSize?: number,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PublishedDocumentDto>>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getSentToGetAcquaintedDocuments(
-        query,
-        page,
-        pageSize,
-        options,
-      );
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Отправка документов на ознакомление
-     * @summary Отправка документов на ознакомление
-     * @param {SendDocsToGetAcquaintedDto} sendDocsToGetAcquaintedDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async sendDocumentsToGetAcquainted(
-      sendDocsToGetAcquaintedDto: SendDocsToGetAcquaintedDto,
+    async logout(
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.sendDocumentsToGetAcquainted(
-        sendDocsToGetAcquaintedDto,
-        options,
-      );
+      const localVarAxiosArgs = await localVarAxiosParamCreator.logout(options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
 
 /**
- * AdminApi - factory interface
+ * AuthApi - factory interface
  * @export
  */
-export const AdminApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-  const localVarFp = AdminApiFp(configuration);
+export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = AuthApiFp(configuration);
   return {
     /**
-     * Получение отчёта об ознакомлении с документом
-     * @summary Получение отчёта об ознакомлении с документом
-     * @param {string} id Идентификатор документа
+     * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
+     * @summary Получение данных текущей сессии
+     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getDocumentAcquaintanceStatusReport(id: string, options?: any): AxiosPromise<FileDto> {
-      return localVarFp.getDocumentAcquaintanceStatusReport(id, options).then((request) => request(axios, basePath));
+    getUser(loginRequestBody: LoginRequestBody, options?: any): AxiosPromise<ProfileDto> {
+      return localVarFp.getUser(loginRequestBody, options).then((request) => request(axios, basePath));
     },
     /**
-     * Получение исходного документа
-     * @summary Получение исходного документа
-     * @param {string} id Идентификатор документа
+     * Вход в систему по логину и паролю. Сервер устанавливает куку httpOnly secure с токеном, соответственно лиент не может ей управлять.
+     * @summary Вход в систему
+     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getOriginalDocument(id: string, options?: any): AxiosPromise<FileDto> {
-      return localVarFp.getOriginalDocument(id, options).then((request) => request(axios, basePath));
+    login(loginRequestBody: LoginRequestBody, options?: any): AxiosPromise<ProfileDto> {
+      return localVarFp.login(loginRequestBody, options).then((request) => request(axios, basePath));
     },
     /**
-     * Получение списка отправленных на ознакомление документов
-     * @summary Получение списка отправленных на ознакомление документов
-     * @param {string} [query] Строка поиска по названию документов
-     * @param {number} [page] Номер страницы результатов поиска, начиная с 1
-     * @param {number} [pageSize] Размер страницы результатов поиска
+     * При вызове сервер очищает куку с токеном пользователя.
+     * @summary Завершение сессии
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getSentToGetAcquaintedDocuments(
-      query?: string,
-      page?: number,
-      pageSize?: number,
-      options?: any,
-    ): AxiosPromise<Array<PublishedDocumentDto>> {
-      return localVarFp
-        .getSentToGetAcquaintedDocuments(query, page, pageSize, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Отправка документов на ознакомление
-     * @summary Отправка документов на ознакомление
-     * @param {SendDocsToGetAcquaintedDto} sendDocsToGetAcquaintedDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    sendDocumentsToGetAcquainted(
-      sendDocsToGetAcquaintedDto: SendDocsToGetAcquaintedDto,
-      options?: any,
-    ): AxiosPromise<void> {
-      return localVarFp
-        .sendDocumentsToGetAcquainted(sendDocsToGetAcquaintedDto, options)
-        .then((request) => request(axios, basePath));
+    logout(options?: any): AxiosPromise<void> {
+      return localVarFp.logout(options).then((request) => request(axios, basePath));
     },
   };
 };
 
 /**
- * Request parameters for getDocumentAcquaintanceStatusReport operation in AdminApi.
+ * Request parameters for getUser operation in AuthApi.
  * @export
- * @interface AdminApiGetDocumentAcquaintanceStatusReportRequest
+ * @interface AuthApiGetUserRequest
  */
-export interface AdminApiGetDocumentAcquaintanceStatusReportRequest {
-  /**
-   * Идентификатор документа
-   * @type {string}
-   * @memberof AdminApiGetDocumentAcquaintanceStatusReport
-   */
-  readonly id: string;
-}
-
-/**
- * Request parameters for getOriginalDocument operation in AdminApi.
- * @export
- * @interface AdminApiGetOriginalDocumentRequest
- */
-export interface AdminApiGetOriginalDocumentRequest {
-  /**
-   * Идентификатор документа
-   * @type {string}
-   * @memberof AdminApiGetOriginalDocument
-   */
-  readonly id: string;
-}
-
-/**
- * Request parameters for getSentToGetAcquaintedDocuments operation in AdminApi.
- * @export
- * @interface AdminApiGetSentToGetAcquaintedDocumentsRequest
- */
-export interface AdminApiGetSentToGetAcquaintedDocumentsRequest {
-  /**
-   * Строка поиска по названию документов
-   * @type {string}
-   * @memberof AdminApiGetSentToGetAcquaintedDocuments
-   */
-  readonly query?: string;
-
-  /**
-   * Номер страницы результатов поиска, начиная с 1
-   * @type {number}
-   * @memberof AdminApiGetSentToGetAcquaintedDocuments
-   */
-  readonly page?: number;
-
-  /**
-   * Размер страницы результатов поиска
-   * @type {number}
-   * @memberof AdminApiGetSentToGetAcquaintedDocuments
-   */
-  readonly pageSize?: number;
-}
-
-/**
- * Request parameters for sendDocumentsToGetAcquainted operation in AdminApi.
- * @export
- * @interface AdminApiSendDocumentsToGetAcquaintedRequest
- */
-export interface AdminApiSendDocumentsToGetAcquaintedRequest {
+export interface AuthApiGetUserRequest {
   /**
    *
-   * @type {SendDocsToGetAcquaintedDto}
-   * @memberof AdminApiSendDocumentsToGetAcquainted
+   * @type {LoginRequestBody}
+   * @memberof AuthApiGetUser
    */
-  readonly sendDocsToGetAcquaintedDto: SendDocsToGetAcquaintedDto;
+  readonly loginRequestBody: LoginRequestBody;
 }
 
 /**
- * AdminApi - object-oriented interface
+ * Request parameters for login operation in AuthApi.
  * @export
- * @class AdminApi
+ * @interface AuthApiLoginRequest
+ */
+export interface AuthApiLoginRequest {
+  /**
+   *
+   * @type {LoginRequestBody}
+   * @memberof AuthApiLogin
+   */
+  readonly loginRequestBody: LoginRequestBody;
+}
+
+/**
+ * AuthApi - object-oriented interface
+ * @export
+ * @class AuthApi
  * @extends {BaseAPI}
  */
-export class AdminApi extends BaseAPI {
+export class AuthApi extends BaseAPI {
   /**
-   * Получение отчёта об ознакомлении с документом
-   * @summary Получение отчёта об ознакомлении с документом
-   * @param {AdminApiGetDocumentAcquaintanceStatusReportRequest} requestParameters Request parameters.
+   * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
+   * @summary Получение данных текущей сессии
+   * @param {AuthApiGetUserRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof AdminApi
+   * @memberof AuthApi
    */
-  public getDocumentAcquaintanceStatusReport(
-    requestParameters: AdminApiGetDocumentAcquaintanceStatusReportRequest,
-    options?: AxiosRequestConfig,
-  ) {
-    return AdminApiFp(this.configuration)
-      .getDocumentAcquaintanceStatusReport(requestParameters.id, options)
+  public getUser(requestParameters: AuthApiGetUserRequest, options?: AxiosRequestConfig) {
+    return AuthApiFp(this.configuration)
+      .getUser(requestParameters.loginRequestBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
-   * Получение исходного документа
-   * @summary Получение исходного документа
-   * @param {AdminApiGetOriginalDocumentRequest} requestParameters Request parameters.
+   * Вход в систему по логину и паролю. Сервер устанавливает куку httpOnly secure с токеном, соответственно лиент не может ей управлять.
+   * @summary Вход в систему
+   * @param {AuthApiLoginRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof AdminApi
+   * @memberof AuthApi
    */
-  public getOriginalDocument(requestParameters: AdminApiGetOriginalDocumentRequest, options?: AxiosRequestConfig) {
-    return AdminApiFp(this.configuration)
-      .getOriginalDocument(requestParameters.id, options)
+  public login(requestParameters: AuthApiLoginRequest, options?: AxiosRequestConfig) {
+    return AuthApiFp(this.configuration)
+      .login(requestParameters.loginRequestBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
-   * Получение списка отправленных на ознакомление документов
-   * @summary Получение списка отправленных на ознакомление документов
-   * @param {AdminApiGetSentToGetAcquaintedDocumentsRequest} requestParameters Request parameters.
+   * При вызове сервер очищает куку с токеном пользователя.
+   * @summary Завершение сессии
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof AdminApi
+   * @memberof AuthApi
    */
-  public getSentToGetAcquaintedDocuments(
-    requestParameters: AdminApiGetSentToGetAcquaintedDocumentsRequest = {},
-    options?: AxiosRequestConfig,
-  ) {
-    return AdminApiFp(this.configuration)
-      .getSentToGetAcquaintedDocuments(
-        requestParameters.query,
-        requestParameters.page,
-        requestParameters.pageSize,
-        options,
-      )
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Отправка документов на ознакомление
-   * @summary Отправка документов на ознакомление
-   * @param {AdminApiSendDocumentsToGetAcquaintedRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AdminApi
-   */
-  public sendDocumentsToGetAcquainted(
-    requestParameters: AdminApiSendDocumentsToGetAcquaintedRequest,
-    options?: AxiosRequestConfig,
-  ) {
-    return AdminApiFp(this.configuration)
-      .sendDocumentsToGetAcquainted(requestParameters.sendDocsToGetAcquaintedDto, options)
+  public logout(options?: AxiosRequestConfig) {
+    return AuthApiFp(this.configuration)
+      .logout(options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
 
 /**
- * EmployeeApi - axios parameter creator
+ * EmployeesApi - axios parameter creator
  * @export
  */
-export const EmployeeApiAxiosParamCreator = function (configuration?: Configuration) {
+export const EmployeesApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
-     * Получение документа на подпись/подписанного работником
-     * @summary Получение документа на подпись/подписанного работником
-     * @param {string} id Идентификатор документа
+     * Получение всех данных сотрудника
+     * @summary Получение карточки сотрудника
+     * @param {string} id Идентификатор сотрудника
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getEmployeeDocument: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    getEmployeeById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('getEmployeeDocument', 'id', id);
-      const localVarPath = `/employee/documents/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('getEmployeeById', 'id', id);
+      const localVarPath = `/employees/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -687,70 +572,16 @@ export const EmployeeApiAxiosParamCreator = function (configuration?: Configurat
       };
     },
     /**
-     * Получение списка документов работника
-     * @summary Получение списка документов работника
-     * @param {string} [query] Строка поиска по названию документов
-     * @param {number} [page] Номер страницы результатов поиска, начиная с 1
-     * @param {number} [pageSize] Размер страницы результатов поиска
-     * @param {'TO_GET_ACQUAINTED' | 'ACQUAINTED'} [status] Статус ознакомления с документом
+     * Эндпоинт для получения списка сотрудников с параметрами поиска
+     * @summary Получение списка сотрудников
+     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getEmployeeDocuments: async (
-      query?: string,
-      page?: number,
-      pageSize?: number,
-      status?: 'TO_GET_ACQUAINTED' | 'ACQUAINTED',
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/employee/documents`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      if (query !== undefined) {
-        localVarQueryParameter['query'] = query;
-      }
-
-      if (page !== undefined) {
-        localVarQueryParameter['page'] = page;
-      }
-
-      if (pageSize !== undefined) {
-        localVarQueryParameter['pageSize'] = pageSize;
-      }
-
-      if (status !== undefined) {
-        localVarQueryParameter['status'] = status;
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Подписать ознакомление с документом
-     * @summary Подписать ознакомление с документом
-     * @param {string} id Идентификатор документа
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    signDocumentAcquainted: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('signDocumentAcquainted', 'id', id);
-      const localVarPath = `/employee/documents/{id}/acquainted`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+    searchEmployees: async (requestBody: RequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'requestBody' is not null or undefined
+      assertParamExists('searchEmployees', 'requestBody', requestBody);
+      const localVarPath = `/employees`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -762,9 +593,12 @@ export const EmployeeApiAxiosParamCreator = function (configuration?: Configurat
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -775,241 +609,339 @@ export const EmployeeApiAxiosParamCreator = function (configuration?: Configurat
 };
 
 /**
- * EmployeeApi - functional programming interface
+ * EmployeesApi - functional programming interface
  * @export
  */
-export const EmployeeApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = EmployeeApiAxiosParamCreator(configuration);
+export const EmployeesApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = EmployeesApiAxiosParamCreator(configuration);
   return {
     /**
-     * Получение документа на подпись/подписанного работником
-     * @summary Получение документа на подпись/подписанного работником
-     * @param {string} id Идентификатор документа
+     * Получение всех данных сотрудника
+     * @summary Получение карточки сотрудника
+     * @param {string} id Идентификатор сотрудника
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getEmployeeDocument(
+    async getEmployeeById(
       id: string,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getEmployeeDocument(id, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmployeeDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEmployeeById(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Получение списка документов работника
-     * @summary Получение списка документов работника
-     * @param {string} [query] Строка поиска по названию документов
-     * @param {number} [page] Номер страницы результатов поиска, начиная с 1
-     * @param {number} [pageSize] Размер страницы результатов поиска
-     * @param {'TO_GET_ACQUAINTED' | 'ACQUAINTED'} [status] Статус ознакомления с документом
+     * Эндпоинт для получения списка сотрудников с параметрами поиска
+     * @summary Получение списка сотрудников
+     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getEmployeeDocuments(
-      query?: string,
-      page?: number,
-      pageSize?: number,
-      status?: 'TO_GET_ACQUAINTED' | 'ACQUAINTED',
+    async searchEmployees(
+      requestBody: RequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AcquaintedDocumentDto>>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getEmployeeDocuments(
-        query,
-        page,
-        pageSize,
-        status,
-        options,
-      );
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Подписать ознакомление с документом
-     * @summary Подписать ознакомление с документом
-     * @param {string} id Идентификатор документа
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async signDocumentAcquainted(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.signDocumentAcquainted(id, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmployeesListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.searchEmployees(requestBody, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
 
 /**
- * EmployeeApi - factory interface
+ * EmployeesApi - factory interface
  * @export
  */
-export const EmployeeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-  const localVarFp = EmployeeApiFp(configuration);
+export const EmployeesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = EmployeesApiFp(configuration);
   return {
     /**
-     * Получение документа на подпись/подписанного работником
-     * @summary Получение документа на подпись/подписанного работником
-     * @param {string} id Идентификатор документа
+     * Получение всех данных сотрудника
+     * @summary Получение карточки сотрудника
+     * @param {string} id Идентификатор сотрудника
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getEmployeeDocument(id: string, options?: any): AxiosPromise<FileDto> {
-      return localVarFp.getEmployeeDocument(id, options).then((request) => request(axios, basePath));
+    getEmployeeById(id: string, options?: any): AxiosPromise<EmployeeDto> {
+      return localVarFp.getEmployeeById(id, options).then((request) => request(axios, basePath));
     },
     /**
-     * Получение списка документов работника
-     * @summary Получение списка документов работника
-     * @param {string} [query] Строка поиска по названию документов
-     * @param {number} [page] Номер страницы результатов поиска, начиная с 1
-     * @param {number} [pageSize] Размер страницы результатов поиска
-     * @param {'TO_GET_ACQUAINTED' | 'ACQUAINTED'} [status] Статус ознакомления с документом
+     * Эндпоинт для получения списка сотрудников с параметрами поиска
+     * @summary Получение списка сотрудников
+     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getEmployeeDocuments(
-      query?: string,
-      page?: number,
-      pageSize?: number,
-      status?: 'TO_GET_ACQUAINTED' | 'ACQUAINTED',
-      options?: any,
-    ): AxiosPromise<Array<AcquaintedDocumentDto>> {
-      return localVarFp
-        .getEmployeeDocuments(query, page, pageSize, status, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Подписать ознакомление с документом
-     * @summary Подписать ознакомление с документом
-     * @param {string} id Идентификатор документа
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    signDocumentAcquainted(id: string, options?: any): AxiosPromise<void> {
-      return localVarFp.signDocumentAcquainted(id, options).then((request) => request(axios, basePath));
+    searchEmployees(requestBody: RequestBody, options?: any): AxiosPromise<EmployeesListDto> {
+      return localVarFp.searchEmployees(requestBody, options).then((request) => request(axios, basePath));
     },
   };
 };
 
 /**
- * Request parameters for getEmployeeDocument operation in EmployeeApi.
+ * Request parameters for getEmployeeById operation in EmployeesApi.
  * @export
- * @interface EmployeeApiGetEmployeeDocumentRequest
+ * @interface EmployeesApiGetEmployeeByIdRequest
  */
-export interface EmployeeApiGetEmployeeDocumentRequest {
+export interface EmployeesApiGetEmployeeByIdRequest {
   /**
-   * Идентификатор документа
+   * Идентификатор сотрудника
    * @type {string}
-   * @memberof EmployeeApiGetEmployeeDocument
+   * @memberof EmployeesApiGetEmployeeById
    */
   readonly id: string;
 }
 
 /**
- * Request parameters for getEmployeeDocuments operation in EmployeeApi.
+ * Request parameters for searchEmployees operation in EmployeesApi.
  * @export
- * @interface EmployeeApiGetEmployeeDocumentsRequest
+ * @interface EmployeesApiSearchEmployeesRequest
  */
-export interface EmployeeApiGetEmployeeDocumentsRequest {
+export interface EmployeesApiSearchEmployeesRequest {
   /**
-   * Строка поиска по названию документов
-   * @type {string}
-   * @memberof EmployeeApiGetEmployeeDocuments
+   *
+   * @type {RequestBody}
+   * @memberof EmployeesApiSearchEmployees
    */
-  readonly query?: string;
-
-  /**
-   * Номер страницы результатов поиска, начиная с 1
-   * @type {number}
-   * @memberof EmployeeApiGetEmployeeDocuments
-   */
-  readonly page?: number;
-
-  /**
-   * Размер страницы результатов поиска
-   * @type {number}
-   * @memberof EmployeeApiGetEmployeeDocuments
-   */
-  readonly pageSize?: number;
-
-  /**
-   * Статус ознакомления с документом
-   * @type {'TO_GET_ACQUAINTED' | 'ACQUAINTED'}
-   * @memberof EmployeeApiGetEmployeeDocuments
-   */
-  readonly status?: 'TO_GET_ACQUAINTED' | 'ACQUAINTED';
+  readonly requestBody: RequestBody;
 }
 
 /**
- * Request parameters for signDocumentAcquainted operation in EmployeeApi.
+ * EmployeesApi - object-oriented interface
  * @export
- * @interface EmployeeApiSignDocumentAcquaintedRequest
- */
-export interface EmployeeApiSignDocumentAcquaintedRequest {
-  /**
-   * Идентификатор документа
-   * @type {string}
-   * @memberof EmployeeApiSignDocumentAcquainted
-   */
-  readonly id: string;
-}
-
-/**
- * EmployeeApi - object-oriented interface
- * @export
- * @class EmployeeApi
+ * @class EmployeesApi
  * @extends {BaseAPI}
  */
-export class EmployeeApi extends BaseAPI {
+export class EmployeesApi extends BaseAPI {
   /**
-   * Получение документа на подпись/подписанного работником
-   * @summary Получение документа на подпись/подписанного работником
-   * @param {EmployeeApiGetEmployeeDocumentRequest} requestParameters Request parameters.
+   * Получение всех данных сотрудника
+   * @summary Получение карточки сотрудника
+   * @param {EmployeesApiGetEmployeeByIdRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof EmployeeApi
+   * @memberof EmployeesApi
    */
-  public getEmployeeDocument(requestParameters: EmployeeApiGetEmployeeDocumentRequest, options?: AxiosRequestConfig) {
-    return EmployeeApiFp(this.configuration)
-      .getEmployeeDocument(requestParameters.id, options)
+  public getEmployeeById(requestParameters: EmployeesApiGetEmployeeByIdRequest, options?: AxiosRequestConfig) {
+    return EmployeesApiFp(this.configuration)
+      .getEmployeeById(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
-   * Получение списка документов работника
-   * @summary Получение списка документов работника
-   * @param {EmployeeApiGetEmployeeDocumentsRequest} requestParameters Request parameters.
+   * Эндпоинт для получения списка сотрудников с параметрами поиска
+   * @summary Получение списка сотрудников
+   * @param {EmployeesApiSearchEmployeesRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof EmployeeApi
+   * @memberof EmployeesApi
    */
-  public getEmployeeDocuments(
-    requestParameters: EmployeeApiGetEmployeeDocumentsRequest = {},
-    options?: AxiosRequestConfig,
-  ) {
-    return EmployeeApiFp(this.configuration)
-      .getEmployeeDocuments(
-        requestParameters.query,
-        requestParameters.page,
-        requestParameters.pageSize,
-        requestParameters.status,
-        options,
-      )
+  public searchEmployees(requestParameters: EmployeesApiSearchEmployeesRequest, options?: AxiosRequestConfig) {
+    return EmployeesApiFp(this.configuration)
+      .searchEmployees(requestParameters.requestBody, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * NewsApi - axios parameter creator
+ * @export
+ */
+export const NewsApiAxiosParamCreator = function (configuration?: Configuration) {
+  return {
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор новости
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getNewsById', 'id', id);
+      const localVarPath = `/news/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения списка новостей с параметрами поиска
+     * @summary Получение списка новостей
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    searchNews: async (requestBody: RequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'requestBody' is not null or undefined
+      assertParamExists('searchNews', 'requestBody', requestBody);
+      const localVarPath = `/news`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * NewsApi - functional programming interface
+ * @export
+ */
+export const NewsApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = NewsApiAxiosParamCreator(configuration);
+  return {
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор новости
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getNewsById(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsById(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения списка новостей с параметрами поиска
+     * @summary Получение списка новостей
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async searchNews(
+      requestBody: RequestBody,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.searchNews(requestBody, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+  };
+};
+
+/**
+ * NewsApi - factory interface
+ * @export
+ */
+export const NewsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = NewsApiFp(configuration);
+  return {
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор новости
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsById(id: string, options?: any): AxiosPromise<NewsDto> {
+      return localVarFp.getNewsById(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения списка новостей с параметрами поиска
+     * @summary Получение списка новостей
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    searchNews(requestBody: RequestBody, options?: any): AxiosPromise<NewsListDto> {
+      return localVarFp.searchNews(requestBody, options).then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * Request parameters for getNewsById operation in NewsApi.
+ * @export
+ * @interface NewsApiGetNewsByIdRequest
+ */
+export interface NewsApiGetNewsByIdRequest {
+  /**
+   * Идентификатор новости
+   * @type {string}
+   * @memberof NewsApiGetNewsById
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for searchNews operation in NewsApi.
+ * @export
+ * @interface NewsApiSearchNewsRequest
+ */
+export interface NewsApiSearchNewsRequest {
+  /**
+   *
+   * @type {RequestBody}
+   * @memberof NewsApiSearchNews
+   */
+  readonly requestBody: RequestBody;
+}
+
+/**
+ * NewsApi - object-oriented interface
+ * @export
+ * @class NewsApi
+ * @extends {BaseAPI}
+ */
+export class NewsApi extends BaseAPI {
+  /**
+   * Получение всех данных новости
+   * @summary Получение карточки новости
+   * @param {NewsApiGetNewsByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NewsApi
+   */
+  public getNewsById(requestParameters: NewsApiGetNewsByIdRequest, options?: AxiosRequestConfig) {
+    return NewsApiFp(this.configuration)
+      .getNewsById(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
-   * Подписать ознакомление с документом
-   * @summary Подписать ознакомление с документом
-   * @param {EmployeeApiSignDocumentAcquaintedRequest} requestParameters Request parameters.
+   * Эндпоинт для получения списка новостей с параметрами поиска
+   * @summary Получение списка новостей
+   * @param {NewsApiSearchNewsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof EmployeeApi
+   * @memberof NewsApi
    */
-  public signDocumentAcquainted(
-    requestParameters: EmployeeApiSignDocumentAcquaintedRequest,
-    options?: AxiosRequestConfig,
-  ) {
-    return EmployeeApiFp(this.configuration)
-      .signDocumentAcquainted(requestParameters.id, options)
+  public searchNews(requestParameters: NewsApiSearchNewsRequest, options?: AxiosRequestConfig) {
+    return NewsApiFp(this.configuration)
+      .searchNews(requestParameters.requestBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
