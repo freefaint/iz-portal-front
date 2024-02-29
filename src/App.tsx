@@ -8,6 +8,7 @@ import SearchPage from './components/pages/search/Search';
 import Layout from './layout';
 import { About } from './pages/about';
 import { Main } from './pages/main';
+import { Swagger } from './pages/swagger';
 // import { Registry } from './pages/registry';
 
 const theme = createTheme({
@@ -36,6 +37,8 @@ function App() {
             <Route path="/employee/:id?" Component={SearchPage} />
 
             <Route path="/about" Component={About} />
+
+            <Route path="/swagger" Component={Swagger} />
           </Routes>
         </Layout>
       </BrowserRouter>

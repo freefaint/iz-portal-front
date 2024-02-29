@@ -11,7 +11,8 @@
     "lint": "eslint src --ext ts,tsx --fix",
     "lint-push": "eslint --max-warnings=0 src --resolve-plugins-relative-to . --ext ts,tsx --fix",
     "prepare": "husky",
-    "postinstall": "husky"
+    "postinstall": "husky",
+    "api": "openapi-generator-cli generate"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -27,6 +28,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/swagger-ui-react": "^4.18.3",
     "avrora": "^0.0.58",
     "axios": "^1.6.7",
     "react": "^18.2.0",
@@ -35,11 +37,13 @@
     "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
     "styled-components": "^5.0.1",
+    "swagger-ui-react": "^5.11.8",
     "typescript": "^5.3.3",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@openapitools/openapi-generator-cli": "^2.9.0",
     "@types/eslint": "^8.56.2",
     "@types/react-is": "^18",
     "@types/styled-components": "^5.1.34",
@@ -59,7 +63,8 @@
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
     "pretty-quick": "^4.0.0",
-    "webpack": "^5.90.1"
+    "webpack": "^5.90.1",
+    "yaml-loader": "^0.8.1"
   },
   "browserslist": {
     "production": [

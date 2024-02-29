@@ -1,0 +1,321 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Портал Информзащита
+  description: Описание API для взаимодействия с порталом
+servers:
+  - url: '{schema}://portal-front.dcs.infosec.ru/api/v1'
+    description: 'API версии 1'
+    variables:
+      schema:
+        enum:
+          - http
+          - https
+        default: https
+tags:
+  - name: auth
+    description: Методы аутентификации
+  - name: employees
+    description: Методы для работы с сотрудниками
+  - name: news
+    description: Методы для работы с новостями
+paths:
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Вход в систему
+      description: Вход в систему по логину и паролю. Сервер устанавливает куку httpOnly secure с токеном, соответственно лиент не может ей управлять.
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestBody'
+      responses:
+        '200':
+          description: В случае, если прошли аутентификацию, получаем текущий профиль
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ProfileDto'
+        '401':
+          description: Если логин или пароль неверны
+  /user:
+    get:
+      tags:
+        - auth
+      summary: Получение данных текущей сессии
+      description: Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
+      operationId: getUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestBody'
+      responses:
+        '200':
+          description: В случае, если мы авторизованы, получаем текущий профиль
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ProfileDto'
+        '401':
+          description: Если мы не авторизорваны неверны
+  /logout:
+    get:
+      tags:
+        - auth
+      summary: Завершение сессии
+      description: При вызове сервер очищает куку с токеном пользователя.
+      operationId: logout
+      responses:
+        '200':
+          description: В случае, если были авторизованы и успешно завершили сессию
+        '400':
+          description: Если не были авторизованы
+  /news:
+    post:
+      tags:
+        - news
+      summary: Получение списка новостей
+      description: Эндпоинт для получения списка новостей с параметрами поиска
+      operationId: searchNews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список новостей'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NewsListDto'
+  /news/{id}:
+    get:
+      tags:
+        - news
+      summary: Получение карточки новости
+      description: Получение всех данных новости
+      operationId: getNewsById
+      parameters:
+        - name: id
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NewsDto'
+  /employees:
+    post:
+      tags:
+        - employees
+      summary: Получение списка сотрудников
+      description: Эндпоинт для получения списка сотрудников с параметрами поиска
+      operationId: searchEmployees
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список новостей'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/EmployeesListDto'
+  /employees/{id}:
+    get:
+      tags:
+        - employees
+      summary: Получение карточки сотрудника
+      description: Получение всех данных сотрудника
+      operationId: getEmployeeById
+      parameters:
+        - name: id
+          description: Идентификатор сотрудника
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/EmployeeDto'
+components:
+  schemas:
+    LoginRequestBody:
+      type: object
+      description: Данные для входа.
+      required:
+        - login
+        - password
+      properties:
+        login:
+          description: Имя пользователя
+          type: string
+        password:
+          description: Пароль
+          type: string
+    ProfileDto:
+      type: object
+      required:
+        - id
+        - name
+        - avatar
+      properties:
+        id:
+          description: ID пользователя
+          type: string
+        name:
+          description: Фио пользователя
+          type: string
+        avatar:
+          description: Ссылка на фотографию пользователя
+          type: string
+    Order:
+      type: object
+      required:
+        - name
+        - desc
+      properties:
+        type:
+          description: Имя поля
+          type: string
+        desc:
+          description: Обратная сорировка
+          type: boolean
+    Filter:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          description: Имя фильтра
+          type: string
+        value:
+          description: Значение
+    RequestBody:
+      type: object
+      required:
+        - search
+        - order
+        - skip
+        - limit
+        - filters
+      properties:
+        search:
+          description: Строка поиска
+          type: string
+        order:
+          type: object
+          $ref: '#/components/schemas/Order'
+        skip:
+          description: Начать с номера элемента
+          type: number
+        limit:
+          description: Лимит количества
+          type: number
+        filters:
+          type: array
+          $ref: '#/components/schemas/Filter'
+    EmployeeDto:
+      type: object
+      required:
+        - id
+        - name
+        - phone
+        - email
+      properties:
+        id:
+          description: ID
+          type: string
+        name:
+          description: Имя
+          type: string
+        phone:
+          description: Телефон
+          type: string
+        email:
+          description: Email
+          type: string
+        department:
+          description: Подразделение
+          type: string
+          format: uuid
+    NewsDto:
+      type: object
+      required:
+        - id
+        - title
+        - text
+        - img
+        - date
+      properties:
+        id:
+          description: ID
+          type: string
+        title:
+          description: Заголовок
+          type: string
+        text:
+          description: Текст
+          type: string
+        img:
+          description: Ссылка на картинку
+          type: string
+        date:
+          description: Дата создания
+          type: string
+          format: date
+    NewsListDto:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          $ref: '#/components/schemas/NewsDto'
+    EmployeesListDto:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          $ref: '#/components/schemas/EmployeeDto'

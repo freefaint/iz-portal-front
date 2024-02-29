@@ -10,3 +10,8 @@ declare module '*.svg' {
 
   export default ReactComponent;
 }
+
+declare module '*.yml' {
+  const data: any;
+  export default data;
+}
