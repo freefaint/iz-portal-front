@@ -1,7 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ProfileActionList = ({ props }: any) => {
-  //TODO описать мапер для каждого типа
-  return <div></div>;
+interface IProps {
+  props?: { label: string; value: string }[];
+}
+
+export const ProfileActionList = ({ props }: IProps) => {
+  return <div>{JSON.stringify(props)}</div>;
 };
 
 export default ProfileActionList;

@@ -5,24 +5,24 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ProfileActionList from './ProfileActionTable/ProfileActionList';
 import { Styled } from './styled';
 
-type Props = {
+interface IProps {
   accountActions: Array<{
     label: string;
     type: string;
     containers: Array<any>;
     isCheck?: boolean;
   }>;
-};
+}
 
-type Action = Array<{
+type TAction = {
   label: string;
   type: string;
-  containers: Array<any>;
+  containers: Array<{ label: string; value: string }>;
   isCheck?: boolean;
-}>;
+}[];
 
-export const ProfileActionTable: FC<Props> = ({ ...accountActions }) => {
-  const [action, setAction] = useState<Action | null>(null);
+export const ProfileActionTable: FC<IProps> = ({ ...accountActions }) => {
+  const [action, setAction] = useState<TAction | null>(null);
 
   useEffect(() => {
     if (accountActions && !action) {

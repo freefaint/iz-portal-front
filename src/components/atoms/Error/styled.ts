@@ -7,13 +7,13 @@ const Error = styled.div`
   align-items: center;
 
   svg {
-    width: 150px;
-    height: 150px;
+    width: 9.375rem;
+    height: 9.375rem;
     color: red;
   }
 `;
 const ErrorText = styled.div`
-  font-size: 26px;
+  font-size: 1.375rem;
 `;
 
 export const Styled = {

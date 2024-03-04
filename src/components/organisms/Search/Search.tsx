@@ -13,7 +13,7 @@ type Contact = {
 
 interface SearchProps {
   data: Contact[];
-  columns: Array<String>;
+  columns: Array<string>;
 }
 
 export const Search: FC<SearchProps> = ({ data, columns }) => {

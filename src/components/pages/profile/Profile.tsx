@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from 'react';
 
-// import axios from 'axios';
-
 import { CircularProgress } from '@mui/material';
 
 import { ProfileMocks } from './mocks';
@@ -12,7 +10,7 @@ import { EpageStatus } from '../types';
 
 export const ProfilePage: FC = () => {
   const [pageStatus, setPageStatus] = useState<EpageStatus>(EpageStatus.LOADING);
-  // TODO типизровать данные при получении бэка
+
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -20,15 +18,6 @@ export const ProfilePage: FC = () => {
       setData(ProfileMocks);
       setPageStatus(EpageStatus.SUCCESS);
     }, 1000);
-    // axios.get('./')
-    // .then(response => {
-    // Обработка ответа
-    // setPageStatus(EpageStatus.SUCCESS)
-    // })
-    // .catch(error => {
-    // Обработка ошибки
-    // setPageStatus(EpageStatus.ERROR)
-    // });
   }, []);
   return (
     <>

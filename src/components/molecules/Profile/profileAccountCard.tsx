@@ -3,7 +3,7 @@ import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Modal } from '@mui/material';
 
-import CardInfo from './ProfileInfoCard/CardInfo';
+import CardInfo, { TAccount } from './ProfileInfoCard/CardInfo';
 import { Styled } from './styled';
 import ButtonTitle from '../../atoms/Buttons/ButtonTitle';
 import { ProfileIcon } from '../../atoms/Icons/ProfileIcon';
@@ -21,7 +21,11 @@ const style = {
   p: 1,
 };
 
-export const ProfileAccountCard = ({ accountInfo }: any) => {
+interface IProps {
+  accountInfo: TAccount;
+}
+
+export const ProfileAccountCard = ({ accountInfo }: IProps) => {
   const [edit, setEdit] = useState<boolean>(false);
   const handleEdit = () => {
     setEdit(edit ? false : true);

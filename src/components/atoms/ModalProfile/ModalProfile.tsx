@@ -1,50 +1,44 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 
 import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 
 import { Styled } from './styled';
 import ButtonTitle from '../Buttons/ButtonTitle';
 
-export const ModalProfile: FC<any> = ({ updateEdit }) => {
-  const [skype, setSkype] = useState<String>('');
-  const [workDate, setWorkDate] = useState<String>('');
-  const [profession, setProfession] = useState<String>('');
-  const [competencie, setCompetencie] = useState<String>('');
-  const [workExp, setWorkExp] = useState<String>('');
+interface IProps {
+  updateEdit: (bool: boolean) => void;
+}
+
+export const ModalProfile: FC<IProps> = ({ updateEdit }) => {
+  const [skype, setSkype] = useState<string>('');
+  const [workDate, setWorkDate] = useState<string>('');
+  const [profession, setProfession] = useState<string>('');
+  const [competencie, setCompetencie] = useState<string>('');
+  const [workExp, setWorkExp] = useState<string>('');
   const [checkBithday, setCheckBithday] = useState<boolean>(false);
   const [checkMobile, setCheckMobile] = useState<boolean>(false);
 
   const handleEdit = () => {
-    // axios.post ....
-    // const editProfile = {
-    //   skype: skype,
-    //   workDate: workDate,
-    //   profession: profession,
-    //   competencie: competencie,
-    //   workExp: workExp,
-    //   checkBithday: checkBithday,
-    //   checkMobile: checkMobile,
-    // }
     updateEdit(false);
   };
 
-  const handleSearchSkype = (event: any) => {
+  const handleSearchSkype = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSkype(event.target.value);
   };
 
-  const handleWorkDate = (event: any) => {
+  const handleWorkDate = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setWorkDate(event.target.value);
   };
 
-  const handleProfession = (event: any) => {
+  const handleProfession = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setProfession(event.target.value);
   };
 
-  const handleCompetencie = (event: any) => {
+  const handleCompetencie = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setCompetencie(event.target.value);
   };
 
-  const handleWorkExp = (event: any) => {
+  const handleWorkExp = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setWorkExp(event.target.value);
   };
 

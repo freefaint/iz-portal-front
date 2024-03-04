@@ -4,10 +4,11 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 import { Styled } from './styled';
 
-type Props = {
+interface IProps {
   title?: string;
-};
-export const Error: React.FC<Props> = ({ title }) => (
+}
+
+export const Error: React.FC<IProps> = ({ title }) => (
   <>
     <Styled.Error>
       <ErrorIcon />

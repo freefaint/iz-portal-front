@@ -2,7 +2,12 @@ import { FC } from 'react';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
-export const SearchTable: FC<any> = ({ filteredData, columns }) => {
+interface IProps {
+  filteredData: { name: string; phione: string; email: string }[];
+  columns: string[];
+}
+
+export const SearchTable: FC<IProps> = ({ filteredData, columns }) => {
   return (
     <TableContainer>
       <Table>

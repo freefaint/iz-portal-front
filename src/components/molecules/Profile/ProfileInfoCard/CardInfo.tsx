@@ -3,7 +3,11 @@ import { FC } from 'react';
 import { Styled } from './styled';
 import { ProfileBreadCrumbs } from '../../../atoms/BreadCrumbs/ProfileBreadCrumbs';
 
-export const CardInfo: FC<any> = ({ props }) => {
+export type TAccount = Record<string, string> & { breadcrumbs: string[] };
+
+type IAccountProps = { props: TAccount };
+
+export const CardInfo: FC<IAccountProps> = ({ props }) => {
   const handleEmail = () => {
     //TODO открытие почты
   };

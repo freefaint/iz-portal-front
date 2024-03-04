@@ -2,13 +2,14 @@ import { FC } from 'react';
 
 import { Box } from '@mui/material';
 
-type Props = {
+interface IProps {
   src?: string;
   height?: number;
   width?: number;
   alt?: string;
-};
-export const ProfileIcon: FC<Props> = ({ src, height, width, alt }) => {
+}
+
+export const ProfileIcon: FC<IProps> = ({ src, height, width, alt }) => {
   return (
     <Box
       component="img"

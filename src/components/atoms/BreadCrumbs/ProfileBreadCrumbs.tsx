@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { Breadcrumbs, Link } from '@mui/material';
 
-type Props = {
-  breadcrumbs: Array<String>;
+type IProps = {
+  breadcrumbs: string[];
 };
-export const ProfileBreadCrumbs: FC<Props> = ({ breadcrumbs }) => (
+export const ProfileBreadCrumbs: FC<IProps> = ({ breadcrumbs }) => (
   <Breadcrumbs>{breadcrumbs?.map((item, index) => <Link key={index}>{item}</Link>)}</Breadcrumbs>
 );

@@ -9,7 +9,6 @@ import Layout from './layout';
 import { About } from './pages/about';
 import { Main } from './pages/main';
 import { Swagger } from './pages/swagger';
-// import { Registry } from './pages/registry';
 
 const theme = createTheme({
   typography: {

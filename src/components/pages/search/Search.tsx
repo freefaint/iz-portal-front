@@ -18,7 +18,7 @@ type Contacts = Contact[];
 
 export const SearchPage: FC = () => {
   const [data, setData] = useState<Contacts>(searchTableMocks);
-  const [columns, setColumns] = useState<Array<String>>(searchTableColumns);
+  const [columns, setColumns] = useState<Array<string>>(searchTableColumns);
   const [pageStatus, setPageStatus] = useState<EpageStatus>(EpageStatus.LOADING);
 
   useEffect(() => {
@@ -27,16 +27,6 @@ export const SearchPage: FC = () => {
       setColumns(searchTableColumns);
       setPageStatus(EpageStatus.SUCCESS);
     }, 1000);
-
-    // axios.get('./')
-    // .then(response => {
-    // Обработка ответа
-    // setPageStatus(EpageStatus.SUCCESS)
-    // })
-    // .catch(error => {
-    // Обработка ошибки
-    // setPageStatus(EpageStatus.ERROR)
-    // });
   }, []);
 
   return (
