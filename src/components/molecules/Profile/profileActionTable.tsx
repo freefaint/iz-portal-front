@@ -5,11 +5,23 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ProfileActionList from './ProfileActionTable/ProfileActionList';
 import { Styled } from './styled';
 
+export type PersonInformation = Array<{
+  label: string;
+  value: string;
+}>;
+
+export type Competishen = [];
+
+export type WorkFriend = {
+  columns: Array<string>;
+  dateType: Array<string>;
+};
+
 type Props = {
   accountActions: Array<{
     label: string;
     type: string;
-    containers: Array<any>;
+    containers: Competishen | PersonInformation | WorkFriend;
     isCheck?: boolean;
   }>;
 };
@@ -17,7 +29,7 @@ type Props = {
 type Action = Array<{
   label: string;
   type: string;
-  containers: Array<any>;
+  containers: Competishen | PersonInformation | WorkFriend;
   isCheck?: boolean;
 }>;
 
@@ -51,26 +63,32 @@ export const ProfileActionTable: FC<Props> = ({ ...accountActions }) => {
     [action],
   );
 
+  if (!action) {
+    return <></>;
+  }
+
   return (
-    <>
-      <Styled.AccountAction>
-        <Styled.ActionBorder>
-          {action?.map((item, index) => (
-            <Styled.ActionTableFlex
-              key={index}
-              onClick={() => handleOpenElement(index)}
-              idk={index}
-              ids={action.length - 1}
-              className="tb-flex"
-            >
-              {item.label}
-              <Styled.Active>{item.isCheck ? <CheckCircleIcon /> : <></>}</Styled.Active>
-            </Styled.ActionTableFlex>
-          ))}
-        </Styled.ActionBorder>
-        <ProfileActionList props={action?.find((i) => i.isCheck)?.containers} />
-      </Styled.AccountAction>
-    </>
+    action && (
+      <>
+        <Styled.AccountAction>
+          <Styled.ActionBorder>
+            {action.map((item, index) => (
+              <Styled.ActionTableFlex
+                key={index}
+                onClick={() => handleOpenElement(index)}
+                idk={index}
+                ids={action.length - 1}
+                className="tb-flex"
+              >
+                {item.label}
+                <Styled.Active>{item.isCheck ? <CheckCircleIcon /> : <></>}</Styled.Active>
+              </Styled.ActionTableFlex>
+            ))}
+          </Styled.ActionBorder>
+          <ProfileActionList props={action.find((i) => i?.isCheck)!} />
+        </Styled.AccountAction>
+      </>
+    )
   );
 };
 

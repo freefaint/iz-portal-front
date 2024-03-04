@@ -21,7 +21,7 @@ export const ProfileMocks = {
   infoBlock: [
     {
       label: 'Личная информация',
-      type: 'list',
+      type: 'UlTable',
       containers: [
         {
           label: 'Информация об отпусках',
@@ -39,7 +39,7 @@ export const ProfileMocks = {
     },
     {
       label: 'Компетенции',
-      type: 'list',
+      type: 'unknown',
       containers: [],
     },
     {
@@ -59,7 +59,7 @@ export const ProfileMocks = {
           value: '-',
         },
         {
-          label: 'Совместитель в',
+          label: 'Совместитель в:',
           value: '',
         },
       ],

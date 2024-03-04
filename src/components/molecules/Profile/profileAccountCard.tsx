@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Modal } from '@mui/material';
@@ -6,7 +6,7 @@ import { Box, Button, Modal } from '@mui/material';
 import CardInfo from './ProfileInfoCard/CardInfo';
 import { Styled } from './styled';
 import ButtonTitle from '../../atoms/Buttons/ButtonTitle';
-import { ProfileIcon } from '../../atoms/Icons/ProfileIcon';
+import ProfileIcon from '../../atoms/Icons/ProfileIcon';
 import { ModalProfile } from '../../atoms/ModalProfile/ModalProfile';
 
 const style = {
@@ -21,7 +21,25 @@ const style = {
   p: 1,
 };
 
-export const ProfileAccountCard = ({ accountInfo }: any) => {
+type PropsInfo = {
+  icon: string;
+  birthday: string;
+  breadcrumbs: Array<string>;
+  dateOn: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  jobTitle: string;
+  mobileTelephone: string;
+  secondName: string;
+  telephone: string;
+};
+
+type Props = {
+  accountInfo: PropsInfo;
+};
+
+export const ProfileAccountCard: FC<Props> = ({ accountInfo }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const handleEdit = () => {
     setEdit(edit ? false : true);

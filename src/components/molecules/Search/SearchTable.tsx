@@ -8,13 +8,13 @@ export const SearchTable: FC<any> = ({ filteredData, columns }) => {
       <Table>
         <TableHead>
           <TableRow>
-            {columns.map((item: any) => (
+            {columns.map((item: string) => (
               <TableCell>{item}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredData.map((item: any) => (
+          {filteredData.map((item: { email: string; name: string; phone: string }) => (
             <TableRow key={item.email}>
               <TableCell>{item.name}</TableCell>
               <TableCell>{item.phone}</TableCell>

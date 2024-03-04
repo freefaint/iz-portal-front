@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 
 import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 
@@ -28,23 +28,23 @@ export const ModalProfile: FC<any> = ({ updateEdit }) => {
     updateEdit(false);
   };
 
-  const handleSearchSkype = (event: any) => {
+  const handleSearchSkype = (event: ChangeEvent<HTMLInputElement>) => {
     setSkype(event.target.value);
   };
 
-  const handleWorkDate = (event: any) => {
+  const handleWorkDate = (event: ChangeEvent<HTMLInputElement>) => {
     setWorkDate(event.target.value);
   };
 
-  const handleProfession = (event: any) => {
+  const handleProfession = (event: ChangeEvent<HTMLInputElement>) => {
     setProfession(event.target.value);
   };
 
-  const handleCompetencie = (event: any) => {
+  const handleCompetencie = (event: ChangeEvent<HTMLInputElement>) => {
     setCompetencie(event.target.value);
   };
 
-  const handleWorkExp = (event: any) => {
+  const handleWorkExp = (event: ChangeEvent<HTMLInputElement>) => {
     setWorkExp(event.target.value);
   };
 

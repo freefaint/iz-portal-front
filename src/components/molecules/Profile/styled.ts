@@ -14,7 +14,7 @@ const Account = styled.div`
 `;
 
 const AccountAction = styled(Account)`
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 const ErrorInfo = styled.div`

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { Switch, TextField } from '@mui/material';
 
@@ -38,7 +38,7 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
         }
 
         if (moreSearch) {
-          return data.filter((item: any) => {
+          return data.filter((item) => {
             if (nameSearchTerm && !phoneSearchTerm && !emailSearchTerm) {
               return item.name.toLowerCase().includes(nameSearchTerm.toLowerCase());
             }
@@ -65,19 +65,19 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
     return () => clearTimeout(timer);
   }, [searchTerm, data, moreSearch, nameSearchTerm, phoneSearchTerm, emailSearchTerm]);
 
-  const handleNameSearchChange = (event: any) => {
+  const handleNameSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNameSearchTerm(event.target.value);
   };
 
-  const handlePhoneSearchChange = (event: any) => {
+  const handlePhoneSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPhoneSearchTerm(event.target.value);
   };
 
-  const handleEmailSearchChange = (event: any) => {
+  const handleEmailSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailSearchTerm(event.target.value);
   };
 
-  const handleSearchChange = (event: any) => {
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
