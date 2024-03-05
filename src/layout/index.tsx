@@ -45,7 +45,7 @@ import { NeutralLink } from '../components/atoms/neutral-link';
 const drawerWidth = 15;
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth * 16,
+  width: `${drawerWidth}rem`,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -86,7 +86,7 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth * 16,
+    marginLeft: `${drawerWidth}rem`,
     width: `calc(100% - ${drawerWidth}rem)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -96,7 +96,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
-  width: drawerWidth * 16,
+  width: `${drawerWidth}rem`,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
