@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { CircularProgress } from '@mui/material';
 import Error from 'components/atoms/errors';
-import Search from 'components/organisms/search';
+import Search from 'components/organisms/searchs';
 
 import { searchTableColumns, searchTableMocks } from './mocks';
 import { Styled } from '../styled';
