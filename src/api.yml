@@ -21,6 +21,8 @@ tags:
     description: Методы для работы с сотрудниками
   - name: news
     description: Методы для работы с новостями
+  - name: notice
+    description: Методы для работы с объявлениями
 paths:
   /login:
     post:
@@ -80,6 +82,50 @@ paths:
           description: В случае, если были авторизованы и успешно завершили сессию
         '400':
           description: Если не были авторизованы
+  /notice:
+    post:
+      tags:
+        - notice
+      summary: Получение списка объявлений
+      description: Эндпоинт для получения списка объявлений с параметрами поиска
+      operationId: searchNotices
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список объявлений'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NoticeListDto'
+  /notice/{id}:
+    get:
+      tags:
+        - notice
+      summary: Получение карточки объявления
+      description: Получение всех данных объявления
+      operationId: getNoticeById
+      parameters:
+        - name: id
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NoticeDto'
   /news:
     post:
       tags:
@@ -272,8 +318,10 @@ components:
           description: Строка поиска
           type: string
         order:
-          type: object
-          $ref: '#/components/schemas/Order'
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/Order'
         skip:
           description: Начать с номера элемента
           type: number
@@ -368,6 +416,43 @@ components:
           items:
             type: object
             $ref: '#/components/schemas/NewsDto'
+    NoticeDto:
+      type: object
+      required:
+        - id
+        - title
+        - text
+        - date
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        title:
+          description: Заголовок
+          type: string
+        text:
+          description: Текст
+          type: string
+        date:
+          description: Дата создания
+          type: string
+          format: date
+    NoticeListDto:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/NoticeDto'
     EmployeesListDto:
       type: object
       required:
