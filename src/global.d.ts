@@ -12,6 +12,6 @@ declare module '*.svg' {
 }
 
 declare module '*.yml' {
-  const data: any;
+  const data: string | object;
   export default data;
 }

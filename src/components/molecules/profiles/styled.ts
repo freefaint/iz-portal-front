@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ALPHA_BLACK, ALPHA_BLUE, ALPHA_DARK_BLUE, LINK_COLOR, RED, WHITE } from 'styles';
+import { ALPHA_BLACK, ALPHA_BLUE, ALPHA_BLUE_100, ALPHA_DARK_BLUE, LINK_COLOR, RED, WHITE } from 'styles';
 
 const Account = styled.div`
   display: flex;
@@ -107,7 +107,7 @@ const ActionTableFlex = styled.div<{
   height: 100%;
   padding: 0.75rem;
   font-size: 0.75rem;
-  border: 0.0625rem solid rgba(25, 118, 210, 1);
+  border: 0.0625rem solid ${ALPHA_BLUE_100};
   color: ${LINK_COLOR};
   cursor: pointer;
   border-top-left-radius: ${(props) => (props.idk === 0 ? '1.25rem' : '0rem')};

@@ -6,7 +6,6 @@ import { ProfileMocks } from 'components/pages/profile/mocks';
 import { Styled } from './styled';
 
 export type TAccount = (typeof ProfileMocks)['profile'];
-export type TInfoBlock = (typeof ProfileMocks)['infoBlock'];
 
 type IAccountProps = { props: TAccount };
 

@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-import { ALPHA_BLUE, WHITE } from 'styles';
+import { ALPHA_BLACK, ALPHA_BLUE, ALPHA_DARK_BLUE, WHITE } from 'styles';
 
 export const BackgroundSearch = styled.div`
   display: flex;
   flex-direction: column;
-  border: 0.0625rem solid rgba(0, 0, 0, 0.025);
+  border: 0.0625rem solid ${ALPHA_BLACK};
   border-radius: 1.25rem;
   background: ${WHITE};
-  box-shadow: 0rem 0.875rem 40.125rem 0rem rgba(8, 15, 52, 0.06);
+  box-shadow: 0rem 0.875rem 40.125rem 0rem ${ALPHA_DARK_BLUE};
   width: 100%;
   height: 100%;
   padding: 1rem;
@@ -23,7 +23,7 @@ export const BackgroundSearch = styled.div`
   }
 
   .MuiTableCell-head {
-    border-right: 0.0625rem solid rgba(0, 0, 0, 0.2);
+    border-right: 0.0625rem solid ${ALPHA_BLACK};
     text-align: center;
     font-weight: 600;
   }
