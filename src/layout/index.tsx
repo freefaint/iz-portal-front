@@ -42,7 +42,7 @@ import AvatarSrc from '../assets/img/avatar.jpg';
 import LogoSrc from '../assets/img/logo4.png';
 import { NeutralLink } from '../components/atoms/neutral-link';
 
-const drawerWidth = 240;
+const drawerWidth = 15;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -87,7 +87,7 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open && {
     marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: `calc(100% - ${drawerWidth}rem)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
