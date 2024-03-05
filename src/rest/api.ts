@@ -209,6 +209,56 @@ export interface NewsListDto {
 /**
  *
  * @export
+ * @interface NoticeDto
+ */
+export interface NoticeDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof NoticeDto
+   */
+  id: string;
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof NoticeDto
+   */
+  title: string;
+  /**
+   * Текст
+   * @type {string}
+   * @memberof NoticeDto
+   */
+  text: string;
+  /**
+   * Дата создания
+   * @type {string}
+   * @memberof NoticeDto
+   */
+  date: string;
+}
+/**
+ *
+ * @export
+ * @interface NoticeListDto
+ */
+export interface NoticeListDto {
+  /**
+   * Общее количество
+   * @type {number}
+   * @memberof NoticeListDto
+   */
+  total: number;
+  /**
+   * Список элементов
+   * @type {Array<NoticeDto>}
+   * @memberof NoticeListDto
+   */
+  items: Array<NoticeDto>;
+}
+/**
+ *
+ * @export
  * @interface Order
  */
 export interface Order {
@@ -264,10 +314,10 @@ export interface RequestBody {
   search?: string;
   /**
    *
-   * @type {Order}
+   * @type {Array<Order>}
    * @memberof RequestBody
    */
-  order?: Order;
+  order?: Array<Order>;
   /**
    * Начать с номера элемента
    * @type {number}
@@ -1153,6 +1203,212 @@ export class NewsApi extends BaseAPI {
   public searchNews(requestParameters: NewsApiSearchNewsRequest, options?: AxiosRequestConfig) {
     return NewsApiFp(this.configuration)
       .searchNews(requestParameters.requestBody, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * NoticeApi - axios parameter creator
+ * @export
+ */
+export const NoticeApiAxiosParamCreator = function (configuration?: Configuration) {
+  return {
+    /**
+     * Получение всех данных объявления
+     * @summary Получение карточки объявления
+     * @param {string} id Идентификатор объявления
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNoticeById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getNoticeById', 'id', id);
+      const localVarPath = `/notice/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения списка объявлений с параметрами поиска
+     * @summary Получение списка объявлений
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    searchNotices: async (requestBody: RequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'requestBody' is not null or undefined
+      assertParamExists('searchNotices', 'requestBody', requestBody);
+      const localVarPath = `/notice`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * NoticeApi - functional programming interface
+ * @export
+ */
+export const NoticeApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = NoticeApiAxiosParamCreator(configuration);
+  return {
+    /**
+     * Получение всех данных объявления
+     * @summary Получение карточки объявления
+     * @param {string} id Идентификатор объявления
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getNoticeById(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NoticeDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeById(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения списка объявлений с параметрами поиска
+     * @summary Получение списка объявлений
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async searchNotices(
+      requestBody: RequestBody,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NoticeListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.searchNotices(requestBody, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+  };
+};
+
+/**
+ * NoticeApi - factory interface
+ * @export
+ */
+export const NoticeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = NoticeApiFp(configuration);
+  return {
+    /**
+     * Получение всех данных объявления
+     * @summary Получение карточки объявления
+     * @param {string} id Идентификатор объявления
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNoticeById(id: string, options?: any): AxiosPromise<NoticeDto> {
+      return localVarFp.getNoticeById(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения списка объявлений с параметрами поиска
+     * @summary Получение списка объявлений
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    searchNotices(requestBody: RequestBody, options?: any): AxiosPromise<NoticeListDto> {
+      return localVarFp.searchNotices(requestBody, options).then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * Request parameters for getNoticeById operation in NoticeApi.
+ * @export
+ * @interface NoticeApiGetNoticeByIdRequest
+ */
+export interface NoticeApiGetNoticeByIdRequest {
+  /**
+   * Идентификатор объявления
+   * @type {string}
+   * @memberof NoticeApiGetNoticeById
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for searchNotices operation in NoticeApi.
+ * @export
+ * @interface NoticeApiSearchNoticesRequest
+ */
+export interface NoticeApiSearchNoticesRequest {
+  /**
+   *
+   * @type {RequestBody}
+   * @memberof NoticeApiSearchNotices
+   */
+  readonly requestBody: RequestBody;
+}
+
+/**
+ * NoticeApi - object-oriented interface
+ * @export
+ * @class NoticeApi
+ * @extends {BaseAPI}
+ */
+export class NoticeApi extends BaseAPI {
+  /**
+   * Получение всех данных объявления
+   * @summary Получение карточки объявления
+   * @param {NoticeApiGetNoticeByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NoticeApi
+   */
+  public getNoticeById(requestParameters: NoticeApiGetNoticeByIdRequest, options?: AxiosRequestConfig) {
+    return NoticeApiFp(this.configuration)
+      .getNoticeById(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для получения списка объявлений с параметрами поиска
+   * @summary Получение списка объявлений
+   * @param {NoticeApiSearchNoticesRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NoticeApi
+   */
+  public searchNotices(requestParameters: NoticeApiSearchNoticesRequest, options?: AxiosRequestConfig) {
+    return NoticeApiFp(this.configuration)
+      .searchNotices(requestParameters.requestBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
