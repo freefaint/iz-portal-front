@@ -11,9 +11,7 @@ export type TInfoBlock = (typeof ProfileMocks)['infoBlock'];
 type IAccountProps = { props: TAccount };
 
 export const CardInfo: FC<IAccountProps> = ({ props }) => {
-  const handleEmail = () => {
-    //TODO открытие почты
-  };
+  const handleEmail = () => {};
 
   return (
     <Styled.CardInfoColumn>

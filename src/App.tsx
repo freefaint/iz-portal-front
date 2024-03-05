@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Profile from './components/pages/profile';
-import SearchPage from './components/pages/search';
+import SearchPage from './components/pages/searchs';
 import Layout from './layout';
 import { About } from './pages/about';
 import { Main } from './pages/main';

@@ -62,7 +62,7 @@ export const ModalProfile: FC<IProps> = ({ updateEdit }) => {
           value={skype}
           onChange={handleSearchSkype}
           variant="outlined"
-          style={{ marginTop: '20px' }}
+          style={{ marginTop: '1.25rem' }}
           className="md-item"
         />
         <TextField
@@ -70,7 +70,7 @@ export const ModalProfile: FC<IProps> = ({ updateEdit }) => {
           value={workDate}
           onChange={handleWorkDate}
           variant="outlined"
-          style={{ marginBottom: '20px', marginTop: '20px' }}
+          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
           className="md-item"
         />
         <TextField
@@ -80,7 +80,7 @@ export const ModalProfile: FC<IProps> = ({ updateEdit }) => {
           multiline
           variant="outlined"
           rows={4}
-          style={{ marginBottom: '20px', marginTop: '20px' }}
+          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
           className="md-item"
         />
         <TextField
@@ -90,7 +90,7 @@ export const ModalProfile: FC<IProps> = ({ updateEdit }) => {
           multiline
           variant="outlined"
           rows={4}
-          style={{ marginBottom: '20px', marginTop: '20px' }}
+          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
           className="md-item"
         />
         <TextField
@@ -100,7 +100,7 @@ export const ModalProfile: FC<IProps> = ({ updateEdit }) => {
           multiline
           variant="outlined"
           rows={4}
-          style={{ marginBottom: '20px', marginTop: '20px' }}
+          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
           className="md-item"
         />
       </Styled.MaxDiv>

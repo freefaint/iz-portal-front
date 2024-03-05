@@ -1,27 +1,29 @@
 import styled from 'styled-components';
 
+import { ALPHA_BLUE, WHITE } from 'styles';
+
 export const BackgroundSearch = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.025);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 14px 42px 0px rgba(8, 15, 52, 0.06);
+  border: 0.0625rem solid rgba(0, 0, 0, 0.025);
+  border-radius: 1.25rem;
+  background: ${WHITE};
+  box-shadow: 0rem 0.875rem 40.125rem 0rem rgba(8, 15, 52, 0.06);
   width: 100%;
   height: 100%;
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 1rem;
+  margin-bottom: 1rem;
 
   .MuiInputBase-root {
     width: 34%;
   }
 
   .MuiTable-root {
-    border-radius: 20px;
+    border-radius: 1.25rem;
   }
 
   .MuiTableCell-head {
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    border-right: 0.0625rem solid rgba(0, 0, 0, 0.2);
     text-align: center;
     font-weight: 600;
   }
@@ -35,23 +37,22 @@ export const BackgroundSearch = styled.div`
   }
 
   .MuiTableCell-body:hover {
-    /* background: #1976d2; */
-    background: rgba(25, 118, 210, 0.5);
-    color: #fff;
+    background: ${ALPHA_BLUE};
+    color: ${WHITE};
   }
 `;
 
 export const SearchLabel = styled.div`
-  font-size: 25px;
-  font-weight: 600px;
-  margin-bottom: 20px;
+  font-size: 3cqbrem;
+  font-weight: 600rem;
+  margin-bottom: 1.25rem;
 `;
 
 export const SwitchBlock = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   width: 25%;
 `;
 
@@ -61,7 +62,7 @@ export const MoreSwitch = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   .MuiTextField-root {
   }
 

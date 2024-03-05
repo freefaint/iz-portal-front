@@ -1,16 +1,18 @@
 import styled from 'styled-components';
 
+import { ALPHA_BLACK, ALPHA_BLUE, ALPHA_DARK_BLUE, LINK_COLOR, RED, WHITE } from 'styles';
+
 const Account = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.025);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 14px 42px 0px rgba(8, 15, 52, 0.06);
+  border: 0.0625rem solid ${ALPHA_BLACK};
+  border-radius: 1.25rem;
+  background: ${WHITE};
+  box-shadow: 0rem 0.875rem 2.625rem 0rem ${ALPHA_DARK_BLUE};
   width: 100%;
   height: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 0.625rem;
+  margin-bottom: 1rem;
 `;
 
 const AccountAction = styled(Account)`
@@ -25,8 +27,8 @@ const ErrorInfo = styled.div`
 
   button {
     width: 100%;
-    color: red;
-    font-size: 12px;
+    color: ${RED};
+    font-size: 0.75rem;
   }
 `;
 
@@ -59,7 +61,7 @@ const ActionCard = styled.div`
   align-items: center;
   button {
     width: 100%;
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 `;
 
@@ -67,24 +69,24 @@ const ActionBorder = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  border-radius: 20px;
+  border-radius: 1.25rem;
 
   .tb-flex:hover {
-    background: #1976d2;
-    color: #fff;
+    background: ${LINK_COLOR};
+    color: ${WHITE};
     svg {
-      color: #fff;
+      color: ${WHITE};
     }
   }
 `;
 
 const Active = styled.div`
   display: flex;
-  margin-left: 5px;
+  margin-left: 0.25rem;
   svg {
-    color: rgba(25, 118, 210, 0.7);
-    width: 15px;
-    height: 15px;
+    color: ${ALPHA_BLUE};
+    width: 1rem;
+    height: 1rem;
   }
 `;
 
@@ -103,22 +105,20 @@ const ActionTableFlex = styled.div<{
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 12px;
-  font-size: 12px;
-  /* background-color: rgba(25, 118, 210, 1); */
-  /* background-color: #fff; */
-  border: 1px solid rgba(25, 118, 210, 1);
-  color: #1976d2;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  border: 0.0625rem solid rgba(25, 118, 210, 1);
+  color: ${LINK_COLOR};
   cursor: pointer;
-  border-top-left-radius: ${(props) => (props.idk === 0 ? '20px' : '0px')};
-  border-bottom-left-radius: ${(props) => (props.idk === 0 ? '20px' : '0px')};
-  border-bottom-right-radius: ${(props) => (props.idk === props.ids ? '20px' : '0px')};
-  border-top-right-radius: ${(props) => (props.idk === props.ids ? '20px' : '0px')};
+  border-top-left-radius: ${(props) => (props.idk === 0 ? '1.25rem' : '0rem')};
+  border-bottom-left-radius: ${(props) => (props.idk === 0 ? '1.25rem' : '0rem')};
+  border-bottom-right-radius: ${(props) => (props.idk === props.ids ? '1.25rem' : '0rem')};
+  border-top-right-radius: ${(props) => (props.idk === props.ids ? '1.25rem' : '0rem')};
 `;
 
 const ModalH = styled.div`
   display: block;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 `;
 

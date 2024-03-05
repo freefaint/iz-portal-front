@@ -8,22 +8,22 @@ const ModalFlex = styled.div`
   flex-direction: column;
 
   button {
-    font-size: 16px;
+    font-size: 1rem;
   }
 `;
 
 const MaxDiv = styled.div`
   display: flex;
-  padding: 10px;
+  padding: 0.625rem;
   flex-wrap: wrap;
 
   .MuiFormControl-root {
-    margin-bottom: 0px !important;
+    margin-bottom: 0rem !important;
   }
 
   .md-item {
     width: 49%;
-    padding: 5px;
+    padding: 0.25rem;
   }
 `;
 const Justify = styled.div`

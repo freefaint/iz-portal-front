@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { CircularProgress } from '@mui/material';
 import Error from 'components/atoms/errors';
-import Profile from 'components/organisms/profile';
+import Profile from 'components/organisms/profiles';
 
 import { ProfileMocks } from './mocks';
 import { Styled } from '../styled';

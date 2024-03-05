@@ -1,50 +1,52 @@
 import styled from 'styled-components';
 
+import { DARK_GRAY, GRAY, LINK_COLOR } from 'styles';
+
 const CardInfoColumn = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  margin: 10px 10px 0px 10px;
+  margin: 0.625rem 0.625rem 0rem 0.625rem;
 `;
 
 const PersonName = styled.h2`
-  font-size: 15px;
-  color: #262626;
-  margin: 2px 5px;
+  font-size: 1rem;
+  color: ${DARK_GRAY};
+  margin: 0.125rem 0.25rem;
 `;
 
 const PersonP = styled.div`
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: #808080;
-  margin: 2px 5px;
-  padding-left: 4px;
+  color: ${GRAY};
+  margin: 0.125rem 0.25rem;
+  padding-left: 0.25rem;
 `;
 
 const Bread = styled.div`
   width: 100%;
-  margin: 0px 5px;
-  padding-left: 4px;
+  margin: 0rem 0.25rem;
+  padding-left: 0.25rem;
   a {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .MuiBreadcrumbs-separator {
-    margin: 0 3px;
+    margin: 0 0.2;
   }
   cursor: pointer;
 `;
 
 const LinkAction = styled.div`
-  color: #1976d2;
-  margin-left: 5px;
+  color: ${LINK_COLOR};
+  margin-left: 0.25rem;
   cursor: pointer;
 `;
 const Margin = styled.div`
-  margin: 0px 5px;
+  margin: 0rem 0.25rem;
 `;
 
 export const Styled = {

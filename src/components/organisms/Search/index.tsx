@@ -98,7 +98,7 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
           value={searchTerm}
           onChange={handleSearchChange}
           variant="outlined"
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: '1.25rem' }}
         />
       )}
       {moreSearch && (
@@ -108,7 +108,7 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
             value={nameSearchTerm}
             onChange={handleNameSearchChange}
             variant="outlined"
-            style={{ marginBottom: '16px' }}
+            style={{ marginBottom: '1rem' }}
           />
 
           <TextField
@@ -116,7 +116,7 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
             value={phoneSearchTerm}
             onChange={handlePhoneSearchChange}
             variant="outlined"
-            style={{ marginBottom: '16px' }}
+            style={{ marginBottom: '1rem' }}
           />
 
           <TextField
@@ -124,7 +124,7 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
             value={emailSearchTerm}
             onChange={handleEmailSearchChange}
             variant="outlined"
-            style={{ marginBottom: '16px' }}
+            style={{ marginBottom: '1rem' }}
           />
         </MoreSwitch>
       )}
