@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 
 import { CircularProgress } from '@mui/material';
+import Error from 'components/atoms/errors';
+import Search from 'components/organisms/search';
 
 import { searchTableColumns, searchTableMocks } from './mocks';
-import Error from '../../atoms/Error/Error';
-import Search from '../../organisms/Search/Search';
 import { Styled } from '../styled';
 import { EpageStatus } from '../types';
 

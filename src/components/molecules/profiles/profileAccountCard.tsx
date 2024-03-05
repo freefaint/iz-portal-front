@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import React from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Modal } from '@mui/material';
+import ButtonTitle from 'components/atoms/buttons';
+import { ProfileIcon } from 'components/atoms/icons';
+import { ModalProfile } from 'components/atoms/modal-profile';
 
-import CardInfo, { TAccount } from './ProfileInfoCard/CardInfo';
+import CardInfo, { TAccount } from './profile-info-card';
 import { Styled } from './styled';
-import ButtonTitle from '../../atoms/Buttons/ButtonTitle';
-import { ProfileIcon } from '../../atoms/Icons/ProfileIcon';
-import { ModalProfile } from '../../atoms/ModalProfile/ModalProfile';
 
 const style = {
   position: 'absolute',

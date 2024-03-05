@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material';
-
-import aboutImgSrc from '../../assets/img/about.jpg';
+import aboutImgSrc from 'assets/img/about.jpg';
 
 export const About = () => {
   return (

@@ -2,22 +2,17 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-import ProfileActionList from './ProfileActionTable/ProfileActionList';
+import ProfileActionList from './profile-action-table';
 import { Styled } from './styled';
 
 interface IProps {
-  accountActions: Array<{
-    label: string;
-    type: string;
-    containers: Array<any>;
-    isCheck?: boolean;
-  }>;
+  accountActions: TAction;
 }
 
-type TAction = {
+export type TAction = {
   label: string;
   type: string;
-  containers: Array<{ label: string; value: string }>;
+  containers: { label: string; value: string }[];
   isCheck?: boolean;
 }[];
 

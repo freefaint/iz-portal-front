@@ -3,8 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { Box, Link, Typography } from '@mui/material';
 import { RegistryDataContext, RegistryProvider } from 'avrora';
-
-import { NeutralLink } from '../../components/atoms/NeutralLink';
+import { NeutralLink } from 'components/atoms/neutral-link';
 
 const genNew = (id: string) => {
   return {
@@ -33,10 +32,10 @@ export function Main() {
         });
       },
 
-      postItem: (newItem: any) => Promise.resolve(newItem),
-      patchItem: (newItem: any) => Promise.resolve(newItem),
+      postItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
+      patchItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
       removeItem: () => Promise.resolve(void 0),
-      putItem: (newItem: any) => Promise.resolve(newItem),
+      putItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
     }),
     [],
   );
@@ -66,7 +65,7 @@ const NewsList = () => {
   );
 };
 
-const NewsItem = ({ id, title, date, text }: any) => {
+const NewsItem = ({ id, title, date, text }: ReturnType<typeof genNew>) => {
   return (
     <>
       <NeutralLink to={`/news/${id}`}>

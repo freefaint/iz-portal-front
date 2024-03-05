@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { Switch, TextField } from '@mui/material';
+import SearchTable from 'components/molecules/search';
 
 import { BackgroundSearch, MoreSwitch, SearchLabel, SwitchBlock, SwitchText } from './styled';
-import SearchTable from '../../molecules/Search/SearchTable';
 
 type Contact = {
   name: string;
@@ -22,7 +22,7 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
   const [phoneSearchTerm, setPhoneSearchTerm] = useState('');
   const [emailSearchTerm, setEmailSearchTerm] = useState('');
 
-  const [filteredData, setFilteredData] = useState<any>(data);
+  const [filteredData, setFilteredData] = useState<Contact[]>(data);
   const [moreSearch, setMoreSearch] = useState<boolean>(false);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
         }
 
         if (moreSearch) {
-          return data.filter((item: any) => {
+          return data.filter((item) => {
             if (nameSearchTerm && !phoneSearchTerm && !emailSearchTerm) {
               return item.name.toLowerCase().includes(nameSearchTerm.toLowerCase());
             }
@@ -59,25 +59,25 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
           });
         }
       };
-      setFilteredData(filtered());
+      setFilteredData(filtered() ?? []);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, [searchTerm, data, moreSearch, nameSearchTerm, phoneSearchTerm, emailSearchTerm]);
 
-  const handleNameSearchChange = (event: any) => {
+  const handleNameSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNameSearchTerm(event.target.value);
   };
 
-  const handlePhoneSearchChange = (event: any) => {
+  const handlePhoneSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setPhoneSearchTerm(event.target.value);
   };
 
-  const handleEmailSearchChange = (event: any) => {
+  const handleEmailSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEmailSearchTerm(event.target.value);
   };
 
-  const handleSearchChange = (event: any) => {
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSearchTerm(event.target.value);
   };
 

@@ -1,9 +1,12 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
+
+import { ProfileBreadCrumbs } from 'components/atoms/breadcrumbs';
+import { ProfileMocks } from 'components/pages/profile/mocks';
 
 import { Styled } from './styled';
-import { ProfileBreadCrumbs } from '../../../atoms/BreadCrumbs/ProfileBreadCrumbs';
 
-export type TAccount = Record<string, string> & { breadcrumbs: string[] };
+export type TAccount = (typeof ProfileMocks)['profile'];
+export type TInfoBlock = (typeof ProfileMocks)['infoBlock'];
 
 type IAccountProps = { props: TAccount };
 
@@ -35,10 +38,6 @@ export const CardInfo: FC<IAccountProps> = ({ props }) => {
       <Styled.PersonP onClick={handleEmail}>
         E-mail:
         <Styled.LinkAction>{props?.email}</Styled.LinkAction>
-      </Styled.PersonP>
-      <Styled.PersonP>
-        Skype:
-        <Styled.LinkAction>{props?.skype}</Styled.LinkAction>
       </Styled.PersonP>
     </Styled.CardInfoColumn>
   );

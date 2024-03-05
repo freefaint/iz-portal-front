@@ -3,7 +3,7 @@ import { ChangeEvent, FC, useState } from 'react';
 import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 
 import { Styled } from './styled';
-import ButtonTitle from '../Buttons/ButtonTitle';
+import ButtonTitle from '../buttons';
 
 interface IProps {
   updateEdit: (bool: boolean) => void;

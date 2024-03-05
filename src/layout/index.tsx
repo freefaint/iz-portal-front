@@ -40,7 +40,7 @@ import Typography from '@mui/material/Typography';
 
 import AvatarSrc from '../assets/img/avatar.jpg';
 import LogoSrc from '../assets/img/logo4.png';
-import { NeutralLink } from '../components/atoms/NeutralLink';
+import { NeutralLink } from '../components/atoms/neutral-link';
 
 const drawerWidth = 240;
 
@@ -123,8 +123,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
     setOpen(false);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const setAnchorElNavState = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
@@ -132,7 +131,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setAnchorElNavState[1](null);
   };
 
   const handleCloseUserMenu = () => {

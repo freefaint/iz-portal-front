@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 interface IProps {
-  filteredData: { name: string; phione: string; email: string }[];
+  filteredData: { name: string; phone: string; email: string }[];
   columns: string[];
 }
 
@@ -13,13 +13,13 @@ export const SearchTable: FC<IProps> = ({ filteredData, columns }) => {
       <Table>
         <TableHead>
           <TableRow>
-            {columns.map((item: any) => (
+            {columns.map((item) => (
               <TableCell>{item}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredData.map((item: any) => (
+          {filteredData.map((item) => (
             <TableRow key={item.email}>
               <TableCell>{item.name}</TableCell>
               <TableCell>{item.phone}</TableCell>
