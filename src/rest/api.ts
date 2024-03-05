@@ -34,6 +34,31 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  *
  * @export
+ * @interface DepartmentDto
+ */
+export interface DepartmentDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof DepartmentDto
+   */
+  id: string;
+  /**
+   * Имя
+   * @type {string}
+   * @memberof DepartmentDto
+   */
+  name: string;
+  /**
+   * Телефон
+   * @type {string}
+   * @memberof DepartmentDto
+   */
+  parentId?: string;
+}
+/**
+ *
+ * @export
  * @interface EmployeeDto
  */
 export interface EmployeeDto {
@@ -66,7 +91,7 @@ export interface EmployeeDto {
    * @type {string}
    * @memberof EmployeeDto
    */
-  department?: string;
+  departmentId?: string;
 }
 /**
  *
@@ -81,11 +106,11 @@ export interface EmployeesListDto {
    */
   total: number;
   /**
-   *
-   * @type {EmployeeDto}
+   * Список элементов
+   * @type {Array<EmployeeDto>}
    * @memberof EmployeesListDto
    */
-  items: EmployeeDto;
+  items: Array<EmployeeDto>;
 }
 /**
  *
@@ -175,11 +200,11 @@ export interface NewsListDto {
    */
   total: number;
   /**
-   *
-   * @type {NewsDto}
+   * Список элементов
+   * @type {Array<NewsDto>}
    * @memberof NewsListDto
    */
-  items: NewsDto;
+  items: Array<NewsDto>;
 }
 /**
  *
@@ -236,13 +261,13 @@ export interface RequestBody {
    * @type {string}
    * @memberof RequestBody
    */
-  search: string;
+  search?: string;
   /**
    *
    * @type {Order}
    * @memberof RequestBody
    */
-  order: Order;
+  order?: Order;
   /**
    * Начать с номера элемента
    * @type {number}
@@ -257,10 +282,10 @@ export interface RequestBody {
   limit: number;
   /**
    *
-   * @type {Filter}
+   * @type {Array<Filter>}
    * @memberof RequestBody
    */
-  filters: Filter;
+  filters?: Array<Filter>;
 }
 
 /**
@@ -530,6 +555,192 @@ export class AuthApi extends BaseAPI {
   public logout(options?: AxiosRequestConfig) {
     return AuthApiFp(this.configuration)
       .logout(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * DepartmentsApi - axios parameter creator
+ * @export
+ */
+export const DepartmentsApiAxiosParamCreator = function (configuration?: Configuration) {
+  return {
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор подразделения
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartmentById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getDepartmentById', 'id', id);
+      const localVarPath = `/departments/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения списка подразделений
+     * @summary Получение списка подразделений
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartments: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/departments`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * DepartmentsApi - functional programming interface
+ * @export
+ */
+export const DepartmentsApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = DepartmentsApiAxiosParamCreator(configuration);
+  return {
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор подразделения
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getDepartmentById(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DepartmentDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getDepartmentById(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения списка подразделений
+     * @summary Получение списка подразделений
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getDepartments(
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DepartmentDto>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getDepartments(options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+  };
+};
+
+/**
+ * DepartmentsApi - factory interface
+ * @export
+ */
+export const DepartmentsApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance,
+) {
+  const localVarFp = DepartmentsApiFp(configuration);
+  return {
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор подразделения
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartmentById(id: string, options?: any): AxiosPromise<DepartmentDto> {
+      return localVarFp.getDepartmentById(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения списка подразделений
+     * @summary Получение списка подразделений
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDepartments(options?: any): AxiosPromise<Array<DepartmentDto>> {
+      return localVarFp.getDepartments(options).then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * Request parameters for getDepartmentById operation in DepartmentsApi.
+ * @export
+ * @interface DepartmentsApiGetDepartmentByIdRequest
+ */
+export interface DepartmentsApiGetDepartmentByIdRequest {
+  /**
+   * Идентификатор подразделения
+   * @type {string}
+   * @memberof DepartmentsApiGetDepartmentById
+   */
+  readonly id: string;
+}
+
+/**
+ * DepartmentsApi - object-oriented interface
+ * @export
+ * @class DepartmentsApi
+ * @extends {BaseAPI}
+ */
+export class DepartmentsApi extends BaseAPI {
+  /**
+   * Получение всех данных новости
+   * @summary Получение карточки новости
+   * @param {DepartmentsApiGetDepartmentByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DepartmentsApi
+   */
+  public getDepartmentById(requestParameters: DepartmentsApiGetDepartmentByIdRequest, options?: AxiosRequestConfig) {
+    return DepartmentsApiFp(this.configuration)
+      .getDepartmentById(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для получения списка подразделений
+   * @summary Получение списка подразделений
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DepartmentsApi
+   */
+  public getDepartments(options?: AxiosRequestConfig) {
+    return DepartmentsApiFp(this.configuration)
+      .getDepartments(options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

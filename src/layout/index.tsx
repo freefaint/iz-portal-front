@@ -40,12 +40,12 @@ import Typography from '@mui/material/Typography';
 
 import AvatarSrc from '../assets/img/avatar.jpg';
 import LogoSrc from '../assets/img/logo4.png';
-import { NeutralLink } from '../components/atoms/NeutralLink';
+import { NeutralLink } from '../components/atoms/neutral-link';
 
-const drawerWidth = 240;
+const drawerWidth = 15;
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
+  width: `${drawerWidth}rem`,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -59,9 +59,9 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(7)} + 0.0625rem)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(8)} + 0.0625rem)`,
   },
 });
 
@@ -70,7 +70,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -87,8 +86,8 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}rem`,
+    width: `calc(100% - ${drawerWidth}rem)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -97,7 +96,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
-  width: drawerWidth,
+  width: `${drawerWidth}rem`,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
@@ -123,8 +122,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
     setOpen(false);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const setAnchorElNavState = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
@@ -132,7 +130,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setAnchorElNavState[1](null);
   };
 
   const handleCloseUserMenu = () => {
@@ -153,7 +151,6 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
               edge="start"
               sx={{
                 marginRight: 2,
-                // ...(open && { display: 'none' }),
               }}
             >
               <MenuIcon />
@@ -167,7 +164,6 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
             href="/"
             sx={{
               mr: 2,
-              // display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -177,51 +173,6 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
           >
             <img style={{ height: '3rem', marginTop: '0.375rem' }} alt="" src={LogoSrc} />
           </Typography>
-
-          {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, display: 'block', margin: '-0.25rem 0' }}>
-                {page}
-              </Button>
-            ))}
-          </Box> */}
 
           <Box sx={{ flexGrow: 1, display: 'flex' }}></Box>
 
@@ -308,7 +259,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
             </Tooltip>
 
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '3rem' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{

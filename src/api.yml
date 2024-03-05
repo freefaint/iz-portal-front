@@ -15,6 +15,8 @@ servers:
 tags:
   - name: auth
     description: Методы аутентификации
+  - name: departments
+    description: Методы для получения подразделений
   - name: employees
     description: Методы для работы с сотрудниками
   - name: news
@@ -122,6 +124,46 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/NewsDto'
+  /departments:
+    get:
+      tags:
+        - departments
+      summary: Получение списка подразделений
+      description: Эндпоинт для получения списка подразделений
+      operationId: getDepartments
+      responses:
+        '200':
+          description: 'Список подразделений'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  $ref: '#/components/schemas/DepartmentDto'
+  /departments/{id}:
+    get:
+      tags:
+        - departments
+      summary: Получение карточки новости
+      description: Получение всех данных новости
+      operationId: getDepartmentById
+      parameters:
+        - name: id
+          description: Идентификатор подразделения
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/DepartmentDto'
   /employees:
     post:
       tags:
@@ -137,7 +179,7 @@ paths:
               $ref: '#/components/schemas/RequestBody'
       responses:
         '200':
-          description: 'Список новостей'
+          description: 'Список сотрудников'
           content:
             application/json:
               schema:
@@ -223,11 +265,8 @@ components:
     RequestBody:
       type: object
       required:
-        - search
-        - order
         - skip
         - limit
-        - filters
       properties:
         search:
           description: Строка поиска
@@ -243,7 +282,9 @@ components:
           type: number
         filters:
           type: array
-          $ref: '#/components/schemas/Filter'
+          items:
+            type: object
+            $ref: '#/components/schemas/Filter'
     EmployeeDto:
       type: object
       required:
@@ -255,6 +296,7 @@ components:
         id:
           description: ID
           type: string
+          format: uuid
         name:
           description: Имя
           type: string
@@ -264,8 +306,25 @@ components:
         email:
           description: Email
           type: string
-        department:
+        departmentId:
           description: Подразделение
+          type: string
+          format: uuid
+    DepartmentDto:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        name:
+          description: Имя
+          type: string
+        parentId:
+          description: Телефон
           type: string
           format: uuid
     NewsDto:
@@ -280,6 +339,7 @@ components:
         id:
           description: ID
           type: string
+          format: uuid
         title:
           description: Заголовок
           type: string
@@ -305,7 +365,9 @@ components:
         items:
           description: Список элементов
           type: array
-          $ref: '#/components/schemas/NewsDto'
+          items:
+            type: object
+            $ref: '#/components/schemas/NewsDto'
     EmployeesListDto:
       type: object
       required:
@@ -318,4 +380,6 @@ components:
         items:
           description: Список элементов
           type: array
-          $ref: '#/components/schemas/EmployeeDto'
+          items:
+            type: object
+            $ref: '#/components/schemas/EmployeeDto'
