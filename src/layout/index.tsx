@@ -18,6 +18,7 @@ import {
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -318,6 +319,28 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                 </ListItemIcon>
 
                 <ListItemText primary={'Главная'} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </NeutralLink>
+
+            <NeutralLink to="/notice">
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <NotificationsIcon />
+                </ListItemIcon>
+
+                <ListItemText primary={'Сотрудники'} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </NeutralLink>
 

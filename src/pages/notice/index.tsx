@@ -6,38 +6,36 @@ import axios from 'axios';
 import { Box, Link, Typography } from '@mui/material';
 import { RegistryDataContext, RegistryProvider } from 'avrora';
 import MockAdapter from 'axios-mock-adapter';
-import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
+import { NeutralLink } from 'components/atoms/neutral-link';
 
 const genNew = (id: string) => {
   return {
     id,
-    title: 'Новость',
+    title: 'Уведомление',
     date: new Date(),
-    img: 'https://icons.iconarchive.com/icons/iconsmind/outline/512/Newspaper-icon.png',
     text: `Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях, так как позволяют изданию выделиться из информационного шума. Цели исследования – выявить распространенность лонгридов в российских СМИ и содержательные и композиционные особенности этих текстов. Исследование включает мониторинг публикаций в центральных российских изданиях и последующий контент-анализ 10 материалов из 10 печатных и онлайновых изданий. Выводы исследования: лонгриды присутствуют в изданиях разных типов: от ежедневных газет − до нишевых новостных сайтов. Они посвящены, как правило, описанию нового явления; имеют объем от 2 до 4 тыс. слов и построены по композиционной схеме чередования примеров и обобщений.`,
   };
 };
 
-export function Main() {
+export function Notice() {
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const [news, setNews] = useState([]);
+
+  const [notice, setNotice] = useState([]);
 
   useEffect(() => {
     const mock = new MockAdapter(axios);
     mock.onGet('/news').reply(200, {
       news: [
         {
-          id: 1,
-          title: 'Новость',
+          title: 'Уведомление',
           date: new Date(),
           img: 'https://icons.iconarchive.com/icons/iconsmind/outline/512/Newspaper-icon.png',
           text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях, так как позволяют изданию выделиться из информационного шума. Цели исследования – выявить распространенность лонгридов в российских СМИ и содержательные и композиционные особенности этих текстов. Исследование включает мониторинг публикаций в центральных российских изданиях и последующий контент-анализ 10 материалов из 10 печатных и онлайновых изданий. Выводы исследования: лонгриды присутствуют в изданиях разных типов: от ежедневных газет − до нишевых новостных сайтов. Они посвящены, как правило, описанию нового явления; имеют объем от 2 до 4 тыс. слов и построены по композиционной схеме чередования примеров и обобщений.',
         },
         {
-          id: 2,
-          title: 'Новость',
+          title: 'Уведомление',
           date: new Date(),
           img: 'https://icons.iconarchive.com/icons/iconsmind/outline/512/Newspaper-icon.png',
           text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях, так как позволяют изданию выделиться из информационного шума. Цели исследования – выявить распространенность лонгридов в российских СМИ и содержательные и композиционные особенности этих текстов. Исследование включает мониторинг публикаций в центральных российских изданиях и последующий контент-анализ 10 материалов из 10 печатных и онлайновых изданий. Выводы исследования: лонгриды присутствуют в изданиях разных типов: от ежедневных газет − до нишевых новостных сайтов. Они посвящены, как правило, описанию нового явления; имеют объем от 2 до 4 тыс. слов и построены по композиционной схеме чередования примеров и обобщений.',
@@ -48,23 +46,21 @@ export function Main() {
     axios
       .get('/news')
       .then((response) => {
-        setNews(response.data.news);
+        setNotice(response.data.news);
       })
       .catch((error) => {
         return error;
       });
   }, []);
-  const service = useMemo(() => {
-    if (!news) {
-      return;
-    }
 
-    return {
+  const service = useMemo(
+    () => ({
       getItem: ({ id }: { id: string | number }) => Promise.resolve(genNew(id.toString())),
 
       getList: () => {
         // const data = new Array(10).fill(true).map((i, j) => genNew(j.toString()));
-        const data = news;
+        const data = notice;
+
         return Promise.resolve({
           data,
           count: data.length,
@@ -75,20 +71,16 @@ export function Main() {
       patchItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
       removeItem: () => Promise.resolve(void 0),
       putItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
-    };
-  }, [news]);
-
-  //TODO если бэк не отвечает какой то еррор или лоадинг? или зависит от ответа?
-  if (!service) {
-    return <>Error?</>;
-  }
+    }),
+    [notice],
+  );
 
   return (
     <>
       <RegistryProvider onOpenItem={(id) => navigate(`/news/${id!}`)} id={id} service={service} action={id && 'item'}>
         {!id && <NewsList />}
 
-        {id && <NewsPage />}
+        {id && <NoticePage />}
       </RegistryProvider>
     </>
   );
@@ -99,26 +91,23 @@ const NewsList = () => {
 
   return (
     <>
-      <Typography variant="h4">Новости</Typography>
+      <Typography variant="h4">Уведомления</Typography>
 
       <Box style={{ gap: '1rem', margin: '1rem 0', display: 'flex', flexDirection: 'column' }}>
-        {data?.map((i) => <NewsItem key={i.id} {...i} />)}
+        {data?.map((i) => <NoticeItem key={i.id} {...i} />)}
       </Box>
     </>
   );
 };
 
-const NewsItem = ({ id, title, img, date, text }: ReturnType<typeof genNew>) => {
+const NoticeItem = ({ id, title, date, text }: ReturnType<typeof genNew>) => {
   return (
     <>
-      <FlexNews>
-        <NeutralLink to={`/news/${id}`}>
-          <Link>
-            <Typography variant="h6">{title}</Typography>
-          </Link>
-        </NeutralLink>
-        <img src={img} alt="news" style={{ width: '15px', height: '15px' }} />
-      </FlexNews>
+      <NeutralLink to={`/news/${id}`}>
+        <Link>
+          <Typography variant="h6">{title}</Typography>
+        </Link>
+      </NeutralLink>
 
       <Box style={{ margin: '0rem 0' }}>{text}</Box>
 
@@ -127,16 +116,13 @@ const NewsItem = ({ id, title, img, date, text }: ReturnType<typeof genNew>) => 
   );
 };
 
-const NewsPage = () => {
+const NoticePage = () => {
   const { item } = useContext(RegistryDataContext);
 
   return (
     item && (
       <>
-        <FlexNews>
-          <Typography variant="h4">{item.title}</Typography>
-          <img src={item.img} alt="news" style={{ width: '15px', height: '15px' }} />
-        </FlexNews>
+        <Typography variant="h4">{item.title}</Typography>
 
         <Box style={{ margin: '1rem 0' }}>{item.text}</Box>
 
