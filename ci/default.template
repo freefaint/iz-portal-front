@@ -6,6 +6,7 @@ server {
     server_name portal-frontend.dcs.infosec.ru localhost; 
     access_log /var/log/nginx/access.log main;
     error_log /var/log/nginx/error.log info;
+    add_header Access-Control-Allow-Origin: "*";
 
     location / {
         root   /usr/share/nginx/html;
