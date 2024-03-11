@@ -1,49 +1,51 @@
 import { useContext, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Box, Link, Typography } from '@mui/material';
-import { RegistryDataContext, RegistryProvider } from 'avrora';
-import { NeutralLink } from 'components/atoms/neutral-link';
+import { Box, Link, Pagination, Typography } from '@mui/material';
+import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
+import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
+import { NewsApiFactory, NewsDto } from 'rest';
 
-const genNew = (id: string) => {
-  return {
-    id,
-    title: 'Новость',
-    date: new Date(),
-    text: `Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях, так как позволяют изданию выделиться из информационного шума. Цели исследования – выявить распространенность лонгридов в российских СМИ и содержательные и композиционные особенности этих текстов. Исследование включает мониторинг публикаций в центральных российских изданиях и последующий контент-анализ 10 материалов из 10 печатных и онлайновых изданий. Выводы исследования: лонгриды присутствуют в изданиях разных типов: от ежедневных газет − до нишевых новостных сайтов. Они посвящены, как правило, описанию нового явления; имеют объем от 2 до 4 тыс. слов и построены по композиционной схеме чередования примеров и обобщений.`,
-  };
-};
+const httpClient = NewsApiFactory();
 
 export function Main() {
   const { id } = useParams();
 
   const navigate = useNavigate();
 
-  const service = useMemo(
-    () => ({
-      getItem: ({ id }: { id: string | number }) => Promise.resolve(genNew(id.toString())),
+  const service: Service<NewsDto> = useMemo(() => {
+    return {
+      getItem: ({ id }: { id: string | number }) => httpClient.getNewsById(id.toString()).then(({ data }) => data),
 
-      getList: () => {
-        const data = new Array(10).fill(true).map((i, j) => genNew(j.toString()));
-
-        return Promise.resolve({
-          data,
-          count: data.length,
-        });
+      getList: ({ pagination, order, ...rest }) => {
+        return httpClient
+          .searchNews({
+            ...rest,
+            skip: pagination.skip,
+            limit: pagination.top,
+            order: order.map((i) => ({ type: i.field, desc: i.sort === 'desc' })),
+          })
+          .then((resp) => ({ count: resp.data.total, data: resp.data.items }));
       },
 
-      postItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
-      patchItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
-      removeItem: () => Promise.resolve(void 0),
-      putItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
-    }),
-    [],
-  );
+      postItem: ({ item }) => httpClient.addNews(item).then(({ data }) => data),
+      patchItem: ({ id, item }) => httpClient.updateNews(id.toString(), item).then(({ data }) => data),
+      removeItem: ({ id }) => httpClient.removeNews(id.toString()).then(({ data }) => data),
+      putItem: ({ id, item }) => httpClient.updateNews(id.toString(), item).then(({ data }) => data),
+    };
+  }, []);
+
+  //TODO если бэк не отвечает какой то еррор или лоадинг? или зависит от ответа?
+  if (!service) {
+    return <>Error?</>;
+  }
 
   return (
     <>
       <RegistryProvider onOpenItem={(id) => navigate(`/news/${id!}`)} id={id} service={service} action={id && 'item'}>
         {!id && <NewsList />}
+
+        <Pagination />
 
         {id && <NewsPage />}
       </RegistryProvider>
@@ -65,14 +67,17 @@ const NewsList = () => {
   );
 };
 
-const NewsItem = ({ id, title, date, text }: ReturnType<typeof genNew>) => {
+const NewsItem = ({ id, title, img, date, text }: NewsDto) => {
   return (
     <>
-      <NeutralLink to={`/news/${id}`}>
-        <Link>
-          <Typography variant="h6">{title}</Typography>
-        </Link>
-      </NeutralLink>
+      <FlexNews>
+        <NeutralLink to={`/news/${id}`}>
+          <Link>
+            <Typography variant="h6">{title}</Typography>
+          </Link>
+        </NeutralLink>
+        <img src={img} alt="news" style={{ width: '15px', height: '15px' }} />
+      </FlexNews>
 
       <Box style={{ margin: '0rem 0' }}>{text}</Box>
 
@@ -87,7 +92,10 @@ const NewsPage = () => {
   return (
     item && (
       <>
-        <Typography variant="h4">{item.title}</Typography>
+        <FlexNews>
+          <Typography variant="h4">{item.title}</Typography>
+          <img src={item.img} alt="news" style={{ width: '15px', height: '15px' }} />
+        </FlexNews>
 
         <Box style={{ margin: '1rem 0' }}>{item.text}</Box>
 

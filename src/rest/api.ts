@@ -4189,37 +4189,6 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       };
     },
     /**
-     * Получение всех данных новости
-     * @summary Получение карточки новости
-     * @param {string} id Идентификатор новости
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    createNews: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('createNews', 'id', id);
-      const localVarPath = `/api/v1/news/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
      * @param {string} nid Идентификатор новости
@@ -4260,6 +4229,37 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
       localVarRequestOptions.data = serializeDataIfNeeded(commentDraftDto, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор новости
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getNewsById', 'id', id);
+      const localVarPath = `/api/v1/news/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
         url: toPathString(localVarUrlObj),
@@ -4599,20 +4599,6 @@ export const NewsApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Получение всех данных новости
-     * @summary Получение карточки новости
-     * @param {string} id Идентификатор новости
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async createNews(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.createNews(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
      * @param {string} nid Идентификатор новости
@@ -4628,6 +4614,20 @@ export const NewsApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.editNewsComment(nid, cid, commentDraftDto, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор новости
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getNewsById(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsById(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -4784,16 +4784,6 @@ export const NewsApiFactory = function (configuration?: Configuration, basePath?
       return localVarFp.addNewsComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
-     * Получение всех данных новости
-     * @summary Получение карточки новости
-     * @param {string} id Идентификатор новости
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    createNews(id: string, options?: any): AxiosPromise<NewsDto> {
-      return localVarFp.createNews(id, options).then((request) => request(axios, basePath));
-    },
-    /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
      * @param {string} nid Идентификатор новости
@@ -4809,6 +4799,16 @@ export const NewsApiFactory = function (configuration?: Configuration, basePath?
       options?: any,
     ): AxiosPromise<CommentDto> {
       return localVarFp.editNewsComment(nid, cid, commentDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Получение всех данных новости
+     * @summary Получение карточки новости
+     * @param {string} id Идентификатор новости
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsById(id: string, options?: any): AxiosPromise<NewsDto> {
+      return localVarFp.getNewsById(id, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения комментария
@@ -4934,20 +4934,6 @@ export interface NewsApiAddNewsCommentRequest {
 }
 
 /**
- * Request parameters for createNews operation in NewsApi.
- * @export
- * @interface NewsApiCreateNewsRequest
- */
-export interface NewsApiCreateNewsRequest {
-  /**
-   * Идентификатор новости
-   * @type {string}
-   * @memberof NewsApiCreateNews
-   */
-  readonly id: string;
-}
-
-/**
  * Request parameters for editNewsComment operation in NewsApi.
  * @export
  * @interface NewsApiEditNewsCommentRequest
@@ -4973,6 +4959,20 @@ export interface NewsApiEditNewsCommentRequest {
    * @memberof NewsApiEditNewsComment
    */
   readonly commentDraftDto: CommentDraftDto;
+}
+
+/**
+ * Request parameters for getNewsById operation in NewsApi.
+ * @export
+ * @interface NewsApiGetNewsByIdRequest
+ */
+export interface NewsApiGetNewsByIdRequest {
+  /**
+   * Идентификатор новости
+   * @type {string}
+   * @memberof NewsApiGetNewsById
+   */
+  readonly id: string;
 }
 
 /**
@@ -5158,20 +5158,6 @@ export class NewsApi extends BaseAPI {
   }
 
   /**
-   * Получение всех данных новости
-   * @summary Получение карточки новости
-   * @param {NewsApiCreateNewsRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NewsApi
-   */
-  public createNews(requestParameters: NewsApiCreateNewsRequest, options?: AxiosRequestConfig) {
-    return NewsApiFp(this.configuration)
-      .createNews(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
    * Эндпоинт для редактирования комментария
    * @summary Изменение комментария
    * @param {NewsApiEditNewsCommentRequest} requestParameters Request parameters.
@@ -5182,6 +5168,20 @@ export class NewsApi extends BaseAPI {
   public editNewsComment(requestParameters: NewsApiEditNewsCommentRequest, options?: AxiosRequestConfig) {
     return NewsApiFp(this.configuration)
       .editNewsComment(requestParameters.nid, requestParameters.cid, requestParameters.commentDraftDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Получение всех данных новости
+   * @summary Получение карточки новости
+   * @param {NewsApiGetNewsByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NewsApi
+   */
+  public getNewsById(requestParameters: NewsApiGetNewsByIdRequest, options?: AxiosRequestConfig) {
+    return NewsApiFp(this.configuration)
+      .getNewsById(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Notice } from 'pages/notice';
 
 import Profile from './components/pages/profile';
 import SearchPage from './components/pages/searchs';
@@ -9,6 +10,10 @@ import Layout from './layout';
 import { About } from './pages/about';
 import { Main } from './pages/main';
 import { Swagger } from './pages/swagger';
+
+if (process.env.NODE_ENV === 'development') {
+  require('__mock__');
+}
 
 const theme = createTheme({
   typography: {
@@ -33,6 +38,7 @@ function App() {
             <Route path="/" Component={Main} />
             <Route path="/profile" Component={Profile} />
             <Route path="/news/:id?" Component={Main} />
+            <Route path="/notice/:id?" Component={Notice} />
             <Route path="/employee/:id?" Component={SearchPage} />
 
             <Route path="/about" Component={About} />
