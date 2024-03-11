@@ -4,7 +4,7 @@ info:
   title: Портал Информзащита
   description: Описание API для взаимодействия с порталом
 servers:
-  - url: '{schema}://portal-front.dcs.infosec.ru/api/v1'
+  - url: '{schema}://portal-front.dcs.infosec.ru/'
     description: 'API версии 1'
     variables:
       schema:
@@ -15,6 +15,8 @@ servers:
 tags:
   - name: auth
     description: Методы аутентификации
+  - name: admin
+    description: Методы для администрирования
   - name: departments
     description: Методы для получения подразделений
   - name: employees
@@ -23,8 +25,14 @@ tags:
     description: Методы для работы с новостями
   - name: notice
     description: Методы для работы с объявлениями
+  - name: files
+    description: Методы для работы с файлами
+  - name: comments
+    description: Методы для работы с комментариями
+  - name: likes
+    description: Методы для работы с лайками
 paths:
-  /login:
+  /api/v1/login:
     post:
       tags:
         - auth
@@ -47,7 +55,7 @@ paths:
                 $ref: '#/components/schemas/ProfileDto'
         '401':
           description: Если логин или пароль неверны
-  /user:
+  /api/v1/user:
     get:
       tags:
         - auth
@@ -70,7 +78,7 @@ paths:
                 $ref: '#/components/schemas/ProfileDto'
         '401':
           description: Если мы не авторизорваны неверны
-  /logout:
+  /api/v1/logout:
     get:
       tags:
         - auth
@@ -82,7 +90,7 @@ paths:
           description: В случае, если были авторизованы и успешно завершили сессию
         '400':
           description: Если не были авторизованы
-  /notice:
+  /api/v1/notice:
     post:
       tags:
         - notice
@@ -103,7 +111,28 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/NoticeListDto'
-  /notice/{id}:
+    put:
+      tags:
+        - notice
+        - admin
+      summary: Добавление объявления
+      description: Эндпоинт для создания объявления
+      operationId: addNotice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoticeDraftDto'
+      responses:
+        '200':
+          description: 'Объявление'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NoticeDto'
+  /api/v1/notice/{id}:
     get:
       tags:
         - notice
@@ -126,7 +155,258 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/NoticeDto'
-  /news:
+    put:
+      tags:
+        - notice
+        - admin
+      summary: Редактирование объявления
+      description: Изменение данных объявления
+      operationId: updateNotice
+      parameters:
+        - name: id
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoticeDraftDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NoticeDto'
+    delete:
+      tags:
+        - notice
+        - admin
+      summary: Удаление объявления
+      description: Удаление объявления из системы
+      operationId: removeNotice
+      parameters:
+        - name: id
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+  /api/v1/notice/{id}/likes:
+    post:
+      tags:
+        - notice
+        - likes
+      summary: Добавление или удаление лайка
+      description: Если лайка нет, добавится, если есть - удалится
+      operationId: updateNoticeLike
+      parameters:
+        - name: id
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Список лайков'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/LikesListDto'
+    get:
+      tags:
+        - notice
+        - likes
+      summary: Получение списка лайков объявления
+      description: Эндпоинт для получения списка лайков объявления
+      operationId: getNoticeLikes
+      parameters:
+        - name: id
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Список лайков'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/LikesListDto'
+  /api/v1/notice/{id}/comments:
+    put:
+      tags:
+        - notice
+        - comments
+      summary: Добавление комментария
+      description: Эндпоинт для создания комментария
+      operationId: addNoticeComment
+      parameters:
+        - name: id
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDraftDto'
+      responses:
+        '200':
+          description: 'Комментарий'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentDto'
+    post:
+      tags:
+        - notice
+        - comments
+      summary: Получение списка комментариев
+      description: Эндпоинт для получения списка комментариев объявления с параметрами поиска
+      operationId: getNoticeComments
+      parameters:
+        - name: id
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список комментариев'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentsListDto'
+  /api/v1/notice/{nid}/comments/{cid}:
+    put:
+      tags:
+        - notice
+        - comments
+      summary: Изменение комментария
+      description: Эндпоинт для редактирования комментария
+      operationId: editNoticeComment
+      parameters:
+        - name: nid
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: cid
+          description: Идентификатор комментария
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDraftDto'
+      responses:
+        '200':
+          description: 'Комментарий'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentDto'
+    get:
+      tags:
+        - notice
+        - comments
+      summary: Получение комментария
+      description: Эндпоинт для получения комментария
+      operationId: getNoticeComment
+      parameters:
+        - name: nid
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: cid
+          description: Идентификатор комментария
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список комментариев'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentsListDto'
+    delete:
+      tags:
+        - notice
+        - comments
+      summary: Удаление комментария
+      description: Эндпоинт для удаления своего комментария
+      operationId: removeNoticeComment
+      parameters:
+        - name: nid
+          description: Идентификатор объявления
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: cid
+          description: Идентификатор комментария
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+  /api/v1/news:
     post:
       tags:
         - news
@@ -147,13 +427,34 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/NewsListDto'
-  /news/{id}:
+    put:
+      tags:
+        - news
+        - admin
+      summary: Добавление новости
+      description: Эндпоинт для создания новости
+      operationId: addNews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewsDraftDto'
+      responses:
+        '200':
+          description: 'Новость'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NewsDto'
+  /api/v1/news/{id}:
     get:
       tags:
         - news
       summary: Получение карточки новости
       description: Получение всех данных новости
-      operationId: getNewsById
+      operationId: createNews
       parameters:
         - name: id
           description: Идентификатор новости
@@ -170,7 +471,258 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/NewsDto'
-  /departments:
+    put:
+      tags:
+        - news
+        - admin
+      summary: Редактирование новости
+      description: Изменение данных новости
+      operationId: updateNews
+      parameters:
+        - name: id
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewsDraftDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NewsDto'
+    delete:
+      tags:
+        - news
+        - admin
+      summary: Удаление новости
+      description: Удаление новости из системы
+      operationId: removeNews
+      parameters:
+        - name: id
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+  /api/v1/news/{id}/likes:
+    post:
+      tags:
+        - news
+        - likes
+      summary: Добавление или удаление лайка
+      description: Если лайка нет, добавится, если есть - удалится
+      operationId: updateNewsLike
+      parameters:
+        - name: id
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Список лайков'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/LikesListDto'
+    get:
+      tags:
+        - news
+        - likes
+      summary: Получение списка лайков новости
+      description: Эндпоинт для получения списка лайков новости
+      operationId: getNewsLikes
+      parameters:
+        - name: id
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Список лайков'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/LikesListDto'
+  /api/v1/news/{id}/comments:
+    put:
+      tags:
+        - news
+        - comments
+      summary: Добавление комментария
+      description: Эндпоинт для создания комментария
+      operationId: addNewsComment
+      parameters:
+        - name: id
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDraftDto'
+      responses:
+        '200':
+          description: 'Комментарий'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentDto'
+    post:
+      tags:
+        - news
+        - comments
+      summary: Получение списка лайков
+      description: Эндпоинт для получения лайков новости с параметрами поиска
+      operationId: getNewsComments
+      parameters:
+        - name: id
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список комментариев'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentsListDto'
+  /api/v1/news/{nid}/comments/{cid}:
+    put:
+      tags:
+        - news
+        - comments
+      summary: Изменение комментария
+      description: Эндпоинт для редактирования комментария
+      operationId: editNewsComment
+      parameters:
+        - name: nid
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: cid
+          description: Идентификатор комментария
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDraftDto'
+      responses:
+        '200':
+          description: 'Комментарий'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentDto'
+    get:
+      tags:
+        - news
+        - comments
+      summary: Получение комментария
+      description: Эндпоинт для получения комментария
+      operationId: getNewsComment
+      parameters:
+        - name: nid
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: cid
+          description: Идентификатор комментария
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список комментариев'
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CommentsListDto'
+    delete:
+      tags:
+        - news
+        - comments
+      summary: Удаление комментария
+      description: Эндпоинт для удаления своего комментария
+      operationId: removeNewsComment
+      parameters:
+        - name: nid
+          description: Идентификатор новости
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: cid
+          description: Идентификатор комментария
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+  /api/v1/departments:
     get:
       tags:
         - departments
@@ -187,12 +739,12 @@ paths:
                 items:
                   type: object
                   $ref: '#/components/schemas/DepartmentDto'
-  /departments/{id}:
+  /api/v1/departments/{id}:
     get:
       tags:
         - departments
-      summary: Получение карточки новости
-      description: Получение всех данных новости
+      summary: Получение карточки подразделения
+      description: Получение всех данных подразделения
       operationId: getDepartmentById
       parameters:
         - name: id
@@ -210,7 +762,7 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/DepartmentDto'
-  /employees:
+  /api/v1/employees:
     post:
       tags:
         - employees
@@ -231,7 +783,7 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/EmployeesListDto'
-  /employees/{id}:
+  /api/v1/employees/{id}:
     get:
       tags:
         - employees
@@ -254,6 +806,208 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/EmployeeDto'
+  /api/v1/pictures/{id}:
+    get:
+      tags:
+        - files
+      summary: Получение картинки
+      description: Получение содержимого картинки
+      operationId: getFile
+      parameters:
+        - name: id
+          description: Идентификатор картинки
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            blob:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                description: File content type
+                example: application/pdf
+            Content-Disposition:
+              schema:
+                type: string
+                description: File name for browser could download file with original name by default
+                example: attachment; filename="name.pdf"
+    post:
+      tags:
+        - files
+      summary: Замена картинки
+      operationId: updateFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      parameters:
+        - name: id
+          description: Идентификатор картинки
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+    delete:
+      tags:
+        - files
+      summary: Удаление картинки
+      operationId: removeFile
+      parameters:
+        - name: id
+          description: Идентификатор картинки
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+  /api/v1/pictures:
+    post:
+      tags:
+        - files
+      summary: Заливка картинки
+      operationId: uploadFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+  /api/v1/documents/{id}:
+    get:
+      tags:
+        - files
+      summary: Получение файла
+      description: Получение содержимого файла
+      operationId: getFile
+      parameters:
+        - name: id
+          description: Идентификатор файла
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+          content:
+            blob:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                description: File content type
+                example: application/pdf
+            Content-Disposition:
+              schema:
+                type: string
+                description: File name for browser could download file with original name by default
+                example: attachment; filename="name.pdf"
+    post:
+      tags:
+        - files
+      summary: Замена файла
+      operationId: updateFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      parameters:
+        - name: id
+          description: Идентификатор файла
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+    delete:
+      tags:
+        - files
+      summary: Удаление файла
+      operationId: removeFile
+      parameters:
+        - name: id
+          description: Идентификатор файла
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+  /api/v1/documents:
+    post:
+      tags:
+        - files
+      summary: Заливка файла
+      operationId: uploadFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
 components:
   schemas:
     LoginRequestBody:
@@ -358,6 +1112,56 @@ components:
           description: Подразделение
           type: string
           format: uuid
+    LikeDto:
+      type: object
+      required:
+        - id
+        - date
+        - author
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        date:
+          description: Дата лайка
+          type: string
+          format: date
+        author:
+          description: ID пользователя, оставившего лайк
+          type: string
+          format: uuid
+    CommentDto:
+      type: object
+      required:
+        - id
+        - text
+        - date
+        - author
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        text:
+          description: Текст комментария
+          type: string
+        date:
+          description: Дата комментария
+          type: string
+          format: date
+        author:
+          description: ID пользователя, оставившего комментарий
+          type: string
+          format: uuid
+    CommentDraftDto:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          description: Текст комментария
+          type: string
     DepartmentDto:
       type: object
       required:
@@ -380,15 +1184,23 @@ components:
       required:
         - id
         - title
+        - short
         - text
         - img
         - date
+        - createDate
+        - updateDate
+        - createUserId
+        - updateUserId
       properties:
         id:
           description: ID
           type: string
           format: uuid
         title:
+          description: Заголовок
+          type: string
+        short:
           description: Заголовок
           type: string
         text:
@@ -398,7 +1210,54 @@ components:
           description: Ссылка на картинку
           type: string
         date:
-          description: Дата создания
+          description: Дата новости
+          type: string
+          format: date
+        likesCount:
+          description: Количество лайков
+          type: number
+        сommentsCount:
+          description: Количество комментариев
+          type: number
+        createDate:
+          description: Дата создания новости
+          type: string
+          format: date
+        updateDate:
+          description: Дата обновления новости
+          type: string
+          format: date
+        createUserId:
+          description: ID пользователя, создавшего новости
+          type: string
+          format: uuid
+        updateUserId:
+          description: ID последнего последнего пользователя, изменившего новость
+          type: string
+          format: uuid
+    NewsDraftDto:
+      type: object
+      required:
+        - title
+        - short
+        - text
+        - img
+        - date
+      properties:
+        title:
+          description: Заголовок
+          type: string
+        short:
+          description: Заголовок
+          type: string
+        text:
+          description: Текст
+          type: string
+        img:
+          description: Ссылка на картинку
+          type: string
+        date:
+          description: Дата новости
           type: string
           format: date
     NewsListDto:
@@ -421,8 +1280,13 @@ components:
       required:
         - id
         - title
+        - short
         - text
         - date
+        - createDate
+        - updateDate
+        - createUserId
+        - updateUserId
       properties:
         id:
           description: ID
@@ -431,13 +1295,89 @@ components:
         title:
           description: Заголовок
           type: string
+        short:
+          description: Заголовок
+          type: string
         text:
           description: Текст
           type: string
         date:
-          description: Дата создания
+          description: Дата новости
           type: string
           format: date
+        likesCount:
+          description: Количество лайков
+          type: number
+        сommentsCount:
+          description: Количество комментариев
+          type: number
+        createDate:
+          description: Дата создания новости
+          type: string
+          format: date
+        updateDate:
+          description: Дата обновления новости
+          type: string
+          format: date
+        createUserId:
+          description: ID пользователя, создавшего новости
+          type: string
+          format: uuid
+        updateUserId:
+          description: ID последнего последнего пользователя, изменившего новость
+          type: string
+          format: uuid
+    NoticeDraftDto:
+      type: object
+      required:
+        - title
+        - short
+        - text
+        - date
+      properties:
+        title:
+          description: Заголовок
+          type: string
+        short:
+          description: Заголовок
+          type: string
+        text:
+          description: Текст
+          type: string
+        date:
+          description: Дата новости
+          type: string
+          format: date
+    CommentsListDto:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/CommentDto'
+    LikesListDto:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/LikeDto'
     NoticeListDto:
       type: object
       required:
