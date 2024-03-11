@@ -4,7 +4,7 @@ info:
   title: Портал Информзащита
   description: Описание API для взаимодействия с порталом
 servers:
-  - url: '{schema}://portal-front.dcs.infosec.ru/'
+  - url: '{schema}://portal-frontend.dcs.infosec.ru/'
     description: 'API версии 1'
     variables:
       schema:

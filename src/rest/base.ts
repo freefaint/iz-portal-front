@@ -17,7 +17,7 @@ import { Configuration } from './configuration';
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 
-export const BASE_PATH = 'https://portal-front.dcs.infosec.ru'.replace(/\/+$/, '');
+export const BASE_PATH = 'https://portal-frontend.dcs.infosec.ru'.replace(/\/+$/, '');
 
 /**
  *
