@@ -18,7 +18,7 @@ server {
     
 	location /api/v1/ {
         # rewrite ^/api/v1/(.*)$ /$1 break;
-        proxy_pass https://portal-backend.dcs.infosec.ru/api;
+        proxy_pass https://portal-backend.dcs.infosec.ru/api/;
     }
 
 }
