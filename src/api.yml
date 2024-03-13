@@ -31,6 +31,8 @@ tags:
     description: Методы для работы с комментариями
   - name: likes
     description: Методы для работы с лайками
+  - name: newsSections
+    description: Методы для получения рубрик новостей
 paths:
   /api/v1/login:
     post:
@@ -726,6 +728,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DepartmentDto'
+  /api/v1/newsSection:
+    get:
+      tags:
+        - newsSections
+      summary: Получение списка рубрик новостей
+      description: Эндпоинт для получения списка рубрик
+      operationId: getNewsSections
+      responses:
+        '200':
+          description: 'Список рубрик'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsSectionDto'
+  /api/v1/newsSection/{id}:
+    get:
+      tags:
+        - newsSection
+      summary: Получение карточки рубрики новостей
+      description: Получение всех данных рубрики
+      operationId: getNewsSectionById
+      parameters:
+        - name: id
+          description: Идентификатор рубрики
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsSectionDto'
   /api/v1/employees:
     post:
       tags:
@@ -1160,6 +1200,23 @@ components:
           description: Телефон
           type: string
           format: uuid
+    NewsSection:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        name:
+          description: Имя
+          type: string
+        parentId:
+          description: Телефон
+          type: string
+          format: uuid
     NewsDto:
       type: object
       required:
@@ -1173,6 +1230,7 @@ components:
         - updateDate
         - createUserId
         - updateUserId
+        - newsSectionId
       properties:
         id:
           description: ID
@@ -1208,6 +1266,10 @@ components:
           format: uuid
         updateUserId:
           description: ID последнего последнего пользователя, изменившего новость
+          type: string
+          format: uuid
+        newsSectionId:
+          description: ID рубрики новости
           type: string
           format: uuid
         isLikedByMe:
