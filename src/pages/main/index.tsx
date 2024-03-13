@@ -1,9 +1,8 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import {
   Box,
   Card,
@@ -18,7 +17,7 @@ import {
   styled,
 } from '@mui/material';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
-import { Comments, FlexNews, NeutralLink } from 'components/atoms/neutral-link';
+import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
 import { NewsApiFactory, NewsDto } from 'rest';
 
 const httpClient = NewsApiFactory();
@@ -144,7 +143,6 @@ const NewsItem = ({ id, title, img, date, text, isLike }: NewsDto) => {
 
 const NewsPage = () => {
   const { item, data } = useContext(RegistryDataContext);
-  console.log(item, data);
 
   return (
     item && (
