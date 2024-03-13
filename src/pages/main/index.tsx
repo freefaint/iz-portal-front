@@ -35,11 +35,6 @@ export function Main() {
     };
   }, []);
 
-  //TODO если бэк не отвечает какой то еррор или лоадинг? или зависит от ответа?
-  if (!service) {
-    return <>Error?</>;
-  }
-
   return (
     <>
       <RegistryProvider onOpenItem={(id) => navigate(`/news/${id!}`)} id={id} service={service} action={id && 'item'}>

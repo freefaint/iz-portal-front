@@ -1,82 +1,48 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios from 'axios';
-
 import { Box, Link, Typography } from '@mui/material';
-import { RegistryDataContext, RegistryProvider } from 'avrora';
-import MockAdapter from 'axios-mock-adapter';
+import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
 import { NeutralLink } from 'components/atoms/neutral-link';
+import { NoticeApiFactory, NoticeDto } from 'rest';
 
-const genNew = (id: string) => {
-  return {
-    id,
-    title: 'Уведомление',
-    date: new Date(),
-    text: `Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях, так как позволяют изданию выделиться из информационного шума. Цели исследования – выявить распространенность лонгридов в российских СМИ и содержательные и композиционные особенности этих текстов. Исследование включает мониторинг публикаций в центральных российских изданиях и последующий контент-анализ 10 материалов из 10 печатных и онлайновых изданий. Выводы исследования: лонгриды присутствуют в изданиях разных типов: от ежедневных газет − до нишевых новостных сайтов. Они посвящены, как правило, описанию нового явления; имеют объем от 2 до 4 тыс. слов и построены по композиционной схеме чередования примеров и обобщений.`,
-  };
-};
+const httpClient = NoticeApiFactory();
 
 export function Notice() {
   const { id } = useParams();
 
   const navigate = useNavigate();
 
-  const [notice, setNotice] = useState([]);
+  const service: Service<NoticeDto> = useMemo(() => {
+    return {
+      getItem: ({ id }: { id: string | number }) => httpClient.getNoticeById(id.toString()).then(({ data }) => data),
 
-  useEffect(() => {
-    const mock = new MockAdapter(axios);
-    mock.onGet('/news').reply(200, {
-      news: [
-        {
-          title: 'Уведомление',
-          date: new Date(),
-          img: 'https://icons.iconarchive.com/icons/iconsmind/outline/512/Newspaper-icon.png',
-          text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях, так как позволяют изданию выделиться из информационного шума. Цели исследования – выявить распространенность лонгридов в российских СМИ и содержательные и композиционные особенности этих текстов. Исследование включает мониторинг публикаций в центральных российских изданиях и последующий контент-анализ 10 материалов из 10 печатных и онлайновых изданий. Выводы исследования: лонгриды присутствуют в изданиях разных типов: от ежедневных газет − до нишевых новостных сайтов. Они посвящены, как правило, описанию нового явления; имеют объем от 2 до 4 тыс. слов и построены по композиционной схеме чередования примеров и обобщений.',
-        },
-        {
-          title: 'Уведомление',
-          date: new Date(),
-          img: 'https://icons.iconarchive.com/icons/iconsmind/outline/512/Newspaper-icon.png',
-          text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях, так как позволяют изданию выделиться из информационного шума. Цели исследования – выявить распространенность лонгридов в российских СМИ и содержательные и композиционные особенности этих текстов. Исследование включает мониторинг публикаций в центральных российских изданиях и последующий контент-анализ 10 материалов из 10 печатных и онлайновых изданий. Выводы исследования: лонгриды присутствуют в изданиях разных типов: от ежедневных газет − до нишевых новостных сайтов. Они посвящены, как правило, описанию нового явления; имеют объем от 2 до 4 тыс. слов и построены по композиционной схеме чередования примеров и обобщений.',
-        },
-      ],
-    });
-
-    axios
-      .get('/news')
-      .then((response) => {
-        setNotice(response.data.news);
-      })
-      .catch((error) => {
-        return error;
-      });
-  }, []);
-
-  const service = useMemo(
-    () => ({
-      getItem: ({ id }: { id: string | number }) => Promise.resolve(genNew(id.toString())),
-
-      getList: () => {
-        const data = notice;
-
-        return Promise.resolve({
-          data,
-          count: data.length,
-        });
+      getList: ({ pagination, order, ...rest }) => {
+        return httpClient
+          .searchNotices({
+            ...rest,
+            skip: pagination.skip,
+            limit: pagination.top,
+            order: order.map((i) => ({ type: i.field, desc: i.sort === 'desc' })),
+          })
+          .then((resp) => ({ count: resp.data.total, data: resp.data.items }));
       },
 
-      postItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
-      patchItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
-      removeItem: () => Promise.resolve(void 0),
-      putItem: (props: { item: ReturnType<typeof genNew> }) => Promise.resolve(props.item),
-    }),
-    [notice],
-  );
+      postItem: ({ item }) => httpClient.addNotice(item).then(({ data }) => data),
+      patchItem: ({ id, item }) => httpClient.updateNotice(id.toString(), item).then(({ data }) => data),
+      removeItem: ({ id }) => httpClient.removeNotice(id.toString()).then(({ data }) => data),
+      putItem: ({ id, item }) => httpClient.updateNotice(id.toString(), item).then(({ data }) => data),
+    };
+  }, []);
 
   return (
     <>
-      <RegistryProvider onOpenItem={(id) => navigate(`/news/${id!}`)} id={id} service={service} action={id && 'item'}>
+      <RegistryProvider
+        onOpenItem={(id) => navigate(`/notices/${id!}`)}
+        id={id}
+        service={service}
+        action={id && 'item'}
+      >
         {!id && <NewsList />}
 
         {id && <NoticePage />}
@@ -99,7 +65,7 @@ const NewsList = () => {
   );
 };
 
-const NoticeItem = ({ id, title, date, text }: ReturnType<typeof genNew>) => {
+const NoticeItem = ({ id, title, date, text }: NoticeDto) => {
   return (
     <>
       <NeutralLink to={`/news/${id}`}>
