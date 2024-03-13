@@ -49,6 +49,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/parser", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:7.0.1"],\
           ["avrora", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.0.58"],\
           ["axios", "npm:1.6.7"],\
+          ["axios-mock-adapter", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:1.22.0"],\
           ["craco-esbuild", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.5.2"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:9.1.0"],\
@@ -8233,6 +8234,30 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["axios-mock-adapter", [\
+      ["npm:1.22.0", {\
+        "packageLocation": "./.yarn/cache/axios-mock-adapter-npm-1.22.0-6261ee3125-ebed27ef2b.zip/node_modules/axios-mock-adapter/",\
+        "packageDependencies": [\
+          ["axios-mock-adapter", "npm:1.22.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:1.22.0", {\
+        "packageLocation": "./.yarn/__virtual__/axios-mock-adapter-virtual-0d2f2755c9/0/cache/axios-mock-adapter-npm-1.22.0-6261ee3125-ebed27ef2b.zip/node_modules/axios-mock-adapter/",\
+        "packageDependencies": [\
+          ["axios-mock-adapter", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:1.22.0"],\
+          ["@types/axios", null],\
+          ["axios", "npm:1.6.7"],\
+          ["fast-deep-equal", "npm:3.1.3"],\
+          ["is-buffer", "npm:2.0.5"]\
+        ],\
+        "packagePeers": [\
+          "@types/axios",\
+          "axios"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["axobject-query", [\
       ["npm:3.2.1", {\
         "packageLocation": "./.yarn/cache/axobject-query-npm-3.2.1-b147b3f32c-675af2548e.zip/node_modules/axobject-query/",\
@@ -13889,6 +13914,13 @@ const RAW_RUNTIME_STATE =
           ["is-buffer", "npm:1.1.6"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:2.0.5", {\
+        "packageLocation": "./.yarn/cache/is-buffer-npm-2.0.5-17e563f277-3261a8b858.zip/node_modules/is-buffer/",\
+        "packageDependencies": [\
+          ["is-buffer", "npm:2.0.5"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["is-callable", [\
@@ -17359,6 +17391,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/parser", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:7.0.1"],\
           ["avrora", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.0.58"],\
           ["axios", "npm:1.6.7"],\
+          ["axios-mock-adapter", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:1.22.0"],\
           ["craco-esbuild", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:0.5.2"],\
           ["eslint", "npm:8.56.0"],\
           ["eslint-config-prettier", "virtual:48f9ac5d633f1708aba65e7c87a1fb08700997bb98731ba5f01c449b91bbbb524719d9118510b5d08da478a0bec2c8686810b2860c875ce649877f8433ddfbad#npm:9.1.0"],\

@@ -51,7 +51,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/ProfileDto'
         '401':
           description: Если логин или пароль неверны
@@ -74,7 +73,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/ProfileDto'
         '401':
           description: Если мы не авторизорваны неверны
@@ -109,7 +107,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NoticeListDto'
     put:
       tags:
@@ -130,7 +127,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NoticeDto'
   /api/v1/notice/{id}:
     get:
@@ -153,7 +149,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NoticeDto'
     put:
       tags:
@@ -182,7 +177,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NoticeDto'
     delete:
       tags:
@@ -224,7 +218,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/LikesListDto'
     get:
       tags:
@@ -247,7 +240,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/LikesListDto'
   /api/v1/notice/{id}/comments:
     put:
@@ -277,7 +269,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentDto'
     post:
       tags:
@@ -306,7 +297,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentsListDto'
   /api/v1/notice/{nid}/comments/{cid}:
     put:
@@ -343,7 +333,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentDto'
     get:
       tags:
@@ -379,7 +368,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentsListDto'
     delete:
       tags:
@@ -425,7 +413,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NewsListDto'
     put:
       tags:
@@ -446,7 +433,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NewsDto'
   /api/v1/news/{id}:
     get:
@@ -454,7 +440,7 @@ paths:
         - news
       summary: Получение карточки новости
       description: Получение всех данных новости
-      operationId: createNews
+      operationId: getNewsById
       parameters:
         - name: id
           description: Идентификатор новости
@@ -469,7 +455,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NewsDto'
     put:
       tags:
@@ -498,7 +483,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/NewsDto'
     delete:
       tags:
@@ -540,7 +524,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/LikesListDto'
     get:
       tags:
@@ -563,7 +546,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/LikesListDto'
   /api/v1/news/{id}/comments:
     put:
@@ -593,7 +575,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentDto'
     post:
       tags:
@@ -622,7 +603,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentsListDto'
   /api/v1/news/{nid}/comments/{cid}:
     put:
@@ -659,7 +639,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentDto'
     get:
       tags:
@@ -695,7 +674,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/CommentsListDto'
     delete:
       tags:
@@ -737,7 +715,6 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
                   $ref: '#/components/schemas/DepartmentDto'
   /api/v1/departments/{id}:
     get:
@@ -760,7 +737,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/DepartmentDto'
   /api/v1/employees:
     post:
@@ -781,7 +757,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/EmployeesListDto'
   /api/v1/employees/{id}:
     get:
@@ -804,7 +779,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/EmployeeDto'
   /api/v1/pictures/{id}:
     get:
@@ -1074,7 +1048,6 @@ components:
         order:
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/Order'
         skip:
           description: Начать с номера элемента
@@ -1085,7 +1058,6 @@ components:
         filters:
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/Filter'
     EmployeeDto:
       type: object
@@ -1273,7 +1245,6 @@ components:
           description: Список элементов
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/NewsDto'
     NoticeDto:
       type: object
@@ -1361,7 +1332,6 @@ components:
           description: Список элементов
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/CommentDto'
     LikesListDto:
       type: object
@@ -1376,7 +1346,6 @@ components:
           description: Список элементов
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/LikeDto'
     NoticeListDto:
       type: object
@@ -1391,7 +1360,6 @@ components:
           description: Список элементов
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/NoticeDto'
     EmployeesListDto:
       type: object
@@ -1406,5 +1374,4 @@ components:
           description: Список элементов
           type: array
           items:
-            type: object
             $ref: '#/components/schemas/EmployeeDto'

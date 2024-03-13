@@ -4,10 +4,10 @@
   "generator-cli": {
     "version": "6.0.1",
     "generators": {
-      "v1.0": {
+      "v3.0.3": {
         "generatorName": "typescript-axios",
         "output": "./src/rest",
-        "skipValidateSpec": true,
+        "skipValidateSpec": false,
         "inputSpec": "./src/api.yml",
         "additionalProperties": {
           "supportsES6": true,
