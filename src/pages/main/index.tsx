@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -57,10 +57,8 @@ export function Main() {
     <>
       <RegistryProvider onOpenItem={(id) => navigate(`/news/${id!}`)} id={id} service={service} action={id && 'item'}>
         {!id && <NewsList />}
-
-        <Pagination />
-
-        {id && <NewsPage />}
+        {id && <NewsPage ids={id} />}
+        {!id && <Pagination />}
       </RegistryProvider>
     </>
   );
@@ -141,20 +139,57 @@ const NewsItem = ({ id, title, img, date, text, isLike }: NewsDto) => {
   );
 };
 
-const NewsPage = () => {
-  const { item } = useContext(RegistryDataContext);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const NewsPage = (ids: any) => {
+  //TODO переключить на mock axios
+  const { data } = useContext(RegistryDataContext);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [item, setItem] = useState<any>(null);
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    setItem(data.filter((i) => i.id.toString() === ids.ids)[0]);
+  }, [data, ids.ids]);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [like, setLike] = useState<boolean>(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleLiked = () => {
+    setLike(!like);
+  };
 
   return (
     item && (
       <>
-        <FlexNews>
-          <Typography variant="h4">{item.title}</Typography>
-          <img src={item.img} alt="news" style={{ width: '15px', height: '15px' }} />
+        <FlexNews isLike={item.like} style={{ width: '100%' }}>
+          <Card sx={{ minWidth: '100%', minHeight: '100%' }}>
+            <CardMedia component="img" height="400px" image={item.img} alt="Paella dish" />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {item.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(item.date).toLocaleString()}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites" onClick={handleLiked}>
+                <FavoriteIcon className="icon-like" />
+              </IconButton>
+              <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
+                <ExpandMoreIcon />
+              </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>{item.text}</Typography>
+              </CardContent>
+            </Collapse>
+          </Card>
         </FlexNews>
-
-        <Box style={{ margin: '1rem 0' }}>{item.text}</Box>
-
-        {new Date(item.date).toLocaleString()}
       </>
     )
   );

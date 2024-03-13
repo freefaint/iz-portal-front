@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -16,7 +16,7 @@ import {
   styled,
 } from '@mui/material';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
-import { Notices, NeutralLink } from 'components/atoms/neutral-link';
+import { Notices, NeutralLink, FlexNews } from 'components/atoms/neutral-link';
 import { NoticeApiFactory, NoticeDto } from 'rest';
 
 const httpClient = NoticeApiFactory();
@@ -57,9 +57,8 @@ export function Notice() {
       <RegistryProvider onOpenItem={(id) => navigate(`/notice/${id!}`)} id={id} service={service} action={id && 'item'}>
         {!id && <NoticeList />}
 
-        <Pagination />
-
-        {id && <NoticePage />}
+        {id && <NoticePage ids={id} />}
+        {!id && <Pagination />}
       </RegistryProvider>
     </>
   );
@@ -110,7 +109,7 @@ const NoticeItem = ({ id, title, date, text, isLike }: NoticeDto) => {
     <>
       <Notices isLike={like}>
         <Card sx={{ minWidth: '100%' }}>
-          <NeutralLink to={`/news/${id}`}>
+          <NeutralLink to={`/notice/${id}`}>
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {title}
@@ -139,20 +138,55 @@ const NoticeItem = ({ id, title, date, text, isLike }: NoticeDto) => {
   );
 };
 
-const NoticePage = () => {
-  const { item } = useContext(RegistryDataContext);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const NoticePage = (ids: any) => {
+  const { data } = useContext(RegistryDataContext);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [item, setItem] = useState<any>(null);
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    setItem(data.filter((i) => i.id.toString() === ids.ids)[0]);
+  }, [data, ids.ids]);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [like, setLike] = useState<boolean>(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleLiked = () => {
+    setLike(!like);
+  };
 
   return (
     item && (
       <>
-        <Notices>
-          <Typography variant="h4">{item.title}</Typography>
-          <img src={item.img} alt="news" style={{ width: '15px', height: '15px' }} />
-        </Notices>
-
-        <Box style={{ margin: '1rem 0' }}>{item.text}</Box>
-
-        {new Date(item.date).toLocaleString()}
+        <FlexNews isLike={item.like} style={{ width: '100%' }}>
+          <Card sx={{ minWidth: '100%', minHeight: '100%' }}>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {item.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(item.date).toLocaleString()}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites" onClick={handleLiked}>
+                <FavoriteIcon className="icon-like" />
+              </IconButton>
+              <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
+                <ExpandMoreIcon />
+              </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>{item.text}</Typography>
+              </CardContent>
+            </Collapse>
+          </Card>
+        </FlexNews>
       </>
     )
   );
