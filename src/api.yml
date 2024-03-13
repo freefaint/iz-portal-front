@@ -747,7 +747,7 @@ paths:
   /api/v1/newsSection/{id}:
     get:
       tags:
-        - newsSection
+        - newsSections
       summary: Получение карточки рубрики новостей
       description: Получение всех данных рубрики
       operationId: getNewsSectionById
