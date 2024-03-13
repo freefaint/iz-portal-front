@@ -142,7 +142,7 @@ const NewsItem = ({ id, title, img, date, text, isLike }: NewsDto) => {
 };
 
 const NewsPage = () => {
-  const { item, data } = useContext(RegistryDataContext);
+  const { item } = useContext(RegistryDataContext);
 
   return (
     item && (
