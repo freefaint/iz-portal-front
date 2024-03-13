@@ -5,11 +5,12 @@ import { factory, mock } from './';
 export const genNews = (id: string): NewsDto => {
   return {
     id,
-    short: 'Вышел новый подкаст',
+    announce: 'Вышел новый подкаст',
     createDate: new Date().toISOString(),
     updateDate: new Date().toISOString(),
     createUserId: '',
     updateUserId: '',
+    newsSectionId: '',
     title: 'Новость',
     date: new Date().toISOString(),
     img: 'https://icons.iconarchive.com/icons/iconsmind/outline/512/Newspaper-icon.png',

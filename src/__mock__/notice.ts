@@ -5,7 +5,7 @@ import { factory, mock } from './';
 export const genNotice = (id: string): NoticeDto => {
   return {
     id,
-    short: 'lol',
+    announce: 'lol',
     createDate: new Date().toISOString(),
     updateDate: new Date().toISOString(),
     createUserId: '',
