@@ -356,19 +356,13 @@ paths:
           schema:
             type: string
             format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestBody'
       responses:
         '200':
           description: 'Список комментариев'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommentsListDto'
+                $ref: '#/components/schemas/CommentDto'
     delete:
       tags:
         - notice
@@ -580,8 +574,8 @@ paths:
       tags:
         - news
         - comments
-      summary: Получение списка лайков
-      description: Эндпоинт для получения лайков новости с параметрами поиска
+      summary: Получение списка комментариев
+      description: Эндпоинт для получения комментариев новости с параметрами поиска
       operationId: getNewsComments
       parameters:
         - name: id
@@ -662,19 +656,13 @@ paths:
           schema:
             type: string
             format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestBody'
       responses:
         '200':
           description: 'Список комментариев'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommentsListDto'
+                $ref: '#/components/schemas/CommentDto'
     delete:
       tags:
         - news
@@ -1064,6 +1052,7 @@ components:
       required:
         - id
         - name
+        - lastName
         - phone
         - email
       properties:
@@ -1071,10 +1060,19 @@ components:
           description: ID
           type: string
           format: uuid
-        name:
+        firstName:
           description: Имя
           type: string
-        phone:
+        lastName:
+          description: Фамилия
+          type: string
+        surName:
+          description: Фамилия
+          type: string
+        mobilePhone:
+          description: Телефон
+          type: string
+        workPhone:
           description: Телефон
           type: string
         email:
@@ -1126,6 +1124,17 @@ components:
           description: ID пользователя, оставившего комментарий
           type: string
           format: uuid
+        removed:
+          description: Комментарий удален
+          type: boolean
+        editDate:
+          description: Дата последнего исправления комментария
+          type: string
+          format: date
+        parentId:
+          description: ID комментария, в ветке которого создан этот комментарий
+          type: string
+          format: uuid
     CommentDraftDto:
       type: object
       required:
@@ -1156,7 +1165,7 @@ components:
       required:
         - id
         - title
-        - short
+        - announce
         - text
         - img
         - date
@@ -1172,7 +1181,7 @@ components:
         title:
           description: Заголовок
           type: string
-        short:
+        announce:
           description: Заголовок
           type: string
         text:
@@ -1185,12 +1194,6 @@ components:
           description: Дата новости
           type: string
           format: date
-        likesCount:
-          description: Количество лайков
-          type: number
-        сommentsCount:
-          description: Количество комментариев
-          type: number
         createDate:
           description: Дата создания новости
           type: string
@@ -1207,11 +1210,26 @@ components:
           description: ID последнего последнего пользователя, изменившего новость
           type: string
           format: uuid
+        isLikedByMe:
+          description: Лайкнул ли я новость
+          type: boolean
+        likesCount:
+          description: Количество лайков
+          type: number
+        isViewedByMe:
+          description: Просмотрел ли я новость
+          type: boolean
+        viewsCount:
+          description: Количество просмотров
+          type: number
+        сommentsCount:
+          description: Количество комментариев
+          type: number
     NewsDraftDto:
       type: object
       required:
         - title
-        - short
+        - announce
         - text
         - img
         - date
@@ -1219,7 +1237,7 @@ components:
         title:
           description: Заголовок
           type: string
-        short:
+        announce:
           description: Заголовок
           type: string
         text:
@@ -1251,7 +1269,7 @@ components:
       required:
         - id
         - title
-        - short
+        - announce
         - text
         - date
         - createDate
@@ -1266,7 +1284,7 @@ components:
         title:
           description: Заголовок
           type: string
-        short:
+        announce:
           description: Заголовок
           type: string
         text:
@@ -1276,12 +1294,6 @@ components:
           description: Дата новости
           type: string
           format: date
-        likesCount:
-          description: Количество лайков
-          type: number
-        сommentsCount:
-          description: Количество комментариев
-          type: number
         createDate:
           description: Дата создания новости
           type: string
@@ -1298,18 +1310,33 @@ components:
           description: ID последнего последнего пользователя, изменившего новость
           type: string
           format: uuid
+        isLikedByMe:
+          description: Лайкнул ли я новость
+          type: boolean
+        likesCount:
+          description: Количество лайков
+          type: number
+        isViewedByMe:
+          description: Просмотрел ли я новость
+          type: boolean
+        viewsCount:
+          description: Количество просмотров
+          type: number
+        сommentsCount:
+          description: Количество комментариев
+          type: number
     NoticeDraftDto:
       type: object
       required:
         - title
-        - short
+        - announce
         - text
         - date
       properties:
         title:
           description: Заголовок
           type: string
-        short:
+        announce:
           description: Заголовок
           type: string
         text:
