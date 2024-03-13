@@ -1200,7 +1200,7 @@ components:
           description: Телефон
           type: string
           format: uuid
-    NewsSection:
+    NewsSectionDto:
       type: object
       required:
         - id

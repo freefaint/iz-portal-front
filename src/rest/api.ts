@@ -455,25 +455,25 @@ export interface NewsListDto {
 /**
  *
  * @export
- * @interface NewsSection
+ * @interface NewsSectionDto
  */
-export interface NewsSection {
+export interface NewsSectionDto {
   /**
    * ID
    * @type {string}
-   * @memberof NewsSection
+   * @memberof NewsSectionDto
    */
   id: string;
   /**
    * Имя
    * @type {string}
-   * @memberof NewsSection
+   * @memberof NewsSectionDto
    */
   name: string;
   /**
    * Телефон
    * @type {string}
-   * @memberof NewsSection
+   * @memberof NewsSectionDto
    */
   parentId?: string;
 }
