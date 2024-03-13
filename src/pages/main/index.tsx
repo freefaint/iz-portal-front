@@ -2,11 +2,10 @@ import { useContext, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Box, Link, Pagination, Typography } from '@mui/material';
+import { newsHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
 import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
-import { NewsApiFactory, NewsDto } from 'rest';
-
-const httpClient = NewsApiFactory();
+import { NewsDto } from 'rest';
 
 export function Main() {
   const { id } = useParams();
