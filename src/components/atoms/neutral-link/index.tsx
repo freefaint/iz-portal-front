@@ -11,6 +11,6 @@ export const FlexNews = styled.div`
   display: flex;
   align-items: center;
   img {
-    margin-left: 10px;
+    margin-left: 0.625rem;
   }
 `;

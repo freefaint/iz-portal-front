@@ -4,8 +4,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Link, Pagination, Typography } from '@mui/material';
 import { newsHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
+import { TinyImg } from 'components/atoms/icons';
 import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
 import { NewsDto } from 'rest';
+
+import * as Styled from './styled';
 
 export function Main() {
   const { id } = useParams();
@@ -54,9 +57,7 @@ const NewsList = () => {
     <>
       <Typography variant="h4">Новости</Typography>
 
-      <Box style={{ gap: '1rem', margin: '1rem 0', display: 'flex', flexDirection: 'column' }}>
-        {data?.map((i) => <NewsItem key={i.id} {...i} />)}
-      </Box>
+      <Styled.GapMarginBox>{data?.map((i) => <NewsItem key={i.id} {...i} />)}</Styled.GapMarginBox>
     </>
   );
 };
@@ -70,7 +71,8 @@ const NewsItem = ({ id, title, img, date, text }: NewsDto) => {
             <Typography variant="h6">{title}</Typography>
           </Link>
         </NeutralLink>
-        <img src={img} alt="news" style={{ width: '15px', height: '15px' }} />
+
+        <TinyImg src={img} alt="news" />
       </FlexNews>
 
       <Box style={{ margin: '0rem 0' }}>{text}</Box>
@@ -88,10 +90,10 @@ const NewsPage = () => {
       <>
         <FlexNews>
           <Typography variant="h4">{item.title}</Typography>
-          <img src={item.img} alt="news" style={{ width: '15px', height: '15px' }} />
+          <TinyImg src={item.img} alt="news" />
         </FlexNews>
 
-        <Box style={{ margin: '1rem 0' }}>{item.text}</Box>
+        <Styled.MarginBox>{item.text}</Styled.MarginBox>
 
         {new Date(item.date).toLocaleString()}
       </>

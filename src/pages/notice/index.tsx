@@ -2,11 +2,12 @@ import { useContext, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Box, Link, Typography } from '@mui/material';
+import { noticeHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
 import { NeutralLink } from 'components/atoms/neutral-link';
-import { NoticeApiFactory, NoticeDto } from 'rest';
+import { NoticeDto } from 'rest';
 
-const httpClient = NoticeApiFactory();
+import * as Styled from './styled';
 
 export function Notice() {
   const { id } = useParams();
@@ -58,9 +59,7 @@ const NewsList = () => {
     <>
       <Typography variant="h4">Уведомления</Typography>
 
-      <Box style={{ gap: '1rem', margin: '1rem 0', display: 'flex', flexDirection: 'column' }}>
-        {data?.map((i) => <NoticeItem key={i.id} {...i} />)}
-      </Box>
+      <Styled.GapMarginBox>{data?.map((i) => <NoticeItem key={i.id} {...i} />)}</Styled.GapMarginBox>
     </>
   );
 };
@@ -74,7 +73,7 @@ const NoticeItem = ({ id, title, date, text }: NoticeDto) => {
         </Link>
       </NeutralLink>
 
-      <Box style={{ margin: '0rem 0' }}>{text}</Box>
+      <Box>{text}</Box>
 
       {new Date(date).toLocaleString()}
     </>
@@ -89,7 +88,7 @@ const NoticePage = () => {
       <>
         <Typography variant="h4">{item.title}</Typography>
 
-        <Box style={{ margin: '1rem 0' }}>{item.text}</Box>
+        <Styled.MarginBox>{item.text}</Styled.MarginBox>
 
         {new Date(item.date).toLocaleString()}
       </>
