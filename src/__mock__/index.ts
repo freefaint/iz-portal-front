@@ -6,3 +6,4 @@ import MockAdapter from 'axios-mock-adapter';
 export const mock = new MockAdapter(axios, { onNoMatch: 'passthrough' });
 require('./news');
 require('./notice');
+require('./news-id');
