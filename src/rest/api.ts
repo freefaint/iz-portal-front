@@ -372,6 +372,7 @@ export interface NewsDto {
    * @memberof NewsDto
    */
   updateUserId: string;
+  isLike: boolean;
 }
 /**
  *
@@ -495,6 +496,7 @@ export interface NoticeDto {
    * @memberof NoticeDto
    */
   updateUserId: string;
+  isLike: boolean;
 }
 /**
  *

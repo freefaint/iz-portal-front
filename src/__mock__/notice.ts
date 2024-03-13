@@ -15,7 +15,7 @@ export const genNew = (id: string) => {
   };
 };
 
-mock.onPost(/\/api\/v1\/news/).reply(200, {
+mock.onPost(/\/api\/v1\/notice/).reply(200, {
   total: 2,
 
   items: [
@@ -24,7 +24,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Вышел новый подкаст',
       date: new Date(),
       isLike: true,
-      img: 'https://www.calltouch.ru/blog/wp-content/uploads/2023/03/image5-18-1024x576.png',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
     {
@@ -32,7 +31,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Добавлена новая новость',
       date: new Date(),
       isLike: true,
-      img: 'https://img.freepik.com/free-photo/a-painting-of-a-mountain-lake-with-a-mountain-in-the-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1710201600&semt=ais',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
     {
@@ -40,7 +38,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Произошло нечто интересное',
       date: new Date(),
       isLike: false,
-      img: 'https://img.freepik.com/free-photo/a-painting-of-a-mountain-lake-with-a-mountain-in-the-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1710201600&semt=ais',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
     {
@@ -48,7 +45,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Новость Новость Новость',
       date: new Date(),
       isLike: false,
-      img: 'https://img.freepik.com/free-photo/a-painting-of-a-mountain-lake-with-a-mountain-in-the-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1710201600&semt=ais',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
     {
@@ -56,7 +52,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Новость Новость Новость',
       date: new Date(),
       isLike: true,
-      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/YouTube_social_white_square_%282017%29.svg/800px-YouTube_social_white_square_%282017%29.svg.png',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
     {
@@ -64,7 +59,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Новость Новость Новость',
       date: new Date(),
       isLike: true,
-      img: 'https://img.freepik.com/free-photo/a-painting-of-a-mountain-lake-with-a-mountain-in-the-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1710201600&semt=ais',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
     {
@@ -72,7 +66,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Новость Новость Новость',
       date: new Date(),
       isLike: true,
-      img: 'https://img.freepik.com/free-photo/a-painting-of-a-mountain-lake-with-a-mountain-in-the-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1710201600&semt=ais',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
     {
@@ -80,7 +73,6 @@ mock.onPost(/\/api\/v1\/news/).reply(200, {
       title: 'Новость Новость Новость',
       date: new Date(),
       isLike: false,
-      img: 'https://img.freepik.com/free-photo/a-painting-of-a-mountain-lake-with-a-mountain-in-the-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1710201600&semt=ais',
       text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
     },
   ],
