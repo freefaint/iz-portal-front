@@ -75,7 +75,7 @@ const NewsItem = ({ id, title, img, date, text }: NewsDto) => {
         <TinyImg src={img} alt="news" />
       </FlexNews>
 
-      <Box style={{ margin: '0rem 0' }}>{text}</Box>
+      <Box>{text}</Box>
 
       {new Date(date).toLocaleString()}
     </>
