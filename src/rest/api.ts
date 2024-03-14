@@ -5339,10 +5339,10 @@ export class NewsApi extends BaseAPI {
 }
 
 /**
- * NewsSectionApi - axios parameter creator
+ * NewsSectionsApi - axios parameter creator
  * @export
  */
-export const NewsSectionApiAxiosParamCreator = function (configuration?: Configuration) {
+export const NewsSectionsApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      * Получение всех данных рубрики
@@ -5375,99 +5375,6 @@ export const NewsSectionApiAxiosParamCreator = function (configuration?: Configu
         options: localVarRequestOptions,
       };
     },
-  };
-};
-
-/**
- * NewsSectionApi - functional programming interface
- * @export
- */
-export const NewsSectionApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = NewsSectionApiAxiosParamCreator(configuration);
-  return {
-    /**
-     * Получение всех данных рубрики
-     * @summary Получение карточки рубрики новостей
-     * @param {string} id Идентификатор рубрики
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getNewsSectionById(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsSectionDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsSectionById(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-  };
-};
-
-/**
- * NewsSectionApi - factory interface
- * @export
- */
-export const NewsSectionApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance,
-) {
-  const localVarFp = NewsSectionApiFp(configuration);
-  return {
-    /**
-     * Получение всех данных рубрики
-     * @summary Получение карточки рубрики новостей
-     * @param {string} id Идентификатор рубрики
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNewsSectionById(id: string, options?: any): AxiosPromise<NewsSectionDto> {
-      return localVarFp.getNewsSectionById(id, options).then((request) => request(axios, basePath));
-    },
-  };
-};
-
-/**
- * Request parameters for getNewsSectionById operation in NewsSectionApi.
- * @export
- * @interface NewsSectionApiGetNewsSectionByIdRequest
- */
-export interface NewsSectionApiGetNewsSectionByIdRequest {
-  /**
-   * Идентификатор рубрики
-   * @type {string}
-   * @memberof NewsSectionApiGetNewsSectionById
-   */
-  readonly id: string;
-}
-
-/**
- * NewsSectionApi - object-oriented interface
- * @export
- * @class NewsSectionApi
- * @extends {BaseAPI}
- */
-export class NewsSectionApi extends BaseAPI {
-  /**
-   * Получение всех данных рубрики
-   * @summary Получение карточки рубрики новостей
-   * @param {NewsSectionApiGetNewsSectionByIdRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NewsSectionApi
-   */
-  public getNewsSectionById(requestParameters: NewsSectionApiGetNewsSectionByIdRequest, options?: AxiosRequestConfig) {
-    return NewsSectionApiFp(this.configuration)
-      .getNewsSectionById(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-}
-
-/**
- * NewsSectionsApi - axios parameter creator
- * @export
- */
-export const NewsSectionsApiAxiosParamCreator = function (configuration?: Configuration) {
-  return {
     /**
      * Эндпоинт для получения списка рубрик
      * @summary Получение списка рубрик новостей
@@ -5507,6 +5414,20 @@ export const NewsSectionsApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = NewsSectionsApiAxiosParamCreator(configuration);
   return {
     /**
+     * Получение всех данных рубрики
+     * @summary Получение карточки рубрики новостей
+     * @param {string} id Идентификатор рубрики
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getNewsSectionById(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsSectionDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsSectionById(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
      * Эндпоинт для получения списка рубрик
      * @summary Получение списка рубрик новостей
      * @param {*} [options] Override http request option.
@@ -5533,6 +5454,16 @@ export const NewsSectionsApiFactory = function (
   const localVarFp = NewsSectionsApiFp(configuration);
   return {
     /**
+     * Получение всех данных рубрики
+     * @summary Получение карточки рубрики новостей
+     * @param {string} id Идентификатор рубрики
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsSectionById(id: string, options?: any): AxiosPromise<NewsSectionDto> {
+      return localVarFp.getNewsSectionById(id, options).then((request) => request(axios, basePath));
+    },
+    /**
      * Эндпоинт для получения списка рубрик
      * @summary Получение списка рубрик новостей
      * @param {*} [options] Override http request option.
@@ -5545,12 +5476,40 @@ export const NewsSectionsApiFactory = function (
 };
 
 /**
+ * Request parameters for getNewsSectionById operation in NewsSectionsApi.
+ * @export
+ * @interface NewsSectionsApiGetNewsSectionByIdRequest
+ */
+export interface NewsSectionsApiGetNewsSectionByIdRequest {
+  /**
+   * Идентификатор рубрики
+   * @type {string}
+   * @memberof NewsSectionsApiGetNewsSectionById
+   */
+  readonly id: string;
+}
+
+/**
  * NewsSectionsApi - object-oriented interface
  * @export
  * @class NewsSectionsApi
  * @extends {BaseAPI}
  */
 export class NewsSectionsApi extends BaseAPI {
+  /**
+   * Получение всех данных рубрики
+   * @summary Получение карточки рубрики новостей
+   * @param {NewsSectionsApiGetNewsSectionByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NewsSectionsApi
+   */
+  public getNewsSectionById(requestParameters: NewsSectionsApiGetNewsSectionByIdRequest, options?: AxiosRequestConfig) {
+    return NewsSectionsApiFp(this.configuration)
+      .getNewsSectionById(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
   /**
    * Эндпоинт для получения списка рубрик
    * @summary Получение списка рубрик новостей
