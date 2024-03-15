@@ -16,11 +16,10 @@ import {
   Typography,
   styled,
 } from '@mui/material';
+import { newsHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
 import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
-import { NewsApiFactory, NewsDto } from 'rest';
-
-const httpClient = NewsApiFactory();
+import { NewsDto } from 'rest';
 
 export function Main() {
   const { id } = useParams();
@@ -48,10 +47,6 @@ export function Main() {
       putItem: ({ id, item }) => httpClient.updateNews(id.toString(), item).then(({ data }) => data),
     };
   }, []);
-  //TODO если бэк не отвечает какой то еррор или лоадинг? или зависит от ответа?
-  if (!service) {
-    return <>Error?</>;
-  }
 
   return (
     <>

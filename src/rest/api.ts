@@ -74,6 +74,24 @@ export interface CommentDto {
    * @memberof CommentDto
    */
   author: string;
+  /**
+   * Комментарий удален
+   * @type {boolean}
+   * @memberof CommentDto
+   */
+  removed?: boolean;
+  /**
+   * Дата последнего исправления комментария
+   * @type {string}
+   * @memberof CommentDto
+   */
+  editDate?: string;
+  /**
+   * ID комментария, в ветке которого создан этот комментарий
+   * @type {string}
+   * @memberof CommentDto
+   */
+  parentId?: string;
 }
 /**
  *
@@ -136,13 +154,31 @@ export interface EmployeeDto {
    * @type {string}
    * @memberof EmployeeDto
    */
-  name: string;
+  firstName?: string;
+  /**
+   * Фамилия
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  lastName: string;
+  /**
+   * Фамилия
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  surName?: string;
   /**
    * Телефон
    * @type {string}
    * @memberof EmployeeDto
    */
-  phone: string;
+  mobilePhone?: string;
+  /**
+   * Телефон
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  workPhone?: string;
   /**
    * Email
    * @type {string}
@@ -274,7 +310,7 @@ export interface NewsDraftDto {
    * @type {string}
    * @memberof NewsDraftDto
    */
-  short: string;
+  announce: string;
   /**
    * Текст
    * @type {string}
@@ -317,7 +353,7 @@ export interface NewsDto {
    * @type {string}
    * @memberof NewsDto
    */
-  short: string;
+  announce: string;
   /**
    * Текст
    * @type {string}
@@ -336,18 +372,6 @@ export interface NewsDto {
    * @memberof NewsDto
    */
   date: string;
-  /**
-   * Количество лайков
-   * @type {number}
-   * @memberof NewsDto
-   */
-  likesCount?: number;
-  /**
-   * Количество комментариев
-   * @type {number}
-   * @memberof NewsDto
-   */
-  сommentsCount?: number;
   /**
    * Дата создания новости
    * @type {string}
@@ -372,7 +396,42 @@ export interface NewsDto {
    * @memberof NewsDto
    */
   updateUserId: string;
-  isLike: boolean;
+  /**
+   * ID рубрики новости
+   * @type {string}
+   * @memberof NewsDto
+   */
+  newsSectionId: string;
+  /**
+   * Лайкнул ли я новость
+   * @type {boolean}
+   * @memberof NewsDto
+   */
+  isLikedByMe?: boolean;
+  /**
+   * Количество лайков
+   * @type {number}
+   * @memberof NewsDto
+   */
+  likesCount?: number;
+  /**
+   * Просмотрел ли я новость
+   * @type {boolean}
+   * @memberof NewsDto
+   */
+  isViewedByMe?: boolean;
+  /**
+   * Количество просмотров
+   * @type {number}
+   * @memberof NewsDto
+   */
+  viewsCount?: number;
+  /**
+   * Количество комментариев
+   * @type {number}
+   * @memberof NewsDto
+   */
+  сommentsCount?: number;
 }
 /**
  *
@@ -396,6 +455,31 @@ export interface NewsListDto {
 /**
  *
  * @export
+ * @interface NewsSectionDto
+ */
+export interface NewsSectionDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof NewsSectionDto
+   */
+  id: string;
+  /**
+   * Имя
+   * @type {string}
+   * @memberof NewsSectionDto
+   */
+  name: string;
+  /**
+   * Телефон
+   * @type {string}
+   * @memberof NewsSectionDto
+   */
+  parentId?: string;
+}
+/**
+ *
+ * @export
  * @interface NoticeDraftDto
  */
 export interface NoticeDraftDto {
@@ -410,7 +494,7 @@ export interface NoticeDraftDto {
    * @type {string}
    * @memberof NoticeDraftDto
    */
-  short: string;
+  announce: string;
   /**
    * Текст
    * @type {string}
@@ -447,7 +531,7 @@ export interface NoticeDto {
    * @type {string}
    * @memberof NoticeDto
    */
-  short: string;
+  announce: string;
   /**
    * Текст
    * @type {string}
@@ -460,18 +544,6 @@ export interface NoticeDto {
    * @memberof NoticeDto
    */
   date: string;
-  /**
-   * Количество лайков
-   * @type {number}
-   * @memberof NoticeDto
-   */
-  likesCount?: number;
-  /**
-   * Количество комментариев
-   * @type {number}
-   * @memberof NoticeDto
-   */
-  сommentsCount?: number;
   /**
    * Дата создания новости
    * @type {string}
@@ -496,7 +568,36 @@ export interface NoticeDto {
    * @memberof NoticeDto
    */
   updateUserId: string;
-  isLike: boolean;
+  /**
+   * Лайкнул ли я новость
+   * @type {boolean}
+   * @memberof NoticeDto
+   */
+  isLikedByMe?: boolean;
+  /**
+   * Количество лайков
+   * @type {number}
+   * @memberof NoticeDto
+   */
+  likesCount?: number;
+  /**
+   * Просмотрел ли я новость
+   * @type {boolean}
+   * @memberof NoticeDto
+   */
+  isViewedByMe?: boolean;
+  /**
+   * Количество просмотров
+   * @type {number}
+   * @memberof NoticeDto
+   */
+  viewsCount?: number;
+  /**
+   * Количество комментариев
+   * @type {number}
+   * @memberof NoticeDto
+   */
+  сommentsCount?: number;
 }
 /**
  *
@@ -1651,22 +1752,14 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
      * @summary Получение комментария
      * @param {string} nid Идентификатор новости
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNewsComment: async (
-      nid: string,
-      cid: string,
-      requestBody: RequestBody,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    getNewsComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'nid' is not null or undefined
       assertParamExists('getNewsComment', 'nid', nid);
       // verify required parameter 'cid' is not null or undefined
       assertParamExists('getNewsComment', 'cid', cid);
-      // verify required parameter 'requestBody' is not null or undefined
-      assertParamExists('getNewsComment', 'requestBody', requestBody);
       const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
         .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
         .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
@@ -1681,12 +1774,9 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1694,8 +1784,8 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       };
     },
     /**
-     * Эндпоинт для получения лайков новости с параметрами поиска
-     * @summary Получение списка лайков
+     * Эндпоинт для получения комментариев новости с параметрами поиска
+     * @summary Получение списка комментариев
      * @param {string} id Идентификатор новости
      * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
@@ -1739,22 +1829,14 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
      * @summary Получение комментария
      * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNoticeComment: async (
-      nid: string,
-      cid: string,
-      requestBody: RequestBody,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    getNoticeComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'nid' is not null or undefined
       assertParamExists('getNoticeComment', 'nid', nid);
       // verify required parameter 'cid' is not null or undefined
       assertParamExists('getNoticeComment', 'cid', cid);
-      // verify required parameter 'requestBody' is not null or undefined
-      assertParamExists('getNoticeComment', 'requestBody', requestBody);
       const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
         .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
         .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
@@ -1769,12 +1851,9 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1977,22 +2056,20 @@ export const CommentsApiFp = function (configuration?: Configuration) {
      * @summary Получение комментария
      * @param {string} nid Идентификатор новости
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getNewsComment(
       nid: string,
       cid: string,
-      requestBody: RequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsComment(nid, cid, requestBody, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для получения лайков новости с параметрами поиска
-     * @summary Получение списка лайков
+     * Эндпоинт для получения комментариев новости с параметрами поиска
+     * @summary Получение списка комментариев
      * @param {string} id Идентификатор новости
      * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
@@ -2011,17 +2088,15 @@ export const CommentsApiFp = function (configuration?: Configuration) {
      * @summary Получение комментария
      * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getNoticeComment(
       nid: string,
       cid: string,
-      requestBody: RequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeComment(nid, cid, requestBody, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -2145,16 +2220,15 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
      * @summary Получение комментария
      * @param {string} nid Идентификатор новости
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNewsComment(nid: string, cid: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
-      return localVarFp.getNewsComment(nid, cid, requestBody, options).then((request) => request(axios, basePath));
+    getNewsComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.getNewsComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
-     * Эндпоинт для получения лайков новости с параметрами поиска
-     * @summary Получение списка лайков
+     * Эндпоинт для получения комментариев новости с параметрами поиска
+     * @summary Получение списка комментариев
      * @param {string} id Идентификатор новости
      * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
@@ -2168,12 +2242,11 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
      * @summary Получение комментария
      * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNoticeComment(nid: string, cid: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
-      return localVarFp.getNoticeComment(nid, cid, requestBody, options).then((request) => request(axios, basePath));
+    getNoticeComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.getNoticeComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка комментариев объявления с параметрами поиска
@@ -2328,13 +2401,6 @@ export interface CommentsApiGetNewsCommentRequest {
    * @memberof CommentsApiGetNewsComment
    */
   readonly cid: string;
-
-  /**
-   *
-   * @type {RequestBody}
-   * @memberof CommentsApiGetNewsComment
-   */
-  readonly requestBody: RequestBody;
 }
 
 /**
@@ -2377,13 +2443,6 @@ export interface CommentsApiGetNoticeCommentRequest {
    * @memberof CommentsApiGetNoticeComment
    */
   readonly cid: string;
-
-  /**
-   *
-   * @type {RequestBody}
-   * @memberof CommentsApiGetNoticeComment
-   */
-  readonly requestBody: RequestBody;
 }
 
 /**
@@ -2522,13 +2581,13 @@ export class CommentsApi extends BaseAPI {
    */
   public getNewsComment(requestParameters: CommentsApiGetNewsCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .getNewsComment(requestParameters.nid, requestParameters.cid, requestParameters.requestBody, options)
+      .getNewsComment(requestParameters.nid, requestParameters.cid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
-   * Эндпоинт для получения лайков новости с параметрами поиска
-   * @summary Получение списка лайков
+   * Эндпоинт для получения комментариев новости с параметрами поиска
+   * @summary Получение списка комментариев
    * @param {CommentsApiGetNewsCommentsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -2550,7 +2609,7 @@ export class CommentsApi extends BaseAPI {
    */
   public getNoticeComment(requestParameters: CommentsApiGetNoticeCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .getNoticeComment(requestParameters.nid, requestParameters.cid, requestParameters.requestBody, options)
+      .getNoticeComment(requestParameters.nid, requestParameters.cid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -4273,22 +4332,14 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
      * @summary Получение комментария
      * @param {string} nid Идентификатор новости
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNewsComment: async (
-      nid: string,
-      cid: string,
-      requestBody: RequestBody,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    getNewsComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'nid' is not null or undefined
       assertParamExists('getNewsComment', 'nid', nid);
       // verify required parameter 'cid' is not null or undefined
       assertParamExists('getNewsComment', 'cid', cid);
-      // verify required parameter 'requestBody' is not null or undefined
-      assertParamExists('getNewsComment', 'requestBody', requestBody);
       const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
         .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
         .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
@@ -4303,12 +4354,9 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -4316,8 +4364,8 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       };
     },
     /**
-     * Эндпоинт для получения лайков новости с параметрами поиска
-     * @summary Получение списка лайков
+     * Эндпоинт для получения комментариев новости с параметрами поиска
+     * @summary Получение списка комментариев
      * @param {string} id Идентификатор новости
      * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
@@ -4637,22 +4685,20 @@ export const NewsApiFp = function (configuration?: Configuration) {
      * @summary Получение комментария
      * @param {string} nid Идентификатор новости
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getNewsComment(
       nid: string,
       cid: string,
-      requestBody: RequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsComment(nid, cid, requestBody, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для получения лайков новости с параметрами поиска
-     * @summary Получение списка лайков
+     * Эндпоинт для получения комментариев новости с параметрами поиска
+     * @summary Получение списка комментариев
      * @param {string} id Идентификатор новости
      * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
@@ -4817,16 +4863,15 @@ export const NewsApiFactory = function (configuration?: Configuration, basePath?
      * @summary Получение комментария
      * @param {string} nid Идентификатор новости
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNewsComment(nid: string, cid: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
-      return localVarFp.getNewsComment(nid, cid, requestBody, options).then((request) => request(axios, basePath));
+    getNewsComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.getNewsComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
-     * Эндпоинт для получения лайков новости с параметрами поиска
-     * @summary Получение списка лайков
+     * Эндпоинт для получения комментариев новости с параметрами поиска
+     * @summary Получение списка комментариев
      * @param {string} id Идентификатор новости
      * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
@@ -4996,13 +5041,6 @@ export interface NewsApiGetNewsCommentRequest {
    * @memberof NewsApiGetNewsComment
    */
   readonly cid: string;
-
-  /**
-   *
-   * @type {RequestBody}
-   * @memberof NewsApiGetNewsComment
-   */
-  readonly requestBody: RequestBody;
 }
 
 /**
@@ -5197,13 +5235,13 @@ export class NewsApi extends BaseAPI {
    */
   public getNewsComment(requestParameters: NewsApiGetNewsCommentRequest, options?: AxiosRequestConfig) {
     return NewsApiFp(this.configuration)
-      .getNewsComment(requestParameters.nid, requestParameters.cid, requestParameters.requestBody, options)
+      .getNewsComment(requestParameters.nid, requestParameters.cid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
-   * Эндпоинт для получения лайков новости с параметрами поиска
-   * @summary Получение списка лайков
+   * Эндпоинт для получения комментариев новости с параметрами поиска
+   * @summary Получение списка комментариев
    * @param {NewsApiGetNewsCommentsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -5296,6 +5334,192 @@ export class NewsApi extends BaseAPI {
   public updateNewsLike(requestParameters: NewsApiUpdateNewsLikeRequest, options?: AxiosRequestConfig) {
     return NewsApiFp(this.configuration)
       .updateNewsLike(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * NewsSectionsApi - axios parameter creator
+ * @export
+ */
+export const NewsSectionsApiAxiosParamCreator = function (configuration?: Configuration) {
+  return {
+    /**
+     * Получение всех данных рубрики
+     * @summary Получение карточки рубрики новостей
+     * @param {string} id Идентификатор рубрики
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsSectionById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getNewsSectionById', 'id', id);
+      const localVarPath = `/api/v1/newsSection/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения списка рубрик
+     * @summary Получение списка рубрик новостей
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsSections: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/api/v1/newsSection`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * NewsSectionsApi - functional programming interface
+ * @export
+ */
+export const NewsSectionsApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = NewsSectionsApiAxiosParamCreator(configuration);
+  return {
+    /**
+     * Получение всех данных рубрики
+     * @summary Получение карточки рубрики новостей
+     * @param {string} id Идентификатор рубрики
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getNewsSectionById(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsSectionDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsSectionById(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения списка рубрик
+     * @summary Получение списка рубрик новостей
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getNewsSections(
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<NewsSectionDto>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsSections(options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+  };
+};
+
+/**
+ * NewsSectionsApi - factory interface
+ * @export
+ */
+export const NewsSectionsApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance,
+) {
+  const localVarFp = NewsSectionsApiFp(configuration);
+  return {
+    /**
+     * Получение всех данных рубрики
+     * @summary Получение карточки рубрики новостей
+     * @param {string} id Идентификатор рубрики
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsSectionById(id: string, options?: any): AxiosPromise<NewsSectionDto> {
+      return localVarFp.getNewsSectionById(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения списка рубрик
+     * @summary Получение списка рубрик новостей
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getNewsSections(options?: any): AxiosPromise<Array<NewsSectionDto>> {
+      return localVarFp.getNewsSections(options).then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * Request parameters for getNewsSectionById operation in NewsSectionsApi.
+ * @export
+ * @interface NewsSectionsApiGetNewsSectionByIdRequest
+ */
+export interface NewsSectionsApiGetNewsSectionByIdRequest {
+  /**
+   * Идентификатор рубрики
+   * @type {string}
+   * @memberof NewsSectionsApiGetNewsSectionById
+   */
+  readonly id: string;
+}
+
+/**
+ * NewsSectionsApi - object-oriented interface
+ * @export
+ * @class NewsSectionsApi
+ * @extends {BaseAPI}
+ */
+export class NewsSectionsApi extends BaseAPI {
+  /**
+   * Получение всех данных рубрики
+   * @summary Получение карточки рубрики новостей
+   * @param {NewsSectionsApiGetNewsSectionByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NewsSectionsApi
+   */
+  public getNewsSectionById(requestParameters: NewsSectionsApiGetNewsSectionByIdRequest, options?: AxiosRequestConfig) {
+    return NewsSectionsApiFp(this.configuration)
+      .getNewsSectionById(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для получения списка рубрик
+   * @summary Получение списка рубрик новостей
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NewsSectionsApi
+   */
+  public getNewsSections(options?: AxiosRequestConfig) {
+    return NewsSectionsApiFp(this.configuration)
+      .getNewsSections(options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -5464,22 +5688,14 @@ export const NoticeApiAxiosParamCreator = function (configuration?: Configuratio
      * @summary Получение комментария
      * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNoticeComment: async (
-      nid: string,
-      cid: string,
-      requestBody: RequestBody,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
+    getNoticeComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'nid' is not null or undefined
       assertParamExists('getNoticeComment', 'nid', nid);
       // verify required parameter 'cid' is not null or undefined
       assertParamExists('getNoticeComment', 'cid', cid);
-      // verify required parameter 'requestBody' is not null or undefined
-      assertParamExists('getNoticeComment', 'requestBody', requestBody);
       const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
         .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
         .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
@@ -5494,12 +5710,9 @@ export const NoticeApiAxiosParamCreator = function (configuration?: Configuratio
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -5828,17 +6041,15 @@ export const NoticeApiFp = function (configuration?: Configuration) {
      * @summary Получение комментария
      * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getNoticeComment(
       nid: string,
       cid: string,
-      requestBody: RequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeComment(nid, cid, requestBody, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6010,12 +6221,11 @@ export const NoticeApiFactory = function (configuration?: Configuration, basePat
      * @summary Получение комментария
      * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
-     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNoticeComment(nid: string, cid: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
-      return localVarFp.getNoticeComment(nid, cid, requestBody, options).then((request) => request(axios, basePath));
+    getNoticeComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.getNoticeComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка комментариев объявления с параметрами поиска
@@ -6189,13 +6399,6 @@ export interface NoticeApiGetNoticeCommentRequest {
    * @memberof NoticeApiGetNoticeComment
    */
   readonly cid: string;
-
-  /**
-   *
-   * @type {RequestBody}
-   * @memberof NoticeApiGetNoticeComment
-   */
-  readonly requestBody: RequestBody;
 }
 
 /**
@@ -6390,7 +6593,7 @@ export class NoticeApi extends BaseAPI {
    */
   public getNoticeComment(requestParameters: NoticeApiGetNoticeCommentRequest, options?: AxiosRequestConfig) {
     return NoticeApiFp(this.configuration)
-      .getNoticeComment(requestParameters.nid, requestParameters.cid, requestParameters.requestBody, options)
+      .getNoticeComment(requestParameters.nid, requestParameters.cid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

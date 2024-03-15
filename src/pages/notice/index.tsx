@@ -13,6 +13,7 @@ import {
   IconButtonProps,
   Pagination,
   Typography,
+  Link,
   styled,
 } from '@mui/material';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
@@ -47,14 +48,15 @@ export function Notice() {
       putItem: ({ id, item }) => httpClient.updateNotice(id.toString(), item).then(({ data }) => data),
     };
   }, []);
-  //TODO если бэк не отвечает какой то еррор или лоадинг? или зависит от ответа?
-  if (!service) {
-    return <>Error?</>;
-  }
 
   return (
     <>
-      <RegistryProvider onOpenItem={(id) => navigate(`/notice/${id!}`)} id={id} service={service} action={id && 'item'}>
+      <RegistryProvider
+        onOpenItem={(id) => navigate(`/notices/${id!}`)}
+        id={id}
+        service={service}
+        action={id && 'item'}
+      >
         {!id && <NoticeList />}
 
         {id && <NoticePage ids={id} />}
@@ -93,9 +95,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-const NoticeItem = ({ id, title, date, text, isLike }: NoticeDto) => {
+const NoticeItem = ({ id, title, date, text, isLikedByMe }: NoticeDto) => {
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [like, setLike] = useState<boolean>(isLike);
+  const [like, setLike] = useState<boolean>(isLikedByMe ?? false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

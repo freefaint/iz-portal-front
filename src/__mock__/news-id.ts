@@ -1,13 +1,6 @@
 import { mock } from './';
+import { genNews } from './news';
 
-mock.onGet(/\/api\/v1\/news\/:id/).reply(200, {
-  items: [
-    {
-      id: 1,
-      title: 'Вышел новый подкаст',
-      date: new Date(),
-      isLike: true,
-      text: 'Длинные тексты (лонгриды), где большой объем сочетается с глубоким погружением в тему, становятся все более популярными в печатных и онлайновых изданиях',
-    },
-  ],
+mock.onGet(/\/api\/v1\/news\/:id/).reply((resp) => {
+  return [200, genNews(resp.params.id)];
 });
