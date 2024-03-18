@@ -1793,7 +1793,7 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
      */
     getNewsComments: async (
       id: string,
-      requestBody: RequestBody,
+      requestBody?: RequestBody,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined

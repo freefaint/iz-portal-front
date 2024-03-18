@@ -1,8 +1,7 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   Box,
   Card,
@@ -13,10 +12,10 @@ import {
   IconButtonProps,
   Pagination,
   Typography,
-  Link,
   styled,
 } from '@mui/material';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
+import CounterLikes from 'components/atoms/counter/counterLikes';
 import { Notices, NeutralLink, FlexNews } from 'components/atoms/neutral-link';
 import { NoticeApiFactory, NoticeDto } from 'rest';
 
@@ -59,7 +58,7 @@ export function Notice() {
       >
         {!id && <NoticeList />}
 
-        {id && <NoticePage ids={id} />}
+        {id && <NoticePage />}
         {!id && <Pagination />}
       </RegistryProvider>
     </>
@@ -95,7 +94,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-const NoticeItem = ({ id, title, date, text, isLikedByMe }: NoticeDto) => {
+const NoticeItem = ({ id, title, date, text, isLikedByMe, likesCount }: NoticeDto) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [like, setLike] = useState<boolean>(isLikedByMe ?? false);
 
@@ -122,9 +121,7 @@ const NoticeItem = ({ id, title, date, text, isLikedByMe }: NoticeDto) => {
             </CardContent>
           </NeutralLink>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites" onClick={handleLiked}>
-              <FavoriteIcon className="icon-like" />
-            </IconButton>
+            {likesCount && <CounterLikes count={likesCount} handleLiked={handleLiked} isLike={like} />}
             <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
               <ExpandMoreIcon />
             </ExpandMore>
@@ -140,17 +137,8 @@ const NoticeItem = ({ id, title, date, text, isLikedByMe }: NoticeDto) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const NoticePage = (ids: any) => {
-  const { data } = useContext(RegistryDataContext);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [item, setItem] = useState<any>(null);
-  useEffect(() => {
-    if (!data) {
-      return;
-    }
-    setItem(data.filter((i) => i.id.toString() === ids.ids)[0]);
-  }, [data, ids.ids]);
+const NoticePage = () => {
+  const { item } = useContext(RegistryDataContext);
   const [expanded, setExpanded] = useState<boolean>(false);
   const [like, setLike] = useState<boolean>(false);
   const handleExpandClick = () => {
@@ -175,9 +163,7 @@ const NoticePage = (ids: any) => {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites" onClick={handleLiked}>
-                <FavoriteIcon className="icon-like" />
-              </IconButton>
+              {item.likesCount && <CounterLikes count={item.likesCount} handleLiked={handleLiked} isLike={like} />}
               <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
                 <ExpandMoreIcon />
               </ExpandMore>
