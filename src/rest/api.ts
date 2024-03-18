@@ -131,7 +131,13 @@ export interface DepartmentDto {
    */
   name: string;
   /**
-   * Телефон
+   * ID пользователя руководителя подразделения
+   * @type {string}
+   * @memberof DepartmentDto
+   */
+  directorId: string;
+  /**
+   * ID родительского подразделения
    * @type {string}
    * @memberof DepartmentDto
    */
@@ -166,19 +172,19 @@ export interface EmployeeDto {
    * @type {string}
    * @memberof EmployeeDto
    */
-  surName?: string;
+  surName: string;
   /**
    * Телефон
    * @type {string}
    * @memberof EmployeeDto
    */
-  mobilePhone?: string;
+  mobilePhone: string;
   /**
    * Телефон
    * @type {string}
    * @memberof EmployeeDto
    */
-  workPhone?: string;
+  workPhone: string;
   /**
    * Email
    * @type {string}
@@ -190,7 +196,43 @@ export interface EmployeeDto {
    * @type {string}
    * @memberof EmployeeDto
    */
-  departmentId?: string;
+  departmentId: string;
+  /**
+   * Должность
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  position: string;
+  /**
+   * День рождения
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  birthdaye?: string;
+  /**
+   * Дата приему на работу
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  workStartDate: string;
+  /**
+   * Дата увольнения на работу
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  workEndDate: string;
+  /**
+   * Фотография в base64
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  photo: string;
+  /**
+   * Кабинет
+   * @type {string}
+   * @memberof EmployeeDto
+   */
+  cabinet: string;
 }
 /**
  *
@@ -3055,47 +3097,16 @@ export class EmployeesApi extends BaseAPI {
 export const FilesApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
-     * Получение содержимого картинки
-     * @summary Получение картинки
-     * @param {string} id Идентификатор картинки
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getFile: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getFile', 'id', id);
-      const localVarPath = `/api/v1/pictures/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * Получение содержимого файла
      * @summary Получение файла
      * @param {string} id Идентификатор файла
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getFile_1: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    getFile: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('getFile_1', 'id', id);
-      const localVarPath = `/api/v1/documents/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('getFile', 'id', id);
+      const localVarPath = `/api/v1/files/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3104,37 +3115,6 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
       }
 
       const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     *
-     * @summary Удаление картинки
-     * @param {string} id Идентификатор картинки
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    removeFile: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('removeFile', 'id', id);
-      const localVarPath = `/api/v1/pictures/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
@@ -3154,10 +3134,10 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeFile_2: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    removeFile: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('removeFile_2', 'id', id);
-      const localVarPath = `/api/v1/documents/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('removeFile', 'id', id);
+      const localVarPath = `/api/v1/files/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3180,8 +3160,8 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
     },
     /**
      *
-     * @summary Замена картинки
-     * @param {string} id Идентификатор картинки
+     * @summary Замена файла
+     * @param {string} id Идентификатор файла
      * @param {any} [file]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3189,84 +3169,7 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
     updateFile: async (id: string, file?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists('updateFile', 'id', id);
-      const localVarPath = `/api/v1/pictures/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-      const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
-
-      if (file !== undefined) {
-        localVarFormParams.append('file', file as any);
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = localVarFormParams;
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     *
-     * @summary Замена файла
-     * @param {string} id Идентификатор файла
-     * @param {any} [file]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateFile_3: async (id: string, file?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('updateFile_3', 'id', id);
-      const localVarPath = `/api/v1/documents/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-      const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
-
-      if (file !== undefined) {
-        localVarFormParams.append('file', file as any);
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = localVarFormParams;
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     *
-     * @summary Заливка картинки
-     * @param {any} [file]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    uploadFile: async (file?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/pictures`;
+      const localVarPath = `/api/v1/files/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3302,8 +3205,8 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    uploadFile_4: async (file?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/documents`;
+    uploadFile: async (file?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/api/v1/files`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -3343,9 +3246,9 @@ export const FilesApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = FilesApiAxiosParamCreator(configuration);
   return {
     /**
-     * Получение содержимого картинки
-     * @summary Получение картинки
-     * @param {string} id Идентификатор картинки
+     * Получение содержимого файла
+     * @summary Получение файла
+     * @param {string} id Идентификатор файла
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -3357,23 +3260,9 @@ export const FilesApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Получение содержимого файла
-     * @summary Получение файла
-     * @param {string} id Идентификатор файла
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getFile_1(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getFile_1(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      *
-     * @summary Удаление картинки
-     * @param {string} id Идентификатор картинки
+     * @summary Удаление файла
+     * @param {string} id Идентификатор файла
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -3386,22 +3275,8 @@ export const FilesApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @summary Удаление файла
+     * @summary Замена файла
      * @param {string} id Идентификатор файла
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async removeFile_2(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.removeFile_2(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     *
-     * @summary Замена картинки
-     * @param {string} id Идентификатор картинки
      * @param {any} [file]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3416,23 +3291,7 @@ export const FilesApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @summary Замена файла
-     * @param {string} id Идентификатор файла
-     * @param {any} [file]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async updateFile_3(
-      id: string,
-      file?: any,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateFile_3(id, file, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     *
-     * @summary Заливка картинки
+     * @summary Заливка файла
      * @param {any} [file]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3442,20 +3301,6 @@ export const FilesApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UploadFile200Response>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFile(file, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     *
-     * @summary Заливка файла
-     * @param {any} [file]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async uploadFile_4(
-      file?: any,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UploadFile200Response>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.uploadFile_4(file, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -3469,34 +3314,14 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
   const localVarFp = FilesApiFp(configuration);
   return {
     /**
-     * Получение содержимого картинки
-     * @summary Получение картинки
-     * @param {string} id Идентификатор картинки
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getFile(id: string, options?: any): AxiosPromise<any> {
-      return localVarFp.getFile(id, options).then((request) => request(axios, basePath));
-    },
-    /**
      * Получение содержимого файла
      * @summary Получение файла
      * @param {string} id Идентификатор файла
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getFile_1(id: string, options?: any): AxiosPromise<any> {
-      return localVarFp.getFile_1(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     *
-     * @summary Удаление картинки
-     * @param {string} id Идентификатор картинки
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    removeFile(id: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeFile(id, options).then((request) => request(axios, basePath));
+    getFile(id: string, options?: any): AxiosPromise<any> {
+      return localVarFp.getFile(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3505,19 +3330,8 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeFile_2(id: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeFile_2(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     *
-     * @summary Замена картинки
-     * @param {string} id Идентификатор картинки
-     * @param {any} [file]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateFile(id: string, file?: any, options?: any): AxiosPromise<void> {
-      return localVarFp.updateFile(id, file, options).then((request) => request(axios, basePath));
+    removeFile(id: string, options?: any): AxiosPromise<void> {
+      return localVarFp.removeFile(id, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3527,18 +3341,8 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateFile_3(id: string, file?: any, options?: any): AxiosPromise<void> {
-      return localVarFp.updateFile_3(id, file, options).then((request) => request(axios, basePath));
-    },
-    /**
-     *
-     * @summary Заливка картинки
-     * @param {any} [file]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    uploadFile(file?: any, options?: any): AxiosPromise<UploadFile200Response> {
-      return localVarFp.uploadFile(file, options).then((request) => request(axios, basePath));
+    updateFile(id: string, file?: any, options?: any): AxiosPromise<void> {
+      return localVarFp.updateFile(id, file, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -3547,8 +3351,8 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    uploadFile_4(file?: any, options?: any): AxiosPromise<UploadFile200Response> {
-      return localVarFp.uploadFile_4(file, options).then((request) => request(axios, basePath));
+    uploadFile(file?: any, options?: any): AxiosPromise<UploadFile200Response> {
+      return localVarFp.uploadFile(file, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -3560,23 +3364,9 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
  */
 export interface FilesApiGetFileRequest {
   /**
-   * Идентификатор картинки
-   * @type {string}
-   * @memberof FilesApiGetFile
-   */
-  readonly id: string;
-}
-
-/**
- * Request parameters for getFile_1 operation in FilesApi.
- * @export
- * @interface FilesApiGetFile0Request
- */
-export interface FilesApiGetFile0Request {
-  /**
    * Идентификатор файла
    * @type {string}
-   * @memberof FilesApiGetFile0
+   * @memberof FilesApiGetFile
    */
   readonly id: string;
 }
@@ -3588,23 +3378,9 @@ export interface FilesApiGetFile0Request {
  */
 export interface FilesApiRemoveFileRequest {
   /**
-   * Идентификатор картинки
-   * @type {string}
-   * @memberof FilesApiRemoveFile
-   */
-  readonly id: string;
-}
-
-/**
- * Request parameters for removeFile_2 operation in FilesApi.
- * @export
- * @interface FilesApiRemoveFile0Request
- */
-export interface FilesApiRemoveFile0Request {
-  /**
    * Идентификатор файла
    * @type {string}
-   * @memberof FilesApiRemoveFile0
+   * @memberof FilesApiRemoveFile
    */
   readonly id: string;
 }
@@ -3616,37 +3392,16 @@ export interface FilesApiRemoveFile0Request {
  */
 export interface FilesApiUpdateFileRequest {
   /**
-   * Идентификатор картинки
-   * @type {string}
-   * @memberof FilesApiUpdateFile
-   */
-  readonly id: string;
-
-  /**
-   *
-   * @type {any}
-   * @memberof FilesApiUpdateFile
-   */
-  readonly file?: any;
-}
-
-/**
- * Request parameters for updateFile_3 operation in FilesApi.
- * @export
- * @interface FilesApiUpdateFile0Request
- */
-export interface FilesApiUpdateFile0Request {
-  /**
    * Идентификатор файла
    * @type {string}
-   * @memberof FilesApiUpdateFile0
+   * @memberof FilesApiUpdateFile
    */
   readonly id: string;
 
   /**
    *
    * @type {any}
-   * @memberof FilesApiUpdateFile0
+   * @memberof FilesApiUpdateFile
    */
   readonly file?: any;
 }
@@ -3666,20 +3421,6 @@ export interface FilesApiUploadFileRequest {
 }
 
 /**
- * Request parameters for uploadFile_4 operation in FilesApi.
- * @export
- * @interface FilesApiUploadFile0Request
- */
-export interface FilesApiUploadFile0Request {
-  /**
-   *
-   * @type {any}
-   * @memberof FilesApiUploadFile0
-   */
-  readonly file?: any;
-}
-
-/**
  * FilesApi - object-oriented interface
  * @export
  * @class FilesApi
@@ -3687,8 +3428,8 @@ export interface FilesApiUploadFile0Request {
  */
 export class FilesApi extends BaseAPI {
   /**
-   * Получение содержимого картинки
-   * @summary Получение картинки
+   * Получение содержимого файла
+   * @summary Получение файла
    * @param {FilesApiGetFileRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -3701,22 +3442,8 @@ export class FilesApi extends BaseAPI {
   }
 
   /**
-   * Получение содержимого файла
-   * @summary Получение файла
-   * @param {FilesApiGetFile0Request} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof FilesApi
-   */
-  public getFile_1(requestParameters: FilesApiGetFile0Request, options?: AxiosRequestConfig) {
-    return FilesApiFp(this.configuration)
-      .getFile_1(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
    *
-   * @summary Удаление картинки
+   * @summary Удаление файла
    * @param {FilesApiRemoveFileRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -3730,21 +3457,7 @@ export class FilesApi extends BaseAPI {
 
   /**
    *
-   * @summary Удаление файла
-   * @param {FilesApiRemoveFile0Request} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof FilesApi
-   */
-  public removeFile_2(requestParameters: FilesApiRemoveFile0Request, options?: AxiosRequestConfig) {
-    return FilesApiFp(this.configuration)
-      .removeFile_2(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   *
-   * @summary Замена картинки
+   * @summary Замена файла
    * @param {FilesApiUpdateFileRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -3758,21 +3471,7 @@ export class FilesApi extends BaseAPI {
 
   /**
    *
-   * @summary Замена файла
-   * @param {FilesApiUpdateFile0Request} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof FilesApi
-   */
-  public updateFile_3(requestParameters: FilesApiUpdateFile0Request, options?: AxiosRequestConfig) {
-    return FilesApiFp(this.configuration)
-      .updateFile_3(requestParameters.id, requestParameters.file, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   *
-   * @summary Заливка картинки
+   * @summary Заливка файла
    * @param {FilesApiUploadFileRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -3781,20 +3480,6 @@ export class FilesApi extends BaseAPI {
   public uploadFile(requestParameters: FilesApiUploadFileRequest = {}, options?: AxiosRequestConfig) {
     return FilesApiFp(this.configuration)
       .uploadFile(requestParameters.file, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   *
-   * @summary Заливка файла
-   * @param {FilesApiUploadFile0Request} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof FilesApi
-   */
-  public uploadFile_4(requestParameters: FilesApiUploadFile0Request = {}, options?: AxiosRequestConfig) {
-    return FilesApiFp(this.configuration)
-      .uploadFile_4(requestParameters.file, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
