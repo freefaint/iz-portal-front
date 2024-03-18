@@ -808,108 +808,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmployeeDto'
-  /api/v1/pictures/{id}:
-    get:
-      tags:
-        - files
-      summary: Получение картинки
-      description: Получение содержимого картинки
-      operationId: getFile
-      parameters:
-        - name: id
-          description: Идентификатор картинки
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: ok
-          content:
-            blob:
-              schema:
-                type: string
-                format: binary
-          headers:
-            Content-Type:
-              schema:
-                type: string
-                description: File content type
-                example: application/pdf
-            Content-Disposition:
-              schema:
-                type: string
-                description: File name for browser could download file with original name by default
-                example: attachment; filename="name.pdf"
-    post:
-      tags:
-        - files
-      summary: Замена картинки
-      operationId: updateFile
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-      parameters:
-        - name: id
-          description: Идентификатор картинки
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: ok
-    delete:
-      tags:
-        - files
-      summary: Удаление картинки
-      operationId: removeFile
-      parameters:
-        - name: id
-          description: Идентификатор картинки
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: ok
-  /api/v1/pictures:
-    post:
-      tags:
-        - files
-      summary: Заливка картинки
-      operationId: uploadFile
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-  /api/v1/documents/{id}:
+  /api/v1/files/{id}:
     get:
       tags:
         - files
@@ -984,7 +883,7 @@ paths:
       responses:
         '200':
           description: ok
-  /api/v1/documents:
+  /api/v1/files:
     post:
       tags:
         - files
@@ -1093,8 +992,17 @@ components:
         - id
         - name
         - lastName
-        - phone
+        - surName
+        - mobilePhone
+        - workPhone
         - email
+        - departmentId
+        - position
+        - birthday
+        - workStartDate
+        - workEndDate
+        - photo
+        - cabinet
       properties:
         id:
           description: ID
@@ -1122,6 +1030,28 @@ components:
           description: Подразделение
           type: string
           format: uuid
+        position:
+          description: Должность
+          type: string
+          format: uuid
+        birthdaye:
+          description: День рождения
+          type: string
+          format: date
+        workStartDate:
+          description: Дата приему на работу
+          type: string
+          format: date
+        workEndDate:
+          description: Дата увольнения на работу
+          type: string
+          format: date
+        photo:
+          description: Фотография в base64
+          type: string
+        cabinet:
+          description: Кабинет
+          type: string
     LikeDto:
       type: object
       required:
@@ -1188,6 +1118,7 @@ components:
       required:
         - id
         - name
+        - directorId
       properties:
         id:
           description: ID
@@ -1196,8 +1127,12 @@ components:
         name:
           description: Имя
           type: string
+        directorId:
+          description: ID пользователя руководителя подразделения
+          type: string
+          format: uuid
         parentId:
-          description: Телефон
+          description: ID родительского подразделения
           type: string
           format: uuid
     NewsSectionDto:
