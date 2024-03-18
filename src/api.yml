@@ -956,11 +956,22 @@ components:
       type: object
       required:
         - name
+        - predicate
         - value
       properties:
         name:
           description: Имя фильтра
           type: string
+        predicate:
+          description: Метод поиска
+          type: string
+          enum:
+            - EQ
+            - CONTAINS
+            - LT
+            - LTE
+            - GT
+            - GTE
         value:
           description: Значение
     RequestBody:
@@ -1033,8 +1044,7 @@ components:
         position:
           description: Должность
           type: string
-          format: uuid
-        birthdaye:
+        birthday:
           description: День рождения
           type: string
           format: date
