@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useMemo, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -21,6 +21,7 @@ import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
 import Comments, { Commenting } from 'components/atoms/comments/comments';
 import CounterLikes from 'components/atoms/counter/counterLikes';
 import CounterViews from 'components/atoms/counter/counterViews';
+import LikeViever from 'components/atoms/likeViewer/likeViewer';
 import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
 import { NewsDto } from 'rest';
 
@@ -64,7 +65,7 @@ export function Main() {
 const NewsList = () => {
   const { data } = useContext(RegistryDataContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
 
   if (!data) {
     return (
@@ -115,6 +116,15 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, likesCount }: NewsDto) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [like, setLike] = useState<boolean>(isLikedByMe ?? false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -140,7 +150,16 @@ const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, lik
             </CardContent>
           </NeutralLink>
           <CardActions disableSpacing>
-            {likesCount && <CounterLikes count={likesCount} handleLiked={handleLiked} isLike={like} />}
+            {likesCount && (
+              <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="likes-counter">
+                {isHovered && (
+                  <div className="like-viewer">
+                    <LikeViever />
+                  </div>
+                )}
+                <CounterLikes count={likesCount} handleLiked={handleLiked} isLike={like} />
+              </div>
+            )}
             {viewsCount && <CounterViews count={viewsCount} />}
             <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
               <ExpandMoreIcon />
@@ -157,44 +176,25 @@ const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, lik
   );
 };
 
-const comments: Commenting[] = [
-  {
-    id: '1',
-    text: 'я думаю это хороший комментарий',
-    date: new Date().toISOString(),
-    author: 'Терещенко А.Д',
-  },
-  {
-    id: '2',
-    text: 'поддерживаю',
-    date: new Date().toISOString(),
-    author: 'Попов А.Д',
-    parentId: '1',
-  },
-  {
-    id: '3',
-    text: 'согласен',
-    date: new Date().toISOString(),
-    author: 'Дмитриев К.Д',
-    parentId: '1',
-  },
-  {
-    id: '4',
-    text: 'интересный пост',
-    date: new Date().toISOString(),
-    author: 'Минин А.Д',
-  },
-  {
-    id: '5',
-    text: 'да-да',
-    date: new Date().toISOString(),
-    author: 'Турский А.Д',
-    parentId: '4',
-  },
-];
-
 const NewsPage = () => {
   const { item } = useContext(RegistryDataContext);
+  const [commentsData, setCommentsData] = useState<Commenting[]>([]);
+
+  useEffect(() => {
+    if (item) {
+      const fetchData = async () => {
+        try {
+          httpClient.getNewsComments(item.id.toString(), { skip: 1, limit: 1 }).then((res) => {
+            setCommentsData(res.data.items);
+          });
+        } catch (error) {
+          return error;
+        }
+      };
+
+      fetchData();
+    }
+  }, [item]);
   const [expanded, setExpanded] = useState<boolean>(false);
   const [like, setLike] = useState<boolean>(false);
   const handleExpandClick = () => {
@@ -206,7 +206,8 @@ const NewsPage = () => {
   };
 
   return (
-    item && (
+    item &&
+    commentsData && (
       <>
         <FlexNews isLike={item.like} style={{ width: '100%' }}>
           <Card sx={{ minWidth: '100%', minHeight: '100%' }}>
@@ -227,7 +228,7 @@ const NewsPage = () => {
               <CardContent>
                 <Typography paragraph>{item.text}</Typography>
               </CardContent>
-              <Comments comments={comments} />
+              <Comments comments={commentsData} />
             </Collapse>
           </Card>
         </FlexNews>

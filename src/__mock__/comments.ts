@@ -7,24 +7,45 @@ export const genComments = (): CommentsListDto => {
     items: [
       {
         id: '1',
-        text: 'commet',
+        text: 'я думаfю это хороший комментарий',
         date: new Date().toISOString(),
-        author: 'Терещенко',
+        author: 'Терещенко А.Д',
+      },
+      {
+        id: '2',
+        text: 'поддерживаю',
+        date: new Date().toISOString(),
+        author: 'Попов А.Д',
+        parentId: '1',
+      },
+      {
+        id: '3',
+        text: 'согласен',
+        date: new Date().toISOString(),
+        author: 'Дмитриев К.Д',
+        parentId: '1',
+      },
+      {
+        id: '4',
+        text: 'интересный пост',
+        date: new Date().toISOString(),
+        author: 'Минин А.Д',
+      },
+      {
+        id: '5',
+        text: 'да-да',
+        date: new Date().toISOString(),
+        author: 'Турский А.Д',
+        parentId: '4',
       },
     ],
   };
 };
 
-// mock.onGet(/\/api\/v1\/news\/?.*\/comments/).reply(() => {
-//   // const id = resp.url?.match(/\/api\/v1\/news\/?.*\/comments/)?.[1] ?? '0';
+// mock.onGet(/\/api\/v1\/news\/?.*/).reply((resp) => {
 //   return [200, genComments()];
 // });
-mock.onPost(/\/api\/v1\/news\/?.*\/comments/).reply(() => {
+
+mock.onPost(/\/api\/v1\/comments/).reply(() => {
   return [200, genComments()];
 });
-
-// /api/v1/news/{id}/comments
-// id,
-// text: 'мой комментарий',
-// date: new Date().toISOString(),
-// author: 'Терещенко Андрей Дмитриевич'

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { TextField } from '@mui/material';
@@ -115,12 +115,18 @@ const Comments: FC<CommentsProps> = ({ comments }) => {
   const [updatedComments, setUpdatedComments] = useState(comments);
   const [newCommentText, setNewCommentText] = useState('');
 
+  useEffect(() => {
+    if (comments) {
+      setUpdatedComments(comments);
+    }
+  }, [comments]);
+
   const updateComments = (newComments: Commenting[]) => {
     setUpdatedComments(newComments);
   };
 
   const addNewComment = (text: string) => {
-    // TODO вставить текущий id пользователя
+    // TODO вставить текущий id пользователя из api
     const updatedComment = [
       ...updatedComments,
       { id: `${comments.length + 1}`, text, date: `${new Date().toISOString()}`, author: 'Терещенко' },

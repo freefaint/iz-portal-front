@@ -24,6 +24,16 @@ export const FlexNews = styled.div<{
   align-items: center;
   width: 32%;
 
+  .likes-counter {
+    position: relative;
+  }
+
+  .like-viewer {
+    position: absolute;
+    top: -50%;
+    left: 23%;
+  }
+
   @media screen and (max-width: 950px) {
     width: 48%;
   }

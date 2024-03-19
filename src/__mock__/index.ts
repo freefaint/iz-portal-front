@@ -13,3 +13,4 @@ require('./news-id');
 require('./notice');
 require('./notice-id');
 require('./comments');
+require('./user');
