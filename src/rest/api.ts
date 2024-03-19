@@ -208,7 +208,7 @@ export interface EmployeeDto {
    * @type {string}
    * @memberof EmployeeDto
    */
-  birthdaye?: string;
+  birthday: string;
   /**
    * Дата приему на работу
    * @type {string}
@@ -266,12 +266,30 @@ export interface Filter {
    */
   name: string;
   /**
+   * Метод поиска
+   * @type {string}
+   * @memberof Filter
+   */
+  predicate: FilterPredicateEnum;
+  /**
    * Значение
    * @type {any}
    * @memberof Filter
    */
   value: any;
 }
+
+export const FilterPredicateEnum = {
+  Eq: 'EQ',
+  Contains: 'CONTAINS',
+  Lt: 'LT',
+  Lte: 'LTE',
+  Gt: 'GT',
+  Gte: 'GTE',
+} as const;
+
+export type FilterPredicateEnum = (typeof FilterPredicateEnum)[keyof typeof FilterPredicateEnum];
+
 /**
  *
  * @export
