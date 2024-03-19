@@ -7,10 +7,28 @@ export const NeutralLink = styled(Link)`
   text-decoration: none;
 `;
 
-export const FlexNews = styled.div`
+export const Comments = styled.div``;
+
+export const Notices = styled.div<{
+  isLike?: boolean;
+}>`
   display: flex;
   align-items: center;
-  img {
-    margin-left: 10px;
+  width: 100%;
+`;
+
+export const FlexNews = styled.div<{
+  isLike?: boolean;
+}>`
+  display: flex;
+  align-items: center;
+  width: 32%;
+
+  @media screen and (max-width: 950px) {
+    width: 48%;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 100%;
   }
 `;
