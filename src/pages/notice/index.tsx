@@ -1,13 +1,24 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Box, Link, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Collapse,
+  IconButton,
+  IconButtonProps,
+  Pagination,
+  Typography,
+  styled,
+} from '@mui/material';
 import { noticeHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
-import { NeutralLink } from 'components/atoms/neutral-link';
+import CounterLikes from 'components/atoms/counter/counterLikes';
+import { Notices, NeutralLink, FlexNews } from 'components/atoms/neutral-link';
 import { NoticeDto } from 'rest';
-
-import * as Styled from './styled';
 
 export function Notice() {
   const { id } = useParams();
@@ -44,53 +55,125 @@ export function Notice() {
         service={service}
         action={id && 'item'}
       >
-        {!id && <NewsList />}
+        {!id && <NoticeList />}
 
         {id && <NoticePage />}
+        {!id && <Pagination />}
       </RegistryProvider>
     </>
   );
 }
 
-const NewsList = () => {
+const NoticeList = () => {
   const { data } = useContext(RegistryDataContext);
 
   return (
     <>
       <Typography variant="h4">Уведомления</Typography>
 
-      <Styled.GapMarginBox>{data?.map((i) => <NoticeItem key={i.id} {...i} />)}</Styled.GapMarginBox>
+      <Box style={{ gap: '1rem', margin: '1rem 0', display: 'flex', flexWrap: 'wrap' }}>
+        {data?.map((i) => <NoticeItem key={i.id} {...i} />)}
+      </Box>
     </>
   );
 };
 
-const NoticeItem = ({ id, title, date, text }: NoticeDto) => {
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean;
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+const NoticeItem = ({ id, title, date, text, isLikedByMe, likesCount }: NoticeDto) => {
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [like, setLike] = useState<boolean>(isLikedByMe ?? false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleLiked = () => {
+    setLike(!like);
+  };
+
   return (
     <>
-      <NeutralLink to={`/news/${id}`}>
-        <Link>
-          <Typography variant="h6">{title}</Typography>
-        </Link>
-      </NeutralLink>
-
-      <Box>{text}</Box>
-
-      {new Date(date).toLocaleString()}
+      <Notices isLike={like}>
+        <Card sx={{ minWidth: '100%' }}>
+          <NeutralLink to={`/notice/${id}`}>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(date).toLocaleString()}
+              </Typography>
+            </CardContent>
+          </NeutralLink>
+          <CardActions disableSpacing>
+            {likesCount && <CounterLikes count={likesCount} handleLiked={handleLiked} isLike={like} />}
+            <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>{text}</Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
+      </Notices>
     </>
   );
 };
 
 const NoticePage = () => {
   const { item } = useContext(RegistryDataContext);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [like, setLike] = useState<boolean>(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleLiked = () => {
+    setLike(!like);
+  };
 
   return (
     item && (
       <>
-        <Typography variant="h4">{item.title}</Typography>
-
-        <Styled.MarginBox>{item.text}</Styled.MarginBox>
-
-        {new Date(item.date).toLocaleString()}
+        <FlexNews isLike={item.like} style={{ width: '100%' }}>
+          <Card sx={{ minWidth: '100%', minHeight: '100%' }}>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {item.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(item.date).toLocaleString()}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              {item.likesCount && <CounterLikes count={item.likesCount} handleLiked={handleLiked} isLike={like} />}
+              <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
+                <ExpandMoreIcon />
+              </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>{item.text}</Typography>
+              </CardContent>
+            </Collapse>
+          </Card>
+        </FlexNews>
       </>
     )
   );

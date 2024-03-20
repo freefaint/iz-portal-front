@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Notice } from 'pages/notice';
+import ProfileCard from 'pages/profileCard';
 
 import Profile from './components/pages/profile';
 import SearchPage from './components/pages/searchs';
@@ -40,6 +41,7 @@ function App() {
             <Route path="/news/:id?" Component={Main} />
             <Route path="/notice/:id?" Component={Notice} />
             <Route path="/employee/:id?" Component={SearchPage} />
+            <Route path="/profileCard/:id?" Component={ProfileCard} />
 
             <Route path="/about" Component={About} />
 
