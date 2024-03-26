@@ -13,6 +13,8 @@ servers:
           - https
         default: https
 tags:
+  - name: survays
+    description: Методы для работы с опросами
   - name: auth
     description: Методы аутентификации
   - name: admin
@@ -300,22 +302,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommentsListDto'
-  /api/v1/notice/{nid}/comments/{cid}:
+  /api/v1/comments/{id}:
     put:
       tags:
-        - notice
         - comments
       summary: Изменение комментария
       description: Эндпоинт для редактирования комментария
       operationId: editNoticeComment
       parameters:
-        - name: nid
-          description: Идентификатор объявления
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
         - name: cid
           description: Идентификатор комментария
           in: path
@@ -338,20 +332,12 @@ paths:
                 $ref: '#/components/schemas/CommentDto'
     get:
       tags:
-        - notice
         - comments
       summary: Получение комментария
       description: Эндпоинт для получения комментария
       operationId: getNoticeComment
       parameters:
-        - name: nid
-          description: Идентификатор объявления
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: cid
+        - name: id
           description: Идентификатор комментария
           in: path
           required: true
@@ -360,27 +346,19 @@ paths:
             format: uuid
       responses:
         '200':
-          description: 'Список комментариев'
+          description: 'Комментарий'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommentDto'
     delete:
       tags:
-        - notice
         - comments
       summary: Удаление комментария
       description: Эндпоинт для удаления своего комментария
       operationId: removeNoticeComment
       parameters:
-        - name: nid
-          description: Идентификатор объявления
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: cid
+        - name: id
           description: Идентификатор комментария
           in: path
           required: true
@@ -600,24 +578,217 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommentsListDto'
-  /api/v1/news/{nid}/comments/{cid}:
+  /api/v1/survays:
+    post:
+      tags:
+        - survays
+      summary: Получение списка опросов
+      description: Эндпоинт для получения списка опросов
+      operationId: searchSurvays
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
+      responses:
+        '200':
+          description: 'Список опросов'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurvaysListDto'
     put:
       tags:
-        - news
-        - comments
-      summary: Изменение комментария
-      description: Эндпоинт для редактирования комментария
-      operationId: editNewsComment
+        - survays
+        - admin
+      summary: Добавление опроса
+      description: Эндпоинт для создания опроса
+      operationId: addSurvay
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurvayDraftDto'
+      responses:
+        '200':
+          description: 'Опрос'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurvayDto'
+  /api/v1/survays/{id}:
+    get:
+      tags:
+        - survays
+      summary: Получение карточки опроса
+      description: Получение всех данных опроса
+      operationId: getSurvayById
       parameters:
-        - name: nid
-          description: Идентификатор новости
+        - name: id
+          description: Идентификатор опроса
           in: path
           required: true
           schema:
             type: string
             format: uuid
-        - name: cid
-          description: Идентификатор комментария
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurvayDto'
+    put:
+      tags:
+        - survays
+        - admin
+      summary: Редактирование опроса
+      description: Изменение данных опроса
+      operationId: updateSurvay
+      parameters:
+        - name: id
+          description: Идентификатор опроса
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurvayDraftDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurvayDto'
+    delete:
+      tags:
+        - survays
+        - admin
+      summary: Удаление опроса
+      description: Удаление опроса из системы
+      operationId: removeSurvay
+      parameters:
+        - name: id
+          description: Идентификатор опроса
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: ok
+  /api/v1/survays/{id}/answers:
+    post:
+      tags:
+        - survays
+      summary: Добавление или удаление ответа
+      description: Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
+      operationId: updateSurvayAnswer
+      parameters:
+        - name: id
+          description: Идентификатор опроса
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswerDraftDto'
+      responses:
+        '200':
+          description: 'ok'
+    get:
+      tags:
+        - survays
+      summary: Получение списка ответов на опрос
+      description: Эндпоинт для получения списка ответов
+      operationId: getSurvayAnswers
+      parameters:
+        - name: id
+          description: Идентификатор опроса
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Список лайков'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnswerDto'
+  /api/v1/survays/{id}/likes:
+    post:
+      tags:
+        - survays
+        - likes
+      summary: Добавление или удаление лайка
+      description: Если лайка нет, добавится, если есть - удалится
+      operationId: updateSurvayLike
+      parameters:
+        - name: id
+          description: Идентификатор опроса
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Список лайков'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikesListDto'
+    get:
+      tags:
+        - survays
+        - likes
+      summary: Получение списка лайков опроса
+      description: Эндпоинт для получения списка лайков опроса
+      operationId: getSurvayLikes
+      parameters:
+        - name: id
+          description: Идентификатор опроса
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Список лайков'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikesListDto'
+  /api/v1/survays/{id}/comments:
+    put:
+      tags:
+        - survays
+        - comments
+      summary: Добавление комментария
+      description: Эндпоинт для создания комментария
+      operationId: addSurvayComment
+      parameters:
+        - name: id
+          description: Идентификатор опроса
           in: path
           required: true
           schema:
@@ -636,60 +807,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommentDto'
-    get:
+    post:
       tags:
-        - news
+        - survays
         - comments
-      summary: Получение комментария
-      description: Эндпоинт для получения комментария
-      operationId: getNewsComment
+      summary: Получение списка комментариев
+      description: Эндпоинт для получения комментариев опроса с параметрами поиска
+      operationId: getSurvayComments
       parameters:
-        - name: nid
-          description: Идентификатор новости
+        - name: id
+          description: Идентификатор опроса
           in: path
           required: true
           schema:
             type: string
             format: uuid
-        - name: cid
-          description: Идентификатор комментария
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBody'
       responses:
         '200':
           description: 'Список комментариев'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommentDto'
-    delete:
-      tags:
-        - news
-        - comments
-      summary: Удаление комментария
-      description: Эндпоинт для удаления своего комментария
-      operationId: removeNewsComment
-      parameters:
-        - name: nid
-          description: Идентификатор новости
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: cid
-          description: Идентификатор комментария
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: ok
+                $ref: '#/components/schemas/CommentsListDto'
   /api/v1/departments:
     get:
       tags:
@@ -966,6 +1111,7 @@ components:
           description: Метод поиска
           type: string
           enum:
+            - IS_YEARLY_TODAY
             - EQ
             - CONTAINS
             - LT
@@ -997,90 +1143,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Filter'
-    EmployeeDto:
-      type: object
-      required:
-        - id
-        - name
-        - lastName
-        - surName
-        - mobilePhone
-        - workPhone
-        - email
-        - departmentId
-        - position
-        - birthday
-        - workStartDate
-        - workEndDate
-        - photo
-        - cabinet
-      properties:
-        id:
-          description: ID
-          type: string
-          format: uuid
-        firstName:
-          description: Имя
-          type: string
-        lastName:
-          description: Фамилия
-          type: string
-        surName:
-          description: Фамилия
-          type: string
-        mobilePhone:
-          description: Телефон
-          type: string
-        workPhone:
-          description: Телефон
-          type: string
-        email:
-          description: Email
-          type: string
-        departmentId:
-          description: Подразделение
-          type: string
-          format: uuid
-        position:
-          description: Должность
-          type: string
-        birthday:
-          description: День рождения
-          type: string
-          format: date
-        workStartDate:
-          description: Дата приему на работу
-          type: string
-          format: date
-        workEndDate:
-          description: Дата увольнения на работу
-          type: string
-          format: date
-        photo:
-          description: Фотография в base64
-          type: string
-        cabinet:
-          description: Кабинет
-          type: string
-    LikeDto:
-      type: object
-      required:
-        - id
-        - date
-        - author
-      properties:
-        id:
-          description: ID
-          type: string
-          format: uuid
-        date:
-          description: Дата лайка
-          type: string
-          format: date
-        author:
-          description: ID пользователя, оставившего лайк
-          type: string
-          format: uuid
     CommentDto:
       type: object
       required:
@@ -1123,45 +1185,20 @@ components:
         text:
           description: Текст комментария
           type: string
-    DepartmentDto:
+    CommentsListDto:
       type: object
       required:
-        - id
-        - name
-        - directorId
+        - total
+        - items
       properties:
-        id:
-          description: ID
-          type: string
-          format: uuid
-        name:
-          description: Имя
-          type: string
-        directorId:
-          description: ID пользователя руководителя подразделения
-          type: string
-          format: uuid
-        parentId:
-          description: ID родительского подразделения
-          type: string
-          format: uuid
-    NewsSectionDto:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          description: ID
-          type: string
-          format: uuid
-        name:
-          description: Имя
-          type: string
-        parentId:
-          description: Телефон
-          type: string
-          format: uuid
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentDto'
     NewsDto:
       type: object
       required:
@@ -1271,6 +1308,155 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NewsDto'
+    SurvayDto:
+      type: object
+      required:
+        - id
+        - title
+        - announce
+        - date
+        - createDate
+        - updateDate
+        - createUserId
+        - updateUserId
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        title:
+          description: Заголовок
+          type: string
+        announce:
+          description: Заголовок
+          type: string
+        text:
+          description: Текст
+          type: string
+        img:
+          description: Ссылка на картинку
+          type: string
+        custom:
+          description: Если вариантов ответа нету, можно ответить текстом
+          type: boolean
+        multiple:
+          description: Можно ли выбрать несколько вариантов
+          type: boolean
+        editable:
+          description: Можно ли переголосовать
+          type: boolean
+        anonimous:
+          description: Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
+          type: boolean
+        public:
+          description: Результаты видны пользователям
+          type: boolean
+        choices:
+          description: Варианты ответов
+          type: array
+          items:
+            $ref: '#/components/schemas/ChoiceDto'
+        date:
+          description: Дата новости
+          type: string
+          format: date
+        finishDate:
+          description: Дата после которой нельзя будет ответить
+          type: string
+          format: date
+        createDate:
+          description: Дата создания новости
+          type: string
+          format: date
+        updateDate:
+          description: Дата обновления новости
+          type: string
+          format: date
+        createUserId:
+          description: ID пользователя, создавшего новости
+          type: string
+          format: uuid
+        updateUserId:
+          description: ID последнего последнего пользователя, изменившего новость
+          type: string
+          format: uuid
+        isLikedByMe:
+          description: Лайкнул ли я новость
+          type: boolean
+        likesCount:
+          description: Количество лайков
+          type: number
+        isViewedByMe:
+          description: Просмотрел ли я новость
+          type: boolean
+        viewsCount:
+          description: Количество просмотров
+          type: number
+        сommentsCount:
+          description: Количество комментариев
+          type: number
+    SurvaysDraftDto:
+      type: object
+      required:
+        - title
+        - announce
+        - date
+        - choices
+      properties:
+        title:
+          description: Заголовок
+          type: string
+        announce:
+          description: Заголовок
+          type: string
+        text:
+          description: Текст
+          type: string
+        img:
+          description: Ссылка на картинку
+          type: string
+        custom:
+          description: Если вариантов ответа нету, можно ответить текстом
+          type: boolean
+        multiple:
+          description: Можно ли выбрать несколько вариантов
+          type: boolean
+        anonimous:
+          description: Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
+          type: boolean
+        public:
+          description: Результаты видны пользователям
+          type: boolean
+        editable:
+          description: Можно ли переголосовать
+          type: boolean
+        choices:
+          description: Варианты ответов
+          type: array
+          items:
+            $ref: '#/components/schemas/ChoiceDraftDto'
+        date:
+          description: Дата новости
+          type: string
+          format: date
+        finishDate:
+          description: Дата после которой нельзя будет ответить
+          type: string
+          format: date
+    SurvaysListDto:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          items:
+            $ref: '#/components/schemas/SurvayDto'
     NoticeDto:
       type: object
       required:
@@ -1353,34 +1539,6 @@ components:
           description: Дата новости
           type: string
           format: date
-    CommentsListDto:
-      type: object
-      required:
-        - total
-        - items
-      properties:
-        total:
-          description: Общее количество
-          type: number
-        items:
-          description: Список элементов
-          type: array
-          items:
-            $ref: '#/components/schemas/CommentDto'
-    LikesListDto:
-      type: object
-      required:
-        - total
-        - items
-      properties:
-        total:
-          description: Общее количество
-          type: number
-        items:
-          description: Список элементов
-          type: array
-          items:
-            $ref: '#/components/schemas/LikeDto'
     NoticeListDto:
       type: object
       required:
@@ -1395,6 +1553,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NoticeDto'
+    LikesListDto:
+      type: object
+      required:
+        - total
+        - items
+      properties:
+        total:
+          description: Общее количество
+          type: number
+        items:
+          description: Список элементов
+          type: array
+          items:
+            $ref: '#/components/schemas/LikeDto'
     EmployeesListDto:
       type: object
       required:
@@ -1409,3 +1581,205 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EmployeeDto'
+    DepartmentDto:
+      type: object
+      required:
+        - id
+        - name
+        - directorId
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        name:
+          description: Имя
+          type: string
+        directorId:
+          description: ID пользователя руководителя подразделения
+          type: string
+          format: uuid
+        parentId:
+          description: ID родительского подразделения
+          type: string
+          format: uuid
+    NewsSectionDto:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        name:
+          description: Имя
+          type: string
+        parentId:
+          description: Телефон
+          type: string
+          format: uuid
+    EmployeeDto:
+      type: object
+      required:
+        - id
+        - name
+        - lastName
+        - surName
+        - mobilePhone
+        - workPhone
+        - email
+        - departmentId
+        - position
+        - birthday
+        - workStartDate
+        - workEndDate
+        - photo
+        - cabinet
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        firstName:
+          description: Имя
+          type: string
+        lastName:
+          description: Фамилия
+          type: string
+        surName:
+          description: Фамилия
+          type: string
+        mobilePhone:
+          description: Телефон
+          type: string
+        workPhone:
+          description: Телефон
+          type: string
+        email:
+          description: Email
+          type: string
+        departmentId:
+          description: Подразделение
+          type: string
+          format: uuid
+        position:
+          description: Должность
+          type: string
+        birthday:
+          description: День рождения
+          type: string
+          format: date
+        workStartDate:
+          description: Дата приему на работу
+          type: string
+          format: date
+        workEndDate:
+          description: Дата увольнения на работу
+          type: string
+          format: date
+        photo:
+          description: Фотография в base64
+          type: string
+        cabinet:
+          description: Кабинет
+          type: string
+    LikeDto:
+      type: object
+      required:
+        - id
+        - date
+        - author
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        date:
+          description: Дата лайка
+          type: string
+          format: date
+        author:
+          description: ID пользователя, оставившего лайк
+          type: string
+          format: uuid
+    ChoiceDraftDto:
+      type: object
+      required:
+        - date
+        - text
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        text:
+          description: Текст варианта ответа
+          type: string
+          format: date
+    ChoiceDto:
+      type: object
+      required:
+        - id
+        - date
+        - count
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        text:
+          description: Текст варианта ответа
+          type: string
+          format: date
+        count:
+          description: Сколько проголосовали
+          type: number
+    AnswerDraftDto:
+      type: object
+      required:
+        - id
+        - date
+        - author
+        - choicesIds
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        date:
+          description: Дата ответа
+          type: string
+          format: date
+        author:
+          description: ID проголосовавшего юзера
+          type: string
+          format: uuid
+        text:
+          description: Текст ответа, если в опросе свойство custom = true
+          type: string
+        choicesIds:
+          description: Список ответов
+          type: array
+          items:
+            type: string
+            format: uuid
+    AnswerDto:
+      type: object
+      required:
+        - choicesIds
+      properties:
+        id:
+          description: ID
+          type: string
+          format: uuid
+        text:
+          description: Текст ответа, если в опросе свойство custom = true
+          type: string
+        choicesIds:
+          description: Список ответов
+          type: array
+          items:
+            type: string
+            format: uuid
