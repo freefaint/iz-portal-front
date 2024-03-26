@@ -30,16 +30,24 @@ import MuiDrawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { Block } from 'components/atoms/styled';
+import { Row } from 'components/atoms/styled';
 
-import { GapBox, GrowBox, Img, MainPageBox, StyledListItemIcon, StyledListItemText } from './styled';
+import {
+  GapBox,
+  GrowBox,
+  Img,
+  MainPageBox,
+  StyledListItem,
+  StyledListItemButton,
+  StyledListItemIcon,
+  StyledListItemText,
+} from './styled';
 import AvatarSrc from '../assets/img/avatar.jpg';
 import LogoSrc from '../assets/img/logo4.png';
 import { NeutralLink } from '../components/atoms/neutral-link';
@@ -140,7 +148,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
   };
 
   return (
-    <Block>
+    <Row>
       <CssBaseline />
 
       <AppBar position="fixed" color="default" open={open}>
@@ -300,93 +308,53 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
         <Divider />
 
         <List>
-          <ListItem disablePadding sx={{ display: 'block' }}>
+          <StyledListItem disablePadding>
             <NeutralLink to="/">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <StyledListItemIcon open={open}>
+              <StyledListItemButton open={open}>
+                <StyledListItemIcon>
                   <Home />
                 </StyledListItemIcon>
 
                 <StyledListItemText primary={'Главная'} open={open} />
-              </ListItemButton>
+              </StyledListItemButton>
             </NeutralLink>
+          </StyledListItem>
 
+          <StyledListItem disablePadding>
             <NeutralLink to="/profileCard/1">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <StyledListItemIcon open={open}>
+              <StyledListItemButton open={open}>
+                <StyledListItemIcon>
                   <FaceIcon />
                 </StyledListItemIcon>
 
                 <StyledListItemText primary={'Сотрудник'} open={open} />
-              </ListItemButton>
+              </StyledListItemButton>
             </NeutralLink>
+          </StyledListItem>
 
-            <NeutralLink to="/profileCard/1">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <FaceIcon />
-                </ListItemIcon>
-
-                <ListItemText primary={'Сотрудник'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </NeutralLink>
-
+          <StyledListItem disablePadding>
             <NeutralLink to="/notice">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <StyledListItemIcon open={open}>
+              <StyledListItemButton open={open}>
+                <StyledListItemIcon>
                   <NotificationsIcon />
                 </StyledListItemIcon>
 
                 <StyledListItemText primary={'Сотрудники'} open={open} />
-              </ListItemButton>
+              </StyledListItemButton>
             </NeutralLink>
+          </StyledListItem>
 
+          <StyledListItem disablePadding>
             <NeutralLink to="/employee">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <StyledListItemIcon open={open}>
+              <StyledListItemButton open={open}>
+                <StyledListItemIcon>
                   <Group />
                 </StyledListItemIcon>
 
                 <StyledListItemText primary={'Сотрудники'} open={open} />
-              </ListItemButton>
+              </StyledListItemButton>
             </NeutralLink>
-          </ListItem>
+          </StyledListItem>
         </List>
 
         <Divider />
@@ -394,19 +362,13 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
         <List>
           <ListItem disablePadding sx={{ display: 'block' }}>
             <NeutralLink to="/about">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <StyledListItemIcon open={open}>
+              <StyledListItemButton open={open}>
+                <StyledListItemIcon>
                   <InfoOutlined />
                 </StyledListItemIcon>
 
                 <StyledListItemText primary={'О компании'} open={open} />
-              </ListItemButton>
+              </StyledListItemButton>
             </NeutralLink>
           </ListItem>
         </List>
@@ -417,6 +379,6 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
 
         {children}
       </MainPageBox>
-    </Block>
+    </Row>
   );
 }

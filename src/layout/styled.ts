@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { Box, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 export const MainPageBox = styled(Box)`
   flex-grow: 1;
@@ -32,8 +32,18 @@ export const StyledListItemText = styled(ListItemText)`
 export const StyledListItemIcon = styled(ListItemIcon)`
   min-width: 0;
   justify-content: center;
+`;
 
-  ${({ open }: { open?: boolean }) => css`
-    margin-right: ${open ? '0.25rem' : 0};
+export const StyledListItem = styled(ListItem)`
+  display: block !important;
+`;
+
+export const StyledListItemButton = styled(ListItemButton)`
+  display: block;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+
+  ${({ open }: { open: boolean }) => css`
+    justify-content: ${open ? 'initial' : 'center'};
   `};
 `;
