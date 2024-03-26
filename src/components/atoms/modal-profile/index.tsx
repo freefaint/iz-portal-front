@@ -4,6 +4,7 @@ import { Checkbox, FormControlLabel, TextField } from '@mui/material';
 
 import { Styled } from './styled';
 import ButtonTitle from '../buttons';
+import { MarginTop, MarginY } from '../styled';
 
 interface IProps {
   updateEdit: (bool: boolean) => void;
@@ -57,52 +58,56 @@ export const ModalProfile: FC<IProps> = ({ updateEdit }) => {
           label="Скрыть номер мобильного"
           className="md-item"
         />
-        <TextField
-          label="Skype"
-          value={skype}
-          onChange={handleSearchSkype}
-          variant="outlined"
-          style={{ marginTop: '1.25rem' }}
-          className="md-item"
-        />
-        <TextField
-          label="Работаю в ИБ с"
-          value={workDate}
-          onChange={handleWorkDate}
-          variant="outlined"
-          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
-          className="md-item"
-        />
-        <TextField
-          label="Расшифровка должности"
-          value={profession}
-          onChange={handleProfession}
-          multiline
-          variant="outlined"
-          rows={4}
-          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
-          className="md-item"
-        />
-        <TextField
-          label="Неподтвержденные компетенции"
-          value={competencie}
-          onChange={handleCompetencie}
-          multiline
-          variant="outlined"
-          rows={4}
-          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
-          className="md-item"
-        />
-        <TextField
-          label="Опыт работы"
-          value={workExp}
-          onChange={handleWorkExp}
-          multiline
-          variant="outlined"
-          rows={4}
-          style={{ marginBottom: '1.25rem', marginTop: '1.25rem' }}
-          className="md-item"
-        />
+
+        <MarginTop>
+          <TextField label="Skype" value={skype} onChange={handleSearchSkype} variant="outlined" className="md-item" />
+        </MarginTop>
+
+        <MarginY>
+          <TextField
+            label="Работаю в ИБ с"
+            value={workDate}
+            onChange={handleWorkDate}
+            variant="outlined"
+            className="md-item"
+          />
+        </MarginY>
+
+        <MarginY>
+          <TextField
+            label="Расшифровка должности"
+            value={profession}
+            onChange={handleProfession}
+            multiline
+            variant="outlined"
+            rows={4}
+            className="md-item"
+          />
+        </MarginY>
+
+        <MarginY>
+          <TextField
+            label="Неподтвержденные компетенции"
+            value={competencie}
+            onChange={handleCompetencie}
+            multiline
+            variant="outlined"
+            rows={4}
+            className="md-item"
+          />
+        </MarginY>
+
+        <MarginY>
+          <TextField
+            label="Опыт работы"
+            value={workExp}
+            onChange={handleWorkExp}
+            multiline
+            variant="outlined"
+            rows={4}
+            className="md-item"
+          />
+        </MarginY>
       </Styled.MaxDiv>
       <ButtonTitle title={'Отправить изменения'} onClick={handleEdit} />
     </Styled.ModalFlex>

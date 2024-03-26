@@ -2,22 +2,13 @@ import { useContext, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  Collapse,
-  IconButton,
-  IconButtonProps,
-  Pagination,
-  Typography,
-  styled,
-} from '@mui/material';
+import { CardActions, CardContent, Collapse, Pagination, Typography } from '@mui/material';
 import { noticeHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
 import CounterLikes from 'components/atoms/counter/counterLikes';
-import { Notices, NeutralLink, FlexNews } from 'components/atoms/neutral-link';
+import { ExpandMore } from 'components/atoms/expand-more';
+import { Notices, NeutralLink, FullNews } from 'components/atoms/neutral-link';
+import { FullCard, FullWidthCard, WrapBox } from 'components/atoms/styled';
 import { NoticeDto } from 'rest';
 
 export function Notice() {
@@ -71,27 +62,10 @@ const NoticeList = () => {
     <>
       <Typography variant="h4">Уведомления</Typography>
 
-      <Box style={{ gap: '1rem', margin: '1rem 0', display: 'flex', flexWrap: 'wrap' }}>
-        {data?.map((i) => <NoticeItem key={i.id} {...i} />)}
-      </Box>
+      <WrapBox>{data?.map((i) => <NoticeItem key={i.id} {...i} />)}</WrapBox>
     </>
   );
 };
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 const NoticeItem = ({ id, title, date, text, isLikedByMe, likesCount }: NoticeDto) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -108,7 +82,7 @@ const NoticeItem = ({ id, title, date, text, isLikedByMe, likesCount }: NoticeDt
   return (
     <>
       <Notices isLike={like}>
-        <Card sx={{ minWidth: '100%' }}>
+        <FullWidthCard>
           <NeutralLink to={`/notice/${id}`}>
             <CardContent>
               <Typography variant="body2" color="text.secondary">
@@ -130,7 +104,7 @@ const NoticeItem = ({ id, title, date, text, isLikedByMe, likesCount }: NoticeDt
               <Typography paragraph>{text}</Typography>
             </CardContent>
           </Collapse>
-        </Card>
+        </FullWidthCard>
       </Notices>
     </>
   );
@@ -151,8 +125,8 @@ const NoticePage = () => {
   return (
     item && (
       <>
-        <FlexNews isLike={item.like} style={{ width: '100%' }}>
-          <Card sx={{ minWidth: '100%', minHeight: '100%' }}>
+        <FullNews>
+          <FullCard>
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {item.title}
@@ -172,8 +146,8 @@ const NoticePage = () => {
                 <Typography paragraph>{item.text}</Typography>
               </CardContent>
             </Collapse>
-          </Card>
-        </FlexNews>
+          </FullCard>
+        </FullNews>
       </>
     )
   );

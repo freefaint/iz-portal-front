@@ -34,11 +34,15 @@ export const FlexNews = styled.div<{
     left: 23%;
   }
 
-  @media screen and (max-width: 950px) {
+  @media screen and (max-width: 60rem) {
     width: 48%;
   }
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 60rem) {
     width: 100%;
   }
+`;
+
+export const FullNews = styled(FlexNews)`
+  width: 100%;
 `;

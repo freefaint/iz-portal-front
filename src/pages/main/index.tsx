@@ -4,25 +4,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Box,
-  Card,
   CardActions,
   CardContent,
   CardMedia,
   CircularProgress,
   Collapse,
-  IconButton,
-  IconButtonProps,
   Pagination,
   Typography,
-  styled,
 } from '@mui/material';
 import { newsHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
-import Comments, { Commenting } from 'components/atoms/comments/comments';
+import Comments, { ICommenting } from 'components/atoms/comments/comments';
 import CounterLikes from 'components/atoms/counter/counterLikes';
 import CounterViews from 'components/atoms/counter/counterViews';
+import { ExpandMore } from 'components/atoms/expand-more';
 import LikeViever from 'components/atoms/likeViewer/likeViewer';
-import { FlexNews, NeutralLink } from 'components/atoms/neutral-link';
+import { FlexNews, FullNews, NeutralLink } from 'components/atoms/neutral-link';
+import { FullCard, FullWidthCard, WrapBox } from 'components/atoms/styled';
 import { NewsDto } from 'rest';
 
 export function Main() {
@@ -89,29 +87,13 @@ const NewsList = () => {
       <>
         <Typography variant="h4">Новости</Typography>
 
-        <Box style={{ gap: '1rem', margin: '1rem 0', display: 'flex', flexWrap: 'wrap' }}>
-          {currentItems?.map((i) => <NewsItem key={i.id} {...i} />)}
-        </Box>
+        <WrapBox>{currentItems?.map((i) => <NewsItem key={i.id} {...i} />)}</WrapBox>
+
         <Pagination count={pageCount} page={currentPage} onChange={handleChangePage} />
       </>
     )
   );
 };
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, likesCount }: NewsDto) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -137,9 +119,9 @@ const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, lik
   return (
     <>
       <FlexNews isLike={like}>
-        <Card sx={{ minWidth: '100%' }}>
+        <FullWidthCard>
           <NeutralLink to={`/news/${id}`}>
-            <CardMedia component="img" height="194" image={img} alt="Paella dish" />
+            <CardMedia component="img" height="12rem" image={img} alt="Paella dish" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {announce}
@@ -170,7 +152,7 @@ const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, lik
               <Typography paragraph>{title}</Typography>
             </CardContent>
           </Collapse>
-        </Card>
+        </FullWidthCard>
       </FlexNews>
     </>
   );
@@ -178,7 +160,7 @@ const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, lik
 
 const NewsPage = () => {
   const { item } = useContext(RegistryDataContext);
-  const [commentsData, setCommentsData] = useState<Commenting[]>([]);
+  const [commentsData, setCommentsData] = useState<ICommenting[]>([]);
 
   useEffect(() => {
     if (item) {
@@ -209,9 +191,9 @@ const NewsPage = () => {
     item &&
     commentsData && (
       <>
-        <FlexNews isLike={item.like} style={{ width: '100%' }}>
-          <Card sx={{ minWidth: '100%', minHeight: '100%' }}>
-            <CardMedia component="img" height="400px" image={item.img} alt="Paella dish" />
+        <FullNews isLike={item.like}>
+          <FullCard>
+            <CardMedia component="img" height="25rem" image={item.img} alt="Paella dish" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {item.title}
@@ -230,8 +212,8 @@ const NewsPage = () => {
               </CardContent>
               <Comments comments={commentsData} />
             </Collapse>
-          </Card>
-        </FlexNews>
+          </FullCard>
+        </FullNews>
       </>
     )
   );

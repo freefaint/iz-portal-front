@@ -2,11 +2,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import { CounterView } from './styled';
 
-interface CounterProps {
+interface ICounterViewsProps {
   count: number;
 }
 
-export const CounterViews = ({ count }: CounterProps) => (
+export const CounterViews = ({ count }: ICounterViewsProps) => (
   <CounterView>
     <VisibilityIcon />
     <span>{count}</span>

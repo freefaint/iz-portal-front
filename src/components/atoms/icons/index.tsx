@@ -6,8 +6,8 @@ import { Box } from '@mui/material';
 
 interface IProps {
   src?: string;
-  height?: number;
-  width?: number;
+  height?: string | number;
+  width?: string | number;
   alt?: string;
 }
 

@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { TextField } from '@mui/material';
+import { MarginBottom } from 'components/atoms/styled';
 import SearchTable from 'components/molecules/search';
 
 import { BackgroundSearch, SearchLabel } from './styled';
@@ -48,13 +49,11 @@ export const Search: FC<SearchProps> = ({ data, columns }) => {
   return (
     <BackgroundSearch>
       <SearchLabel>Поиск</SearchLabel>
-      <TextField
-        label="Поиск"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        variant="outlined"
-        style={{ marginBottom: '1.25rem' }}
-      />
+
+      <MarginBottom>
+        <TextField label="Поиск" value={searchTerm} onChange={handleSearchChange} variant="outlined" />
+      </MarginBottom>
+
       <SearchTable filteredData={filteredData} columns={columns} />
     </BackgroundSearch>
   );
