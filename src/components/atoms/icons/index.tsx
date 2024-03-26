@@ -1,11 +1,13 @@
 import { FC } from 'react';
 
+import styled from 'styled-components';
+
 import { Box } from '@mui/material';
 
 interface IProps {
   src?: string;
-  height?: number;
-  width?: number;
+  height?: string | number;
+  width?: string | number;
   alt?: string;
 }
 
@@ -22,5 +24,10 @@ export const ProfileIcon: FC<IProps> = ({ src, height, width, alt }) => {
     />
   );
 };
+
+export const TinyImg = styled.img`
+  width: 1rem;
+  height: 1rem;
+`;
 
 export default ProfileIcon;

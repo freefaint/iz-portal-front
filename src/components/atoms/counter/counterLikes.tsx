@@ -4,13 +4,13 @@ import { IconButton } from '@mui/material';
 
 import { CountBox, CounterLike, CounterText } from './styled';
 
-interface CounterProps {
+interface ICounterLikesProps {
   count: number;
   isLike: boolean;
   handleLiked: () => void;
 }
 
-export const CounterLikes = ({ count, isLike, handleLiked }: CounterProps) => (
+export const CounterLikes = ({ count, isLike, handleLiked }: ICounterLikesProps) => (
   <CounterLike isLike={isLike}>
     <CountBox>
       <IconButton aria-label="add to favorites" onClick={handleLiked}>

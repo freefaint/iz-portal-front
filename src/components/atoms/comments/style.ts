@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { Button } from '@mui/material';
+import { LINK_COLOR } from 'styles';
 
 const All = styled.div`
   display: flex;
@@ -9,34 +10,33 @@ const All = styled.div`
 
 const CommentsList = styled.div`
   display: flex;
-  padding: 10px;
+  padding: 0.5rem;
   flex-direction: column;
 `;
 
 const ActionBlock = styled.div`
   display: flex;
-  /* justify-content: space-between; */
   flex-direction: column;
   align-items: start;
 
   .MuiFormControl-root {
-    margin-left: 10px;
-    height: 35px;
-    margin-bottom: 15px;
+    margin-left: 0.75rem;
+    height: 2.25rem;
+    margin-bottom: 1rem;
   }
 `;
 
 const Btn = styled(Button)`
-  font-size: 10px !important;
-  height: 15px;
+  font-size: 0.625rem !important;
+  height: 1rem;
 `;
 
 const CommentsBlock = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid rgb(54, 55, 56, 0.2);
-  padding: 10px;
-  margin: 10px;
+  border-bottom: 0.0625rem solid rgb(54, 55, 56, 0.2);
+  padding: 0.75rem;
+  margin: 0.75rem;
 `;
 
 const CommentInfo = styled.div`
@@ -46,35 +46,34 @@ const CommentInfo = styled.div`
   align-items: start;
 
   a {
-    color: #1976d2;
+    color: ${LINK_COLOR};
     font-weight: 300;
     text-decoration: none;
   }
 `;
 const Text = styled.div`
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
-  padding: 0px 7px;
+  padding: 0 0.5rem;
 `;
 const Info = styled.div`
-  font-size: 13px;
-  padding: 0px 5px;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
 `;
 const NewComment = styled.div`
   width: 100%;
-  padding: 7px;
-  margin-bottom: 20px;
+  padding: 0.5rem;
+  margin-bottom: 1.25rem;
   .MuiFormControl-root {
     width: 100%;
-    /* border: 1px solid #1976d2; */
-    padding: 6px 15px;
-    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    border-radius: 1.5rem;
   }
 
   .MuiFormLabel-root {
-    font-size: 14px;
-    color: #1976d2;
-    padding: 0px 15px;
+    font-size: 0.875rem;
+    color: ${LINK_COLOR};
+    padding: 0 1rem;
   }
 `;
 

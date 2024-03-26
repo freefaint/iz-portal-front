@@ -42,10 +42,6 @@ export const genComments = (): CommentsListDto => {
   };
 };
 
-// mock.onGet(/\/api\/v1\/news\/?.*/).reply((resp) => {
-//   return [200, genComments()];
-// });
-
 mock.onPost(/\/api\/v1\/comments/).reply(() => {
   return [200, genComments()];
 });

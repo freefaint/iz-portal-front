@@ -1,11 +1,11 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { TextField } from '@mui/material';
 
 import { Styled } from './style';
 
-export interface Commenting {
+export interface ICommenting {
   id: string;
   text: string;
   date: string;
@@ -14,21 +14,17 @@ export interface Commenting {
   showReplyInput?: boolean;
 }
 
-interface RenderedCommentProps {
-  comment: Commenting;
-  comments: Commenting[];
-  updateComments: (newComments: Commenting[]) => void;
+interface IRenderedCommentProps {
+  comment: ICommenting;
+  comments: ICommenting[];
+  updateComments: (newComments: ICommenting[]) => void;
 }
 
-interface CommentsProps {
-  comments: Commenting[];
-}
-
-const RenderedComment: FC<RenderedCommentProps> = ({ comment, comments, updateComments }) => {
+const RenderedComment: FC<IRenderedCommentProps> = memo(({ comment, comments, updateComments }) => {
   const [replyText, setReplyText] = useState('');
   const [showReplyInput, setShowReplyInput] = useState(false);
 
-  const childComments = comments.filter((c) => c.parentId === comment.id);
+  const childComments = useMemo(() => comments.filter((c) => c.parentId === comment.id), [comments, comment]);
 
   const handleClickReply = () => {
     setShowReplyInput(true);
@@ -105,13 +101,13 @@ const RenderedComment: FC<RenderedCommentProps> = ({ comment, comments, updateCo
       )}
     </Styled.CommentsBlock>
   );
-};
+});
 
-interface CommentsProps {
-  comments: Commenting[];
+interface ICommentsProps {
+  comments: ICommenting[];
 }
 
-const Comments: FC<CommentsProps> = ({ comments }) => {
+const Comments: FC<ICommentsProps> = ({ comments }) => {
   const [updatedComments, setUpdatedComments] = useState(comments);
   const [newCommentText, setNewCommentText] = useState('');
 
@@ -121,9 +117,9 @@ const Comments: FC<CommentsProps> = ({ comments }) => {
     }
   }, [comments]);
 
-  const updateComments = (newComments: Commenting[]) => {
+  const updateComments = useCallback((newComments: ICommenting[]) => {
     setUpdatedComments(newComments);
-  };
+  }, []);
 
   const addNewComment = (text: string) => {
     // TODO вставить текущий id пользователя из api
