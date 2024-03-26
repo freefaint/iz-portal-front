@@ -17,8 +17,11 @@ export const WrapBox = styled(Box)`
   flex-wrap: wrap;
 `;
 
-export const Block = styled(Box)`
+export const Row = styled(Box)`
   display: flex;
+`;
+
+export const Block = styled(Row)`
   flex-direction: column;
 `;
 

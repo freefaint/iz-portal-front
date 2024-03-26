@@ -305,10 +305,9 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
                 }}
               >
-                <StyledListItemIcon open={open}>
+                <StyledListItemIcon>
                   <Home />
                 </StyledListItemIcon>
 
@@ -321,10 +320,9 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
                 }}
               >
-                <StyledListItemIcon open={open}>
+                <StyledListItemIcon>
                   <FaceIcon />
                 </StyledListItemIcon>
 
@@ -337,10 +335,9 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
                 }}
               >
-                <StyledListItemIcon open={open}>
+                <StyledListItemIcon>
                   <NotificationsIcon />
                 </StyledListItemIcon>
 
@@ -353,10 +350,9 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
                 }}
               >
-                <StyledListItemIcon open={open}>
+                <StyledListItemIcon>
                   <Group />
                 </StyledListItemIcon>
 
@@ -375,10 +371,9 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
                 }}
               >
-                <StyledListItemIcon open={open}>
+                <StyledListItemIcon>
                   <InfoOutlined />
                 </StyledListItemIcon>
 

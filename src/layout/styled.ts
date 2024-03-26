@@ -25,15 +25,11 @@ export const Img = styled.img`
 
 export const StyledListItemText = styled(ListItemText)`
   ${({ open }: { open?: boolean }) => css`
-    opacity: ${open ? 1 : 2};
+    opacity: ${open ? 1 : 0};
   `};
 `;
 
 export const StyledListItemIcon = styled(ListItemIcon)`
   min-width: 0;
   justify-content: center;
-
-  ${({ open }: { open?: boolean }) => css`
-    margin-right: ${open ? '0.25rem' : 0};
-  `};
 `;

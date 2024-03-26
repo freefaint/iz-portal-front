@@ -114,7 +114,7 @@ const NewsItem = ({ id, title, img, date, announce, isLikedByMe, viewsCount, lik
       <FlexNews isLike={like}>
         <FullWidthCard>
           <NeutralLink to={`/news/${id}`}>
-            <CardMedia component="img" height="12rem" image={img} alt="Paella dish" />
+            <CardMedia component="img" image={img} alt="Paella dish" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {announce}
