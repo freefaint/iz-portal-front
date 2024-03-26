@@ -34,6 +34,112 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  *
  * @export
+ * @interface AnswerDraftDto
+ */
+export interface AnswerDraftDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof AnswerDraftDto
+   */
+  id: string;
+  /**
+   * Дата ответа
+   * @type {string}
+   * @memberof AnswerDraftDto
+   */
+  date: string;
+  /**
+   * ID проголосовавшего юзера
+   * @type {string}
+   * @memberof AnswerDraftDto
+   */
+  author: string;
+  /**
+   * Текст ответа, если в опросе свойство custom = true
+   * @type {string}
+   * @memberof AnswerDraftDto
+   */
+  text?: string;
+  /**
+   * Список ответов
+   * @type {Array<string>}
+   * @memberof AnswerDraftDto
+   */
+  choicesIds: Array<string>;
+}
+/**
+ *
+ * @export
+ * @interface AnswerDto
+ */
+export interface AnswerDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof AnswerDto
+   */
+  id?: string;
+  /**
+   * Текст ответа, если в опросе свойство custom = true
+   * @type {string}
+   * @memberof AnswerDto
+   */
+  text?: string;
+  /**
+   * Список ответов
+   * @type {Array<string>}
+   * @memberof AnswerDto
+   */
+  choicesIds: Array<string>;
+}
+/**
+ *
+ * @export
+ * @interface ChoiceDraftDto
+ */
+export interface ChoiceDraftDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof ChoiceDraftDto
+   */
+  id?: string;
+  /**
+   * Текст варианта ответа
+   * @type {string}
+   * @memberof ChoiceDraftDto
+   */
+  text: string;
+}
+/**
+ *
+ * @export
+ * @interface ChoiceDto
+ */
+export interface ChoiceDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof ChoiceDto
+   */
+  id: string;
+  /**
+   * Текст варианта ответа
+   * @type {string}
+   * @memberof ChoiceDto
+   */
+  text?: string;
+  /**
+   * Сколько проголосовали
+   * @type {number}
+   * @memberof ChoiceDto
+   */
+  count: number;
+}
+/**
+ *
+ * @export
  * @interface CommentDraftDto
  */
 export interface CommentDraftDto {
@@ -280,6 +386,7 @@ export interface Filter {
 }
 
 export const FilterPredicateEnum = {
+  IsYearlyToday: 'IS_YEARLY_TODAY',
   Eq: 'EQ',
   Contains: 'CONTAINS',
   Lt: 'LT',
@@ -762,6 +869,243 @@ export interface RequestBody {
 /**
  *
  * @export
+ * @interface SurvayDraftDto
+ */
+export interface SurvayDraftDto {
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  title: string;
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  announce: string;
+  /**
+   * Текст
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  text?: string;
+  /**
+   * Ссылка на картинку
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  img?: string;
+  /**
+   * Если вариантов ответа нету, можно ответить текстом
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  custom?: boolean;
+  /**
+   * Можно ли выбрать несколько вариантов
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  multiple?: boolean;
+  /**
+   * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  anonimous?: boolean;
+  /**
+   * Результаты видны пользователям
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  public?: boolean;
+  /**
+   * Можно ли переголосовать
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  editable?: boolean;
+  /**
+   * Варианты ответов
+   * @type {Array<ChoiceDraftDto>}
+   * @memberof SurvayDraftDto
+   */
+  choices: Array<ChoiceDraftDto>;
+  /**
+   * Дата новости
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  date: string;
+  /**
+   * Дата после которой нельзя будет ответить
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  finishDate?: string;
+}
+/**
+ *
+ * @export
+ * @interface SurvayDto
+ */
+export interface SurvayDto {
+  /**
+   * ID
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  id: string;
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  title: string;
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  announce: string;
+  /**
+   * Текст
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  text?: string;
+  /**
+   * Ссылка на картинку
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  img?: string;
+  /**
+   * Если вариантов ответа нету, можно ответить текстом
+   * @type {boolean}
+   * @memberof SurvayDto
+   */
+  custom?: boolean;
+  /**
+   * Можно ли выбрать несколько вариантов
+   * @type {boolean}
+   * @memberof SurvayDto
+   */
+  multiple?: boolean;
+  /**
+   * Можно ли переголосовать
+   * @type {boolean}
+   * @memberof SurvayDto
+   */
+  editable?: boolean;
+  /**
+   * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
+   * @type {boolean}
+   * @memberof SurvayDto
+   */
+  anonimous?: boolean;
+  /**
+   * Результаты видны пользователям
+   * @type {boolean}
+   * @memberof SurvayDto
+   */
+  public?: boolean;
+  /**
+   * Варианты ответов
+   * @type {Array<ChoiceDto>}
+   * @memberof SurvayDto
+   */
+  choices?: Array<ChoiceDto>;
+  /**
+   * Дата новости
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  date: string;
+  /**
+   * Дата после которой нельзя будет ответить
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  finishDate?: string;
+  /**
+   * Дата создания новости
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  createDate: string;
+  /**
+   * Дата обновления новости
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  updateDate: string;
+  /**
+   * ID пользователя, создавшего новости
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  createUserId: string;
+  /**
+   * ID последнего последнего пользователя, изменившего новость
+   * @type {string}
+   * @memberof SurvayDto
+   */
+  updateUserId: string;
+  /**
+   * Лайкнул ли я новость
+   * @type {boolean}
+   * @memberof SurvayDto
+   */
+  isLikedByMe?: boolean;
+  /**
+   * Количество лайков
+   * @type {number}
+   * @memberof SurvayDto
+   */
+  likesCount?: number;
+  /**
+   * Просмотрел ли я новость
+   * @type {boolean}
+   * @memberof SurvayDto
+   */
+  isViewedByMe?: boolean;
+  /**
+   * Количество просмотров
+   * @type {number}
+   * @memberof SurvayDto
+   */
+  viewsCount?: number;
+  /**
+   * Количество комментариев
+   * @type {number}
+   * @memberof SurvayDto
+   */
+  сommentsCount?: number;
+}
+/**
+ *
+ * @export
+ * @interface SurvaysListDto
+ */
+export interface SurvaysListDto {
+  /**
+   * Общее количество
+   * @type {number}
+   * @memberof SurvaysListDto
+   */
+  total: number;
+  /**
+   * Список элементов
+   * @type {Array<SurvayDto>}
+   * @memberof SurvaysListDto
+   */
+  items: Array<SurvayDto>;
+}
+/**
+ *
+ * @export
  * @interface UploadFile200Response
  */
 export interface UploadFile200Response {
@@ -848,6 +1192,40 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       };
     },
     /**
+     * Эндпоинт для создания опроса
+     * @summary Добавление опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSurvay: async (survayDraftDto: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('addSurvay', 'survayDraftDto', survayDraftDto);
+      const localVarPath = `/api/v1/survays`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * Удаление новости из системы
      * @summary Удаление новости
      * @param {string} id Идентификатор новости
@@ -889,6 +1267,37 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       // verify required parameter 'id' is not null or undefined
       assertParamExists('removeNotice', 'id', id);
       const localVarPath = `/api/v1/notice/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Удаление опроса из системы
+     * @summary Удаление опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeSurvay: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('removeSurvay', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -991,6 +1400,47 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
         options: localVarRequestOptions,
       };
     },
+    /**
+     * Изменение данных опроса
+     * @summary Редактирование опроса
+     * @param {string} id Идентификатор опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvay: async (
+      id: string,
+      survayDraftDto: SurvayDraftDto,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('updateSurvay', 'id', id);
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('updateSurvay', 'survayDraftDto', survayDraftDto);
+      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -1030,6 +1480,20 @@ export const AdminApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
+     * Эндпоинт для создания опроса
+     * @summary Добавление опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async addSurvay(
+      survayDraftDto: SurvayDraftDto,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(survayDraftDto, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
      * Удаление новости из системы
      * @summary Удаление новости
      * @param {string} id Идентификатор новости
@@ -1055,6 +1519,20 @@ export const AdminApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.removeNotice(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Удаление опроса из системы
+     * @summary Удаление опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async removeSurvay(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.removeSurvay(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1089,6 +1567,22 @@ export const AdminApiFp = function (configuration?: Configuration) {
       const localVarAxiosArgs = await localVarAxiosParamCreator.updateNotice(id, noticeDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
+    /**
+     * Изменение данных опроса
+     * @summary Редактирование опроса
+     * @param {string} id Идентификатор опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateSurvay(
+      id: string,
+      survayDraftDto: SurvayDraftDto,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, survayDraftDto, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
   };
 };
 
@@ -1120,6 +1614,16 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
       return localVarFp.addNotice(noticeDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
+     * Эндпоинт для создания опроса
+     * @summary Добавление опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSurvay(survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.addSurvay(survayDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
      * Удаление новости из системы
      * @summary Удаление новости
      * @param {string} id Идентификатор новости
@@ -1138,6 +1642,16 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
      */
     removeNotice(id: string, options?: any): AxiosPromise<void> {
       return localVarFp.removeNotice(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Удаление опроса из системы
+     * @summary Удаление опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeSurvay(id: string, options?: any): AxiosPromise<void> {
+      return localVarFp.removeSurvay(id, options).then((request) => request(axios, basePath));
     },
     /**
      * Изменение данных новости
@@ -1160,6 +1674,17 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
      */
     updateNotice(id: string, noticeDraftDto: NoticeDraftDto, options?: any): AxiosPromise<NoticeDto> {
       return localVarFp.updateNotice(id, noticeDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Изменение данных опроса
+     * @summary Редактирование опроса
+     * @param {string} id Идентификатор опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvay(id: string, survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.updateSurvay(id, survayDraftDto, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -1193,6 +1718,20 @@ export interface AdminApiAddNoticeRequest {
 }
 
 /**
+ * Request parameters for addSurvay operation in AdminApi.
+ * @export
+ * @interface AdminApiAddSurvayRequest
+ */
+export interface AdminApiAddSurvayRequest {
+  /**
+   *
+   * @type {SurvayDraftDto}
+   * @memberof AdminApiAddSurvay
+   */
+  readonly survayDraftDto: SurvayDraftDto;
+}
+
+/**
  * Request parameters for removeNews operation in AdminApi.
  * @export
  * @interface AdminApiRemoveNewsRequest
@@ -1216,6 +1755,20 @@ export interface AdminApiRemoveNoticeRequest {
    * Идентификатор объявления
    * @type {string}
    * @memberof AdminApiRemoveNotice
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for removeSurvay operation in AdminApi.
+ * @export
+ * @interface AdminApiRemoveSurvayRequest
+ */
+export interface AdminApiRemoveSurvayRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof AdminApiRemoveSurvay
    */
   readonly id: string;
 }
@@ -1263,6 +1816,27 @@ export interface AdminApiUpdateNoticeRequest {
 }
 
 /**
+ * Request parameters for updateSurvay operation in AdminApi.
+ * @export
+ * @interface AdminApiUpdateSurvayRequest
+ */
+export interface AdminApiUpdateSurvayRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof AdminApiUpdateSurvay
+   */
+  readonly id: string;
+
+  /**
+   *
+   * @type {SurvayDraftDto}
+   * @memberof AdminApiUpdateSurvay
+   */
+  readonly survayDraftDto: SurvayDraftDto;
+}
+
+/**
  * AdminApi - object-oriented interface
  * @export
  * @class AdminApi
@@ -1298,6 +1872,20 @@ export class AdminApi extends BaseAPI {
   }
 
   /**
+   * Эндпоинт для создания опроса
+   * @summary Добавление опроса
+   * @param {AdminApiAddSurvayRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AdminApi
+   */
+  public addSurvay(requestParameters: AdminApiAddSurvayRequest, options?: AxiosRequestConfig) {
+    return AdminApiFp(this.configuration)
+      .addSurvay(requestParameters.survayDraftDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * Удаление новости из системы
    * @summary Удаление новости
    * @param {AdminApiRemoveNewsRequest} requestParameters Request parameters.
@@ -1326,6 +1914,20 @@ export class AdminApi extends BaseAPI {
   }
 
   /**
+   * Удаление опроса из системы
+   * @summary Удаление опроса
+   * @param {AdminApiRemoveSurvayRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AdminApi
+   */
+  public removeSurvay(requestParameters: AdminApiRemoveSurvayRequest, options?: AxiosRequestConfig) {
+    return AdminApiFp(this.configuration)
+      .removeSurvay(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * Изменение данных новости
    * @summary Редактирование новости
    * @param {AdminApiUpdateNewsRequest} requestParameters Request parameters.
@@ -1350,6 +1952,20 @@ export class AdminApi extends BaseAPI {
   public updateNotice(requestParameters: AdminApiUpdateNoticeRequest, options?: AxiosRequestConfig) {
     return AdminApiFp(this.configuration)
       .updateNotice(requestParameters.id, requestParameters.noticeDraftDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Изменение данных опроса
+   * @summary Редактирование опроса
+   * @param {AdminApiUpdateSurvayRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AdminApi
+   */
+  public updateSurvay(requestParameters: AdminApiUpdateSurvayRequest, options?: AxiosRequestConfig) {
+    return AdminApiFp(this.configuration)
+      .updateSurvay(requestParameters.id, requestParameters.survayDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -1714,29 +2330,23 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       };
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
+     * Эндпоинт для создания комментария
+     * @summary Добавление комментария
+     * @param {string} id Идентификатор опроса
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editNewsComment: async (
-      nid: string,
-      cid: string,
+    addSurvayComment: async (
+      id: string,
       commentDraftDto: CommentDraftDto,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('editNewsComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('editNewsComment', 'cid', cid);
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('addSurvayComment', 'id', id);
       // verify required parameter 'commentDraftDto' is not null or undefined
-      assertParamExists('editNewsComment', 'commentDraftDto', commentDraftDto);
-      const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
+      assertParamExists('addSurvayComment', 'commentDraftDto', commentDraftDto);
+      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1763,27 +2373,21 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
     /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
-     * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     editNoticeComment: async (
-      nid: string,
       cid: string,
       commentDraftDto: CommentDraftDto,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('editNoticeComment', 'nid', nid);
       // verify required parameter 'cid' is not null or undefined
       assertParamExists('editNoticeComment', 'cid', cid);
       // verify required parameter 'commentDraftDto' is not null or undefined
       assertParamExists('editNoticeComment', 'commentDraftDto', commentDraftDto);
-      const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
+      const localVarPath = `/api/v1/comments/{id}`.replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1801,42 +2405,6 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
       localVarRequestOptions.data = serializeDataIfNeeded(commentDraftDto, localVarRequestOptions, configuration);
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNewsComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('getNewsComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('getNewsComment', 'cid', cid);
-      const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1887,19 +2455,14 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
     /**
      * Эндпоинт для получения комментария
      * @summary Получение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNoticeComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('getNoticeComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('getNoticeComment', 'cid', cid);
-      const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
+    getNoticeComment: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getNoticeComment', 'id', id);
+      const localVarPath = `/api/v1/comments/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1962,21 +2525,23 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       };
     },
     /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
+     * Эндпоинт для получения комментариев опроса с параметрами поиска
+     * @summary Получение списка комментариев
+     * @param {string} id Идентификатор опроса
+     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeNewsComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('removeNewsComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('removeNewsComment', 'cid', cid);
-      const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
+    getSurvayComments: async (
+      id: string,
+      requestBody: RequestBody,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getSurvayComments', 'id', id);
+      // verify required parameter 'requestBody' is not null or undefined
+      assertParamExists('getSurvayComments', 'requestBody', requestBody);
+      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1984,13 +2549,16 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
         baseOptions = configuration.baseOptions;
       }
 
-      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -2000,19 +2568,14 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
     /**
      * Эндпоинт для удаления своего комментария
      * @summary Удаление комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeNoticeComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('removeNoticeComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('removeNoticeComment', 'cid', cid);
-      const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
+    removeNoticeComment: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('removeNoticeComment', 'id', id);
+      const localVarPath = `/api/v1/comments/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -2076,55 +2639,35 @@ export const CommentsApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
+     * Эндпоинт для создания комментария
+     * @summary Добавление комментария
+     * @param {string} id Идентификатор опроса
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async editNewsComment(
-      nid: string,
-      cid: string,
+    async addSurvayComment(
+      id: string,
       commentDraftDto: CommentDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.editNewsComment(nid, cid, commentDraftDto, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvayComment(id, commentDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
-     * @param {string} nid Идентификатор объявления
      * @param {string} cid Идентификатор комментария
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async editNoticeComment(
-      nid: string,
       cid: string,
       commentDraftDto: CommentDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.editNoticeComment(nid, cid, commentDraftDto, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getNewsComment(
-      nid: string,
-      cid: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsComment(nid, cid, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.editNoticeComment(cid, commentDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -2146,17 +2689,15 @@ export const CommentsApiFp = function (configuration?: Configuration) {
     /**
      * Эндпоинт для получения комментария
      * @summary Получение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getNoticeComment(
-      nid: string,
-      cid: string,
+      id: string,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeComment(nid, cid, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeComment(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -2176,35 +2717,33 @@ export const CommentsApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
+     * Эндпоинт для получения комментариев опроса с параметрами поиска
+     * @summary Получение списка комментариев
+     * @param {string} id Идентификатор опроса
+     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async removeNewsComment(
-      nid: string,
-      cid: string,
+    async getSurvayComments(
+      id: string,
+      requestBody: RequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.removeNewsComment(nid, cid, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayComments(id, requestBody, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Эндпоинт для удаления своего комментария
      * @summary Удаление комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async removeNoticeComment(
-      nid: string,
-      cid: string,
+      id: string,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.removeNoticeComment(nid, cid, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.removeNoticeComment(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -2240,51 +2779,26 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
       return localVarFp.addNoticeComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
+     * Эндпоинт для создания комментария
+     * @summary Добавление комментария
+     * @param {string} id Идентификатор опроса
+     * @param {CommentDraftDto} commentDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSurvayComment(id: string, commentDraftDto: CommentDraftDto, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.addSurvayComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
-     * @param {string} nid Идентификатор новости
      * @param {string} cid Идентификатор комментария
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editNewsComment(
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options?: any,
-    ): AxiosPromise<CommentDto> {
-      return localVarFp.editNewsComment(nid, cid, commentDraftDto, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    editNoticeComment(
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options?: any,
-    ): AxiosPromise<CommentDto> {
-      return localVarFp
-        .editNoticeComment(nid, cid, commentDraftDto, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNewsComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
-      return localVarFp.getNewsComment(nid, cid, options).then((request) => request(axios, basePath));
+    editNoticeComment(cid: string, commentDraftDto: CommentDraftDto, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.editNoticeComment(cid, commentDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения комментариев новости с параметрами поиска
@@ -2300,13 +2814,12 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
     /**
      * Эндпоинт для получения комментария
      * @summary Получение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNoticeComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
-      return localVarFp.getNoticeComment(nid, cid, options).then((request) => request(axios, basePath));
+    getNoticeComment(id: string, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.getNoticeComment(id, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка комментариев объявления с параметрами поиска
@@ -2320,26 +2833,25 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
       return localVarFp.getNoticeComments(id, requestBody, options).then((request) => request(axios, basePath));
     },
     /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
+     * Эндпоинт для получения комментариев опроса с параметрами поиска
+     * @summary Получение списка комментариев
+     * @param {string} id Идентификатор опроса
+     * @param {RequestBody} requestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeNewsComment(nid: string, cid: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeNewsComment(nid, cid, options).then((request) => request(axios, basePath));
+    getSurvayComments(id: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
+      return localVarFp.getSurvayComments(id, requestBody, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для удаления своего комментария
      * @summary Удаление комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeNoticeComment(nid: string, cid: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeNoticeComment(nid, cid, options).then((request) => request(axios, basePath));
+    removeNoticeComment(id: string, options?: any): AxiosPromise<void> {
+      return localVarFp.removeNoticeComment(id, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -2387,29 +2899,22 @@ export interface CommentsApiAddNoticeCommentRequest {
 }
 
 /**
- * Request parameters for editNewsComment operation in CommentsApi.
+ * Request parameters for addSurvayComment operation in CommentsApi.
  * @export
- * @interface CommentsApiEditNewsCommentRequest
+ * @interface CommentsApiAddSurvayCommentRequest
  */
-export interface CommentsApiEditNewsCommentRequest {
+export interface CommentsApiAddSurvayCommentRequest {
   /**
-   * Идентификатор новости
+   * Идентификатор опроса
    * @type {string}
-   * @memberof CommentsApiEditNewsComment
+   * @memberof CommentsApiAddSurvayComment
    */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof CommentsApiEditNewsComment
-   */
-  readonly cid: string;
+  readonly id: string;
 
   /**
    *
    * @type {CommentDraftDto}
-   * @memberof CommentsApiEditNewsComment
+   * @memberof CommentsApiAddSurvayComment
    */
   readonly commentDraftDto: CommentDraftDto;
 }
@@ -2421,13 +2926,6 @@ export interface CommentsApiEditNewsCommentRequest {
  */
 export interface CommentsApiEditNoticeCommentRequest {
   /**
-   * Идентификатор объявления
-   * @type {string}
-   * @memberof CommentsApiEditNoticeComment
-   */
-  readonly nid: string;
-
-  /**
    * Идентификатор комментария
    * @type {string}
    * @memberof CommentsApiEditNoticeComment
@@ -2440,27 +2938,6 @@ export interface CommentsApiEditNoticeCommentRequest {
    * @memberof CommentsApiEditNoticeComment
    */
   readonly commentDraftDto: CommentDraftDto;
-}
-
-/**
- * Request parameters for getNewsComment operation in CommentsApi.
- * @export
- * @interface CommentsApiGetNewsCommentRequest
- */
-export interface CommentsApiGetNewsCommentRequest {
-  /**
-   * Идентификатор новости
-   * @type {string}
-   * @memberof CommentsApiGetNewsComment
-   */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof CommentsApiGetNewsComment
-   */
-  readonly cid: string;
 }
 
 /**
@@ -2491,18 +2968,11 @@ export interface CommentsApiGetNewsCommentsRequest {
  */
 export interface CommentsApiGetNoticeCommentRequest {
   /**
-   * Идентификатор объявления
-   * @type {string}
-   * @memberof CommentsApiGetNoticeComment
-   */
-  readonly nid: string;
-
-  /**
    * Идентификатор комментария
    * @type {string}
    * @memberof CommentsApiGetNoticeComment
    */
-  readonly cid: string;
+  readonly id: string;
 }
 
 /**
@@ -2527,24 +2997,24 @@ export interface CommentsApiGetNoticeCommentsRequest {
 }
 
 /**
- * Request parameters for removeNewsComment operation in CommentsApi.
+ * Request parameters for getSurvayComments operation in CommentsApi.
  * @export
- * @interface CommentsApiRemoveNewsCommentRequest
+ * @interface CommentsApiGetSurvayCommentsRequest
  */
-export interface CommentsApiRemoveNewsCommentRequest {
+export interface CommentsApiGetSurvayCommentsRequest {
   /**
-   * Идентификатор новости
+   * Идентификатор опроса
    * @type {string}
-   * @memberof CommentsApiRemoveNewsComment
+   * @memberof CommentsApiGetSurvayComments
    */
-  readonly nid: string;
+  readonly id: string;
 
   /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof CommentsApiRemoveNewsComment
+   *
+   * @type {RequestBody}
+   * @memberof CommentsApiGetSurvayComments
    */
-  readonly cid: string;
+  readonly requestBody: RequestBody;
 }
 
 /**
@@ -2554,18 +3024,11 @@ export interface CommentsApiRemoveNewsCommentRequest {
  */
 export interface CommentsApiRemoveNoticeCommentRequest {
   /**
-   * Идентификатор объявления
-   * @type {string}
-   * @memberof CommentsApiRemoveNoticeComment
-   */
-  readonly nid: string;
-
-  /**
    * Идентификатор комментария
    * @type {string}
    * @memberof CommentsApiRemoveNoticeComment
    */
-  readonly cid: string;
+  readonly id: string;
 }
 
 /**
@@ -2604,16 +3067,16 @@ export class CommentsApi extends BaseAPI {
   }
 
   /**
-   * Эндпоинт для редактирования комментария
-   * @summary Изменение комментария
-   * @param {CommentsApiEditNewsCommentRequest} requestParameters Request parameters.
+   * Эндпоинт для создания комментария
+   * @summary Добавление комментария
+   * @param {CommentsApiAddSurvayCommentRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CommentsApi
    */
-  public editNewsComment(requestParameters: CommentsApiEditNewsCommentRequest, options?: AxiosRequestConfig) {
+  public addSurvayComment(requestParameters: CommentsApiAddSurvayCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .editNewsComment(requestParameters.nid, requestParameters.cid, requestParameters.commentDraftDto, options)
+      .addSurvayComment(requestParameters.id, requestParameters.commentDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2627,21 +3090,7 @@ export class CommentsApi extends BaseAPI {
    */
   public editNoticeComment(requestParameters: CommentsApiEditNoticeCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .editNoticeComment(requestParameters.nid, requestParameters.cid, requestParameters.commentDraftDto, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для получения комментария
-   * @summary Получение комментария
-   * @param {CommentsApiGetNewsCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof CommentsApi
-   */
-  public getNewsComment(requestParameters: CommentsApiGetNewsCommentRequest, options?: AxiosRequestConfig) {
-    return CommentsApiFp(this.configuration)
-      .getNewsComment(requestParameters.nid, requestParameters.cid, options)
+      .editNoticeComment(requestParameters.cid, requestParameters.commentDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2669,7 +3118,7 @@ export class CommentsApi extends BaseAPI {
    */
   public getNoticeComment(requestParameters: CommentsApiGetNoticeCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .getNoticeComment(requestParameters.nid, requestParameters.cid, options)
+      .getNoticeComment(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2688,16 +3137,16 @@ export class CommentsApi extends BaseAPI {
   }
 
   /**
-   * Эндпоинт для удаления своего комментария
-   * @summary Удаление комментария
-   * @param {CommentsApiRemoveNewsCommentRequest} requestParameters Request parameters.
+   * Эндпоинт для получения комментариев опроса с параметрами поиска
+   * @summary Получение списка комментариев
+   * @param {CommentsApiGetSurvayCommentsRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof CommentsApi
    */
-  public removeNewsComment(requestParameters: CommentsApiRemoveNewsCommentRequest, options?: AxiosRequestConfig) {
+  public getSurvayComments(requestParameters: CommentsApiGetSurvayCommentsRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .removeNewsComment(requestParameters.nid, requestParameters.cid, options)
+      .getSurvayComments(requestParameters.id, requestParameters.requestBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2711,7 +3160,7 @@ export class CommentsApi extends BaseAPI {
    */
   public removeNoticeComment(requestParameters: CommentsApiRemoveNoticeCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .removeNoticeComment(requestParameters.nid, requestParameters.cid, options)
+      .removeNoticeComment(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -3571,6 +4020,37 @@ export const LikesApiAxiosParamCreator = function (configuration?: Configuration
       };
     },
     /**
+     * Эндпоинт для получения списка лайков опроса
+     * @summary Получение списка лайков опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayLikes: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getSurvayLikes', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      * Если лайка нет, добавится, если есть - удалится
      * @summary Добавление или удаление лайка
      * @param {string} id Идентификатор новости
@@ -3632,6 +4112,37 @@ export const LikesApiAxiosParamCreator = function (configuration?: Configuration
         options: localVarRequestOptions,
       };
     },
+    /**
+     * Если лайка нет, добавится, если есть - удалится
+     * @summary Добавление или удаление лайка
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvayLike: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('updateSurvayLike', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -3671,6 +4182,20 @@ export const LikesApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
+     * Эндпоинт для получения списка лайков опроса
+     * @summary Получение списка лайков опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSurvayLikes(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayLikes(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
      * Если лайка нет, добавится, если есть - удалится
      * @summary Добавление или удаление лайка
      * @param {string} id Идентификатор новости
@@ -3696,6 +4221,20 @@ export const LikesApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.updateNoticeLike(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Если лайка нет, добавится, если есть - удалится
+     * @summary Добавление или удаление лайка
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateSurvayLike(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvayLike(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -3729,6 +4268,16 @@ export const LikesApiFactory = function (configuration?: Configuration, basePath
       return localVarFp.getNoticeLikes(id, options).then((request) => request(axios, basePath));
     },
     /**
+     * Эндпоинт для получения списка лайков опроса
+     * @summary Получение списка лайков опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayLikes(id: string, options?: any): AxiosPromise<LikesListDto> {
+      return localVarFp.getSurvayLikes(id, options).then((request) => request(axios, basePath));
+    },
+    /**
      * Если лайка нет, добавится, если есть - удалится
      * @summary Добавление или удаление лайка
      * @param {string} id Идентификатор новости
@@ -3747,6 +4296,16 @@ export const LikesApiFactory = function (configuration?: Configuration, basePath
      */
     updateNoticeLike(id: string, options?: any): AxiosPromise<LikesListDto> {
       return localVarFp.updateNoticeLike(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Если лайка нет, добавится, если есть - удалится
+     * @summary Добавление или удаление лайка
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvayLike(id: string, options?: any): AxiosPromise<LikesListDto> {
+      return localVarFp.updateSurvayLike(id, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -3780,6 +4339,20 @@ export interface LikesApiGetNoticeLikesRequest {
 }
 
 /**
+ * Request parameters for getSurvayLikes operation in LikesApi.
+ * @export
+ * @interface LikesApiGetSurvayLikesRequest
+ */
+export interface LikesApiGetSurvayLikesRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof LikesApiGetSurvayLikes
+   */
+  readonly id: string;
+}
+
+/**
  * Request parameters for updateNewsLike operation in LikesApi.
  * @export
  * @interface LikesApiUpdateNewsLikeRequest
@@ -3803,6 +4376,20 @@ export interface LikesApiUpdateNoticeLikeRequest {
    * Идентификатор объявления
    * @type {string}
    * @memberof LikesApiUpdateNoticeLike
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for updateSurvayLike operation in LikesApi.
+ * @export
+ * @interface LikesApiUpdateSurvayLikeRequest
+ */
+export interface LikesApiUpdateSurvayLikeRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof LikesApiUpdateSurvayLike
    */
   readonly id: string;
 }
@@ -3843,6 +4430,20 @@ export class LikesApi extends BaseAPI {
   }
 
   /**
+   * Эндпоинт для получения списка лайков опроса
+   * @summary Получение списка лайков опроса
+   * @param {LikesApiGetSurvayLikesRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof LikesApi
+   */
+  public getSurvayLikes(requestParameters: LikesApiGetSurvayLikesRequest, options?: AxiosRequestConfig) {
+    return LikesApiFp(this.configuration)
+      .getSurvayLikes(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * Если лайка нет, добавится, если есть - удалится
    * @summary Добавление или удаление лайка
    * @param {LikesApiUpdateNewsLikeRequest} requestParameters Request parameters.
@@ -3867,6 +4468,20 @@ export class LikesApi extends BaseAPI {
   public updateNoticeLike(requestParameters: LikesApiUpdateNoticeLikeRequest, options?: AxiosRequestConfig) {
     return LikesApiFp(this.configuration)
       .updateNoticeLike(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Если лайка нет, добавится, если есть - удалится
+   * @summary Добавление или удаление лайка
+   * @param {LikesApiUpdateSurvayLikeRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof LikesApi
+   */
+  public updateSurvayLike(requestParameters: LikesApiUpdateSurvayLikeRequest, options?: AxiosRequestConfig) {
+    return LikesApiFp(this.configuration)
+      .updateSurvayLike(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -3953,53 +4568,6 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       };
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    editNewsComment: async (
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('editNewsComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('editNewsComment', 'cid', cid);
-      // verify required parameter 'commentDraftDto' is not null or undefined
-      assertParamExists('editNewsComment', 'commentDraftDto', commentDraftDto);
-      const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(commentDraftDto, localVarRequestOptions, configuration);
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * Получение всех данных новости
      * @summary Получение карточки новости
      * @param {string} id Идентификатор новости
@@ -4010,42 +4578,6 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       // verify required parameter 'id' is not null or undefined
       assertParamExists('getNewsById', 'id', id);
       const localVarPath = `/api/v1/news/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNewsComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('getNewsComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('getNewsComment', 'cid', cid);
-      const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -4149,42 +4681,6 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       // verify required parameter 'id' is not null or undefined
       assertParamExists('removeNews', 'id', id);
       const localVarPath = `/api/v1/news/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    removeNewsComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('removeNewsComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('removeNewsComment', 'cid', cid);
-      const localVarPath = `/api/v1/news/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -4352,24 +4848,6 @@ export const NewsApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async editNewsComment(
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.editNewsComment(nid, cid, commentDraftDto, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      * Получение всех данных новости
      * @summary Получение карточки новости
      * @param {string} id Идентификатор новости
@@ -4381,22 +4859,6 @@ export const NewsApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewsDto>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsById(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getNewsComment(
-      nid: string,
-      cid: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNewsComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -4441,22 +4903,6 @@ export const NewsApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.removeNews(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async removeNewsComment(
-      nid: string,
-      cid: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.removeNewsComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -4535,23 +4981,6 @@ export const NewsApiFactory = function (configuration?: Configuration, basePath?
       return localVarFp.addNewsComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    editNewsComment(
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options?: any,
-    ): AxiosPromise<CommentDto> {
-      return localVarFp.editNewsComment(nid, cid, commentDraftDto, options).then((request) => request(axios, basePath));
-    },
-    /**
      * Получение всех данных новости
      * @summary Получение карточки новости
      * @param {string} id Идентификатор новости
@@ -4560,17 +4989,6 @@ export const NewsApiFactory = function (configuration?: Configuration, basePath?
      */
     getNewsById(id: string, options?: any): AxiosPromise<NewsDto> {
       return localVarFp.getNewsById(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNewsComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
-      return localVarFp.getNewsComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения комментариев новости с параметрами поиска
@@ -4602,17 +5020,6 @@ export const NewsApiFactory = function (configuration?: Configuration, basePath?
      */
     removeNews(id: string, options?: any): AxiosPromise<void> {
       return localVarFp.removeNews(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор новости
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    removeNewsComment(nid: string, cid: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeNewsComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка новостей с параметрами поиска
@@ -4684,34 +5091,6 @@ export interface NewsApiAddNewsCommentRequest {
 }
 
 /**
- * Request parameters for editNewsComment operation in NewsApi.
- * @export
- * @interface NewsApiEditNewsCommentRequest
- */
-export interface NewsApiEditNewsCommentRequest {
-  /**
-   * Идентификатор новости
-   * @type {string}
-   * @memberof NewsApiEditNewsComment
-   */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof NewsApiEditNewsComment
-   */
-  readonly cid: string;
-
-  /**
-   *
-   * @type {CommentDraftDto}
-   * @memberof NewsApiEditNewsComment
-   */
-  readonly commentDraftDto: CommentDraftDto;
-}
-
-/**
  * Request parameters for getNewsById operation in NewsApi.
  * @export
  * @interface NewsApiGetNewsByIdRequest
@@ -4723,27 +5102,6 @@ export interface NewsApiGetNewsByIdRequest {
    * @memberof NewsApiGetNewsById
    */
   readonly id: string;
-}
-
-/**
- * Request parameters for getNewsComment operation in NewsApi.
- * @export
- * @interface NewsApiGetNewsCommentRequest
- */
-export interface NewsApiGetNewsCommentRequest {
-  /**
-   * Идентификатор новости
-   * @type {string}
-   * @memberof NewsApiGetNewsComment
-   */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof NewsApiGetNewsComment
-   */
-  readonly cid: string;
 }
 
 /**
@@ -4793,27 +5151,6 @@ export interface NewsApiRemoveNewsRequest {
    * @memberof NewsApiRemoveNews
    */
   readonly id: string;
-}
-
-/**
- * Request parameters for removeNewsComment operation in NewsApi.
- * @export
- * @interface NewsApiRemoveNewsCommentRequest
- */
-export interface NewsApiRemoveNewsCommentRequest {
-  /**
-   * Идентификатор новости
-   * @type {string}
-   * @memberof NewsApiRemoveNewsComment
-   */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof NewsApiRemoveNewsComment
-   */
-  readonly cid: string;
 }
 
 /**
@@ -4901,20 +5238,6 @@ export class NewsApi extends BaseAPI {
   }
 
   /**
-   * Эндпоинт для редактирования комментария
-   * @summary Изменение комментария
-   * @param {NewsApiEditNewsCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NewsApi
-   */
-  public editNewsComment(requestParameters: NewsApiEditNewsCommentRequest, options?: AxiosRequestConfig) {
-    return NewsApiFp(this.configuration)
-      .editNewsComment(requestParameters.nid, requestParameters.cid, requestParameters.commentDraftDto, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
    * Получение всех данных новости
    * @summary Получение карточки новости
    * @param {NewsApiGetNewsByIdRequest} requestParameters Request parameters.
@@ -4925,20 +5248,6 @@ export class NewsApi extends BaseAPI {
   public getNewsById(requestParameters: NewsApiGetNewsByIdRequest, options?: AxiosRequestConfig) {
     return NewsApiFp(this.configuration)
       .getNewsById(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для получения комментария
-   * @summary Получение комментария
-   * @param {NewsApiGetNewsCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NewsApi
-   */
-  public getNewsComment(requestParameters: NewsApiGetNewsCommentRequest, options?: AxiosRequestConfig) {
-    return NewsApiFp(this.configuration)
-      .getNewsComment(requestParameters.nid, requestParameters.cid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -4981,20 +5290,6 @@ export class NewsApi extends BaseAPI {
   public removeNews(requestParameters: NewsApiRemoveNewsRequest, options?: AxiosRequestConfig) {
     return NewsApiFp(this.configuration)
       .removeNews(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для удаления своего комментария
-   * @summary Удаление комментария
-   * @param {NewsApiRemoveNewsCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NewsApi
-   */
-  public removeNewsComment(requestParameters: NewsApiRemoveNewsCommentRequest, options?: AxiosRequestConfig) {
-    return NewsApiFp(this.configuration)
-      .removeNewsComment(requestParameters.nid, requestParameters.cid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -5309,53 +5604,6 @@ export const NoticeApiAxiosParamCreator = function (configuration?: Configuratio
       };
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    editNoticeComment: async (
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('editNoticeComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('editNoticeComment', 'cid', cid);
-      // verify required parameter 'commentDraftDto' is not null or undefined
-      assertParamExists('editNoticeComment', 'commentDraftDto', commentDraftDto);
-      const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(commentDraftDto, localVarRequestOptions, configuration);
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * Получение всех данных объявления
      * @summary Получение карточки объявления
      * @param {string} id Идентификатор объявления
@@ -5366,42 +5614,6 @@ export const NoticeApiAxiosParamCreator = function (configuration?: Configuratio
       // verify required parameter 'id' is not null or undefined
       assertParamExists('getNoticeById', 'id', id);
       const localVarPath = `/api/v1/notice/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNoticeComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('getNoticeComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('getNoticeComment', 'cid', cid);
-      const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -5505,42 +5717,6 @@ export const NoticeApiAxiosParamCreator = function (configuration?: Configuratio
       // verify required parameter 'id' is not null or undefined
       assertParamExists('removeNotice', 'id', id);
       const localVarPath = `/api/v1/notice/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    removeNoticeComment: async (nid: string, cid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'nid' is not null or undefined
-      assertParamExists('removeNoticeComment', 'nid', nid);
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('removeNoticeComment', 'cid', cid);
-      const localVarPath = `/api/v1/notice/{nid}/comments/{cid}`
-        .replace(`{${'nid'}}`, encodeURIComponent(String(nid)))
-        .replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -5708,24 +5884,6 @@ export const NoticeApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async editNoticeComment(
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.editNoticeComment(nid, cid, commentDraftDto, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      * Получение всех данных объявления
      * @summary Получение карточки объявления
      * @param {string} id Идентификатор объявления
@@ -5737,22 +5895,6 @@ export const NoticeApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NoticeDto>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeById(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getNoticeComment(
-      nid: string,
-      cid: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getNoticeComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -5797,22 +5939,6 @@ export const NoticeApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.removeNotice(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async removeNoticeComment(
-      nid: string,
-      cid: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.removeNoticeComment(nid, cid, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -5891,25 +6017,6 @@ export const NoticeApiFactory = function (configuration?: Configuration, basePat
       return localVarFp.addNoticeComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
-     * Эндпоинт для редактирования комментария
-     * @summary Изменение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    editNoticeComment(
-      nid: string,
-      cid: string,
-      commentDraftDto: CommentDraftDto,
-      options?: any,
-    ): AxiosPromise<CommentDto> {
-      return localVarFp
-        .editNoticeComment(nid, cid, commentDraftDto, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
      * Получение всех данных объявления
      * @summary Получение карточки объявления
      * @param {string} id Идентификатор объявления
@@ -5918,17 +6025,6 @@ export const NoticeApiFactory = function (configuration?: Configuration, basePat
      */
     getNoticeById(id: string, options?: any): AxiosPromise<NoticeDto> {
       return localVarFp.getNoticeById(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для получения комментария
-     * @summary Получение комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNoticeComment(nid: string, cid: string, options?: any): AxiosPromise<CommentDto> {
-      return localVarFp.getNoticeComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка комментариев объявления с параметрами поиска
@@ -5960,17 +6056,6 @@ export const NoticeApiFactory = function (configuration?: Configuration, basePat
      */
     removeNotice(id: string, options?: any): AxiosPromise<void> {
       return localVarFp.removeNotice(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для удаления своего комментария
-     * @summary Удаление комментария
-     * @param {string} nid Идентификатор объявления
-     * @param {string} cid Идентификатор комментария
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    removeNoticeComment(nid: string, cid: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeNoticeComment(nid, cid, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка объявлений с параметрами поиска
@@ -6042,34 +6127,6 @@ export interface NoticeApiAddNoticeCommentRequest {
 }
 
 /**
- * Request parameters for editNoticeComment operation in NoticeApi.
- * @export
- * @interface NoticeApiEditNoticeCommentRequest
- */
-export interface NoticeApiEditNoticeCommentRequest {
-  /**
-   * Идентификатор объявления
-   * @type {string}
-   * @memberof NoticeApiEditNoticeComment
-   */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof NoticeApiEditNoticeComment
-   */
-  readonly cid: string;
-
-  /**
-   *
-   * @type {CommentDraftDto}
-   * @memberof NoticeApiEditNoticeComment
-   */
-  readonly commentDraftDto: CommentDraftDto;
-}
-
-/**
  * Request parameters for getNoticeById operation in NoticeApi.
  * @export
  * @interface NoticeApiGetNoticeByIdRequest
@@ -6081,27 +6138,6 @@ export interface NoticeApiGetNoticeByIdRequest {
    * @memberof NoticeApiGetNoticeById
    */
   readonly id: string;
-}
-
-/**
- * Request parameters for getNoticeComment operation in NoticeApi.
- * @export
- * @interface NoticeApiGetNoticeCommentRequest
- */
-export interface NoticeApiGetNoticeCommentRequest {
-  /**
-   * Идентификатор объявления
-   * @type {string}
-   * @memberof NoticeApiGetNoticeComment
-   */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof NoticeApiGetNoticeComment
-   */
-  readonly cid: string;
 }
 
 /**
@@ -6151,27 +6187,6 @@ export interface NoticeApiRemoveNoticeRequest {
    * @memberof NoticeApiRemoveNotice
    */
   readonly id: string;
-}
-
-/**
- * Request parameters for removeNoticeComment operation in NoticeApi.
- * @export
- * @interface NoticeApiRemoveNoticeCommentRequest
- */
-export interface NoticeApiRemoveNoticeCommentRequest {
-  /**
-   * Идентификатор объявления
-   * @type {string}
-   * @memberof NoticeApiRemoveNoticeComment
-   */
-  readonly nid: string;
-
-  /**
-   * Идентификатор комментария
-   * @type {string}
-   * @memberof NoticeApiRemoveNoticeComment
-   */
-  readonly cid: string;
 }
 
 /**
@@ -6259,20 +6274,6 @@ export class NoticeApi extends BaseAPI {
   }
 
   /**
-   * Эндпоинт для редактирования комментария
-   * @summary Изменение комментария
-   * @param {NoticeApiEditNoticeCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NoticeApi
-   */
-  public editNoticeComment(requestParameters: NoticeApiEditNoticeCommentRequest, options?: AxiosRequestConfig) {
-    return NoticeApiFp(this.configuration)
-      .editNoticeComment(requestParameters.nid, requestParameters.cid, requestParameters.commentDraftDto, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
    * Получение всех данных объявления
    * @summary Получение карточки объявления
    * @param {NoticeApiGetNoticeByIdRequest} requestParameters Request parameters.
@@ -6283,20 +6284,6 @@ export class NoticeApi extends BaseAPI {
   public getNoticeById(requestParameters: NoticeApiGetNoticeByIdRequest, options?: AxiosRequestConfig) {
     return NoticeApiFp(this.configuration)
       .getNoticeById(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для получения комментария
-   * @summary Получение комментария
-   * @param {NoticeApiGetNoticeCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NoticeApi
-   */
-  public getNoticeComment(requestParameters: NoticeApiGetNoticeCommentRequest, options?: AxiosRequestConfig) {
-    return NoticeApiFp(this.configuration)
-      .getNoticeComment(requestParameters.nid, requestParameters.cid, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -6343,20 +6330,6 @@ export class NoticeApi extends BaseAPI {
   }
 
   /**
-   * Эндпоинт для удаления своего комментария
-   * @summary Удаление комментария
-   * @param {NoticeApiRemoveNoticeCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof NoticeApi
-   */
-  public removeNoticeComment(requestParameters: NoticeApiRemoveNoticeCommentRequest, options?: AxiosRequestConfig) {
-    return NoticeApiFp(this.configuration)
-      .removeNoticeComment(requestParameters.nid, requestParameters.cid, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
    * Эндпоинт для получения списка объявлений с параметрами поиска
    * @summary Получение списка объявлений
    * @param {NoticeApiSearchNoticesRequest} requestParameters Request parameters.
@@ -6395,6 +6368,1042 @@ export class NoticeApi extends BaseAPI {
   public updateNoticeLike(requestParameters: NoticeApiUpdateNoticeLikeRequest, options?: AxiosRequestConfig) {
     return NoticeApiFp(this.configuration)
       .updateNoticeLike(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * SurvaysApi - axios parameter creator
+ * @export
+ */
+export const SurvaysApiAxiosParamCreator = function (configuration?: Configuration) {
+  return {
+    /**
+     * Эндпоинт для создания опроса
+     * @summary Добавление опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSurvay: async (survayDraftDto: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('addSurvay', 'survayDraftDto', survayDraftDto);
+      const localVarPath = `/api/v1/survays`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для создания комментария
+     * @summary Добавление комментария
+     * @param {string} id Идентификатор опроса
+     * @param {CommentDraftDto} commentDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSurvayComment: async (
+      id: string,
+      commentDraftDto: CommentDraftDto,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('addSurvayComment', 'id', id);
+      // verify required parameter 'commentDraftDto' is not null or undefined
+      assertParamExists('addSurvayComment', 'commentDraftDto', commentDraftDto);
+      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(commentDraftDto, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения списка ответов
+     * @summary Получение списка ответов на опрос
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayAnswers: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getSurvayAnswers', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}/answers`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Получение всех данных опроса
+     * @summary Получение карточки опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getSurvayById', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения комментариев опроса с параметрами поиска
+     * @summary Получение списка комментариев
+     * @param {string} id Идентификатор опроса
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayComments: async (
+      id: string,
+      requestBody: RequestBody,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getSurvayComments', 'id', id);
+      // verify required parameter 'requestBody' is not null or undefined
+      assertParamExists('getSurvayComments', 'requestBody', requestBody);
+      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения списка лайков опроса
+     * @summary Получение списка лайков опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayLikes: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('getSurvayLikes', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Удаление опроса из системы
+     * @summary Удаление опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeSurvay: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('removeSurvay', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Эндпоинт для получения списка опросов
+     * @summary Получение списка опросов
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    searchSurvays: async (requestBody: RequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'requestBody' is not null or undefined
+      assertParamExists('searchSurvays', 'requestBody', requestBody);
+      const localVarPath = `/api/v1/survays`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Изменение данных опроса
+     * @summary Редактирование опроса
+     * @param {string} id Идентификатор опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvay: async (
+      id: string,
+      survayDraftDto: SurvayDraftDto,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('updateSurvay', 'id', id);
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('updateSurvay', 'survayDraftDto', survayDraftDto);
+      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
+     * @summary Добавление или удаление ответа
+     * @param {string} id Идентификатор опроса
+     * @param {AnswerDraftDto} answerDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvayAnswer: async (
+      id: string,
+      answerDraftDto: AnswerDraftDto,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('updateSurvayAnswer', 'id', id);
+      // verify required parameter 'answerDraftDto' is not null or undefined
+      assertParamExists('updateSurvayAnswer', 'answerDraftDto', answerDraftDto);
+      const localVarPath = `/api/v1/survays/{id}/answers`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(answerDraftDto, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * Если лайка нет, добавится, если есть - удалится
+     * @summary Добавление или удаление лайка
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvayLike: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('updateSurvayLike', 'id', id);
+      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * SurvaysApi - functional programming interface
+ * @export
+ */
+export const SurvaysApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = SurvaysApiAxiosParamCreator(configuration);
+  return {
+    /**
+     * Эндпоинт для создания опроса
+     * @summary Добавление опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async addSurvay(
+      survayDraftDto: SurvayDraftDto,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(survayDraftDto, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для создания комментария
+     * @summary Добавление комментария
+     * @param {string} id Идентификатор опроса
+     * @param {CommentDraftDto} commentDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async addSurvayComment(
+      id: string,
+      commentDraftDto: CommentDraftDto,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvayComment(id, commentDraftDto, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения списка ответов
+     * @summary Получение списка ответов на опрос
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSurvayAnswers(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AnswerDto>>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayAnswers(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Получение всех данных опроса
+     * @summary Получение карточки опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSurvayById(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayById(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения комментариев опроса с параметрами поиска
+     * @summary Получение списка комментариев
+     * @param {string} id Идентификатор опроса
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSurvayComments(
+      id: string,
+      requestBody: RequestBody,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayComments(id, requestBody, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения списка лайков опроса
+     * @summary Получение списка лайков опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSurvayLikes(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayLikes(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Удаление опроса из системы
+     * @summary Удаление опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async removeSurvay(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.removeSurvay(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Эндпоинт для получения списка опросов
+     * @summary Получение списка опросов
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async searchSurvays(
+      requestBody: RequestBody,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvaysListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.searchSurvays(requestBody, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Изменение данных опроса
+     * @summary Редактирование опроса
+     * @param {string} id Идентификатор опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateSurvay(
+      id: string,
+      survayDraftDto: SurvayDraftDto,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, survayDraftDto, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
+     * @summary Добавление или удаление ответа
+     * @param {string} id Идентификатор опроса
+     * @param {AnswerDraftDto} answerDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateSurvayAnswer(
+      id: string,
+      answerDraftDto: AnswerDraftDto,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvayAnswer(id, answerDraftDto, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * Если лайка нет, добавится, если есть - удалится
+     * @summary Добавление или удаление лайка
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateSurvayLike(
+      id: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvayLike(id, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+  };
+};
+
+/**
+ * SurvaysApi - factory interface
+ * @export
+ */
+export const SurvaysApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = SurvaysApiFp(configuration);
+  return {
+    /**
+     * Эндпоинт для создания опроса
+     * @summary Добавление опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSurvay(survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.addSurvay(survayDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для создания комментария
+     * @summary Добавление комментария
+     * @param {string} id Идентификатор опроса
+     * @param {CommentDraftDto} commentDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addSurvayComment(id: string, commentDraftDto: CommentDraftDto, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.addSurvayComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения списка ответов
+     * @summary Получение списка ответов на опрос
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayAnswers(id: string, options?: any): AxiosPromise<Array<AnswerDto>> {
+      return localVarFp.getSurvayAnswers(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Получение всех данных опроса
+     * @summary Получение карточки опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayById(id: string, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.getSurvayById(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения комментариев опроса с параметрами поиска
+     * @summary Получение списка комментариев
+     * @param {string} id Идентификатор опроса
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayComments(id: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
+      return localVarFp.getSurvayComments(id, requestBody, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения списка лайков опроса
+     * @summary Получение списка лайков опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSurvayLikes(id: string, options?: any): AxiosPromise<LikesListDto> {
+      return localVarFp.getSurvayLikes(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Удаление опроса из системы
+     * @summary Удаление опроса
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeSurvay(id: string, options?: any): AxiosPromise<void> {
+      return localVarFp.removeSurvay(id, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Эндпоинт для получения списка опросов
+     * @summary Получение списка опросов
+     * @param {RequestBody} requestBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    searchSurvays(requestBody: RequestBody, options?: any): AxiosPromise<SurvaysListDto> {
+      return localVarFp.searchSurvays(requestBody, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Изменение данных опроса
+     * @summary Редактирование опроса
+     * @param {string} id Идентификатор опроса
+     * @param {SurvayDraftDto} survayDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvay(id: string, survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.updateSurvay(id, survayDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
+     * @summary Добавление или удаление ответа
+     * @param {string} id Идентификатор опроса
+     * @param {AnswerDraftDto} answerDraftDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvayAnswer(id: string, answerDraftDto: AnswerDraftDto, options?: any): AxiosPromise<void> {
+      return localVarFp.updateSurvayAnswer(id, answerDraftDto, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * Если лайка нет, добавится, если есть - удалится
+     * @summary Добавление или удаление лайка
+     * @param {string} id Идентификатор опроса
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateSurvayLike(id: string, options?: any): AxiosPromise<LikesListDto> {
+      return localVarFp.updateSurvayLike(id, options).then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * Request parameters for addSurvay operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiAddSurvayRequest
+ */
+export interface SurvaysApiAddSurvayRequest {
+  /**
+   *
+   * @type {SurvayDraftDto}
+   * @memberof SurvaysApiAddSurvay
+   */
+  readonly survayDraftDto: SurvayDraftDto;
+}
+
+/**
+ * Request parameters for addSurvayComment operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiAddSurvayCommentRequest
+ */
+export interface SurvaysApiAddSurvayCommentRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiAddSurvayComment
+   */
+  readonly id: string;
+
+  /**
+   *
+   * @type {CommentDraftDto}
+   * @memberof SurvaysApiAddSurvayComment
+   */
+  readonly commentDraftDto: CommentDraftDto;
+}
+
+/**
+ * Request parameters for getSurvayAnswers operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiGetSurvayAnswersRequest
+ */
+export interface SurvaysApiGetSurvayAnswersRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiGetSurvayAnswers
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for getSurvayById operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiGetSurvayByIdRequest
+ */
+export interface SurvaysApiGetSurvayByIdRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiGetSurvayById
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for getSurvayComments operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiGetSurvayCommentsRequest
+ */
+export interface SurvaysApiGetSurvayCommentsRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiGetSurvayComments
+   */
+  readonly id: string;
+
+  /**
+   *
+   * @type {RequestBody}
+   * @memberof SurvaysApiGetSurvayComments
+   */
+  readonly requestBody: RequestBody;
+}
+
+/**
+ * Request parameters for getSurvayLikes operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiGetSurvayLikesRequest
+ */
+export interface SurvaysApiGetSurvayLikesRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiGetSurvayLikes
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for removeSurvay operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiRemoveSurvayRequest
+ */
+export interface SurvaysApiRemoveSurvayRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiRemoveSurvay
+   */
+  readonly id: string;
+}
+
+/**
+ * Request parameters for searchSurvays operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiSearchSurvaysRequest
+ */
+export interface SurvaysApiSearchSurvaysRequest {
+  /**
+   *
+   * @type {RequestBody}
+   * @memberof SurvaysApiSearchSurvays
+   */
+  readonly requestBody: RequestBody;
+}
+
+/**
+ * Request parameters for updateSurvay operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiUpdateSurvayRequest
+ */
+export interface SurvaysApiUpdateSurvayRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiUpdateSurvay
+   */
+  readonly id: string;
+
+  /**
+   *
+   * @type {SurvayDraftDto}
+   * @memberof SurvaysApiUpdateSurvay
+   */
+  readonly survayDraftDto: SurvayDraftDto;
+}
+
+/**
+ * Request parameters for updateSurvayAnswer operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiUpdateSurvayAnswerRequest
+ */
+export interface SurvaysApiUpdateSurvayAnswerRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiUpdateSurvayAnswer
+   */
+  readonly id: string;
+
+  /**
+   *
+   * @type {AnswerDraftDto}
+   * @memberof SurvaysApiUpdateSurvayAnswer
+   */
+  readonly answerDraftDto: AnswerDraftDto;
+}
+
+/**
+ * Request parameters for updateSurvayLike operation in SurvaysApi.
+ * @export
+ * @interface SurvaysApiUpdateSurvayLikeRequest
+ */
+export interface SurvaysApiUpdateSurvayLikeRequest {
+  /**
+   * Идентификатор опроса
+   * @type {string}
+   * @memberof SurvaysApiUpdateSurvayLike
+   */
+  readonly id: string;
+}
+
+/**
+ * SurvaysApi - object-oriented interface
+ * @export
+ * @class SurvaysApi
+ * @extends {BaseAPI}
+ */
+export class SurvaysApi extends BaseAPI {
+  /**
+   * Эндпоинт для создания опроса
+   * @summary Добавление опроса
+   * @param {SurvaysApiAddSurvayRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public addSurvay(requestParameters: SurvaysApiAddSurvayRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .addSurvay(requestParameters.survayDraftDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для создания комментария
+   * @summary Добавление комментария
+   * @param {SurvaysApiAddSurvayCommentRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public addSurvayComment(requestParameters: SurvaysApiAddSurvayCommentRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .addSurvayComment(requestParameters.id, requestParameters.commentDraftDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для получения списка ответов
+   * @summary Получение списка ответов на опрос
+   * @param {SurvaysApiGetSurvayAnswersRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public getSurvayAnswers(requestParameters: SurvaysApiGetSurvayAnswersRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .getSurvayAnswers(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Получение всех данных опроса
+   * @summary Получение карточки опроса
+   * @param {SurvaysApiGetSurvayByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public getSurvayById(requestParameters: SurvaysApiGetSurvayByIdRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .getSurvayById(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для получения комментариев опроса с параметрами поиска
+   * @summary Получение списка комментариев
+   * @param {SurvaysApiGetSurvayCommentsRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public getSurvayComments(requestParameters: SurvaysApiGetSurvayCommentsRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .getSurvayComments(requestParameters.id, requestParameters.requestBody, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для получения списка лайков опроса
+   * @summary Получение списка лайков опроса
+   * @param {SurvaysApiGetSurvayLikesRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public getSurvayLikes(requestParameters: SurvaysApiGetSurvayLikesRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .getSurvayLikes(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Удаление опроса из системы
+   * @summary Удаление опроса
+   * @param {SurvaysApiRemoveSurvayRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public removeSurvay(requestParameters: SurvaysApiRemoveSurvayRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .removeSurvay(requestParameters.id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Эндпоинт для получения списка опросов
+   * @summary Получение списка опросов
+   * @param {SurvaysApiSearchSurvaysRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public searchSurvays(requestParameters: SurvaysApiSearchSurvaysRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .searchSurvays(requestParameters.requestBody, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Изменение данных опроса
+   * @summary Редактирование опроса
+   * @param {SurvaysApiUpdateSurvayRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public updateSurvay(requestParameters: SurvaysApiUpdateSurvayRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .updateSurvay(requestParameters.id, requestParameters.survayDraftDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
+   * @summary Добавление или удаление ответа
+   * @param {SurvaysApiUpdateSurvayAnswerRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public updateSurvayAnswer(requestParameters: SurvaysApiUpdateSurvayAnswerRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .updateSurvayAnswer(requestParameters.id, requestParameters.answerDraftDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Если лайка нет, добавится, если есть - удалится
+   * @summary Добавление или удаление лайка
+   * @param {SurvaysApiUpdateSurvayLikeRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SurvaysApi
+   */
+  public updateSurvayLike(requestParameters: SurvaysApiUpdateSurvayLikeRequest, options?: AxiosRequestConfig) {
+    return SurvaysApiFp(this.configuration)
+      .updateSurvayLike(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

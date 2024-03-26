@@ -1,13 +1,15 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Box, Link, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { CardActions, CardContent, Collapse, Pagination, Typography } from '@mui/material';
 import { noticeHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
-import { NeutralLink } from 'components/atoms/neutral-link';
+import CounterLikes from 'components/atoms/counter/counterLikes';
+import { ExpandMore } from 'components/atoms/expand-more';
+import { Notices, NeutralLink, FullNews } from 'components/atoms/neutral-link';
+import { FullCard, FullWidthCard, WrapBox } from 'components/atoms/styled';
 import { NoticeDto } from 'rest';
-
-import * as Styled from './styled';
 
 export function Notice() {
   const { id } = useParams();
@@ -44,53 +46,108 @@ export function Notice() {
         service={service}
         action={id && 'item'}
       >
-        {!id && <NewsList />}
+        {!id && <NoticeList />}
 
         {id && <NoticePage />}
+        {!id && <Pagination />}
       </RegistryProvider>
     </>
   );
 }
 
-const NewsList = () => {
+const NoticeList = () => {
   const { data } = useContext(RegistryDataContext);
 
   return (
     <>
       <Typography variant="h4">Уведомления</Typography>
 
-      <Styled.GapMarginBox>{data?.map((i) => <NoticeItem key={i.id} {...i} />)}</Styled.GapMarginBox>
+      <WrapBox>{data?.map((i) => <NoticeItem key={i.id} {...i} />)}</WrapBox>
     </>
   );
 };
 
-const NoticeItem = ({ id, title, date, text }: NoticeDto) => {
+const NoticeItem = ({ id, title, date, text, isLikedByMe, likesCount }: NoticeDto) => {
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [like, setLike] = useState<boolean>(isLikedByMe ?? false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleLiked = () => {
+    setLike(!like);
+  };
+
   return (
     <>
-      <NeutralLink to={`/news/${id}`}>
-        <Link>
-          <Typography variant="h6">{title}</Typography>
-        </Link>
-      </NeutralLink>
-
-      <Box>{text}</Box>
-
-      {new Date(date).toLocaleString()}
+      <Notices isLike={like}>
+        <FullWidthCard>
+          <NeutralLink to={`/notice/${id}`}>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(date).toLocaleString()}
+              </Typography>
+            </CardContent>
+          </NeutralLink>
+          <CardActions disableSpacing>
+            {likesCount && <CounterLikes count={likesCount} handleLiked={handleLiked} isLike={like} />}
+            <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>{text}</Typography>
+            </CardContent>
+          </Collapse>
+        </FullWidthCard>
+      </Notices>
     </>
   );
 };
 
 const NoticePage = () => {
   const { item } = useContext(RegistryDataContext);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [like, setLike] = useState<boolean>(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleLiked = () => {
+    setLike(!like);
+  };
 
   return (
     item && (
       <>
-        <Typography variant="h4">{item.title}</Typography>
-
-        <Styled.MarginBox>{item.text}</Styled.MarginBox>
-
-        {new Date(item.date).toLocaleString()}
+        <FullNews>
+          <FullCard>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {item.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(item.date).toLocaleString()}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              {item.likesCount && <CounterLikes count={item.likesCount} handleLiked={handleLiked} isLike={like} />}
+              <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded}>
+                <ExpandMoreIcon />
+              </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                <Typography paragraph>{item.text}</Typography>
+              </CardContent>
+            </Collapse>
+          </FullCard>
+        </FullNews>
       </>
     )
   );
