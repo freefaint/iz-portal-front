@@ -13,8 +13,6 @@ servers:
           - https
         default: https
 tags:
-  - name: survays
-    description: Методы для работы с опросами
   - name: auth
     description: Методы аутентификации
   - name: admin
@@ -25,6 +23,8 @@ tags:
     description: Методы для работы с сотрудниками
   - name: news
     description: Методы для работы с новостями
+  - name: survays
+    description: Методы для работы с опросами
   - name: notice
     description: Методы для работы с объявлениями
   - name: files
@@ -1395,7 +1395,7 @@ components:
         сommentsCount:
           description: Количество комментариев
           type: number
-    SurvaysDraftDto:
+    SurvayDraftDto:
       type: object
       required:
         - title

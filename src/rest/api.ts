@@ -869,6 +869,85 @@ export interface RequestBody {
 /**
  *
  * @export
+ * @interface SurvayDraftDto
+ */
+export interface SurvayDraftDto {
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  title: string;
+  /**
+   * Заголовок
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  announce: string;
+  /**
+   * Текст
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  text?: string;
+  /**
+   * Ссылка на картинку
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  img?: string;
+  /**
+   * Если вариантов ответа нету, можно ответить текстом
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  custom?: boolean;
+  /**
+   * Можно ли выбрать несколько вариантов
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  multiple?: boolean;
+  /**
+   * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  anonimous?: boolean;
+  /**
+   * Результаты видны пользователям
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  public?: boolean;
+  /**
+   * Можно ли переголосовать
+   * @type {boolean}
+   * @memberof SurvayDraftDto
+   */
+  editable?: boolean;
+  /**
+   * Варианты ответов
+   * @type {Array<ChoiceDraftDto>}
+   * @memberof SurvayDraftDto
+   */
+  choices: Array<ChoiceDraftDto>;
+  /**
+   * Дата новости
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  date: string;
+  /**
+   * Дата после которой нельзя будет ответить
+   * @type {string}
+   * @memberof SurvayDraftDto
+   */
+  finishDate?: string;
+}
+/**
+ *
+ * @export
  * @interface SurvayDto
  */
 export interface SurvayDto {
@@ -1008,85 +1087,6 @@ export interface SurvayDto {
 /**
  *
  * @export
- * @interface SurvaysDraftDto
- */
-export interface SurvaysDraftDto {
-  /**
-   * Заголовок
-   * @type {string}
-   * @memberof SurvaysDraftDto
-   */
-  title: string;
-  /**
-   * Заголовок
-   * @type {string}
-   * @memberof SurvaysDraftDto
-   */
-  announce: string;
-  /**
-   * Текст
-   * @type {string}
-   * @memberof SurvaysDraftDto
-   */
-  text?: string;
-  /**
-   * Ссылка на картинку
-   * @type {string}
-   * @memberof SurvaysDraftDto
-   */
-  img?: string;
-  /**
-   * Если вариантов ответа нету, можно ответить текстом
-   * @type {boolean}
-   * @memberof SurvaysDraftDto
-   */
-  custom?: boolean;
-  /**
-   * Можно ли выбрать несколько вариантов
-   * @type {boolean}
-   * @memberof SurvaysDraftDto
-   */
-  multiple?: boolean;
-  /**
-   * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
-   * @type {boolean}
-   * @memberof SurvaysDraftDto
-   */
-  anonimous?: boolean;
-  /**
-   * Результаты видны пользователям
-   * @type {boolean}
-   * @memberof SurvaysDraftDto
-   */
-  public?: boolean;
-  /**
-   * Можно ли переголосовать
-   * @type {boolean}
-   * @memberof SurvaysDraftDto
-   */
-  editable?: boolean;
-  /**
-   * Варианты ответов
-   * @type {Array<ChoiceDraftDto>}
-   * @memberof SurvaysDraftDto
-   */
-  choices: Array<ChoiceDraftDto>;
-  /**
-   * Дата новости
-   * @type {string}
-   * @memberof SurvaysDraftDto
-   */
-  date: string;
-  /**
-   * Дата после которой нельзя будет ответить
-   * @type {string}
-   * @memberof SurvaysDraftDto
-   */
-  finishDate?: string;
-}
-/**
- *
- * @export
  * @interface SurvaysListDto
  */
 export interface SurvaysListDto {
@@ -1194,13 +1194,13 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay: async (body: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('addSurvay', 'body', body);
+    addSurvay: async (survayDraftDto: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('addSurvay', 'survayDraftDto', survayDraftDto);
       const localVarPath = `/api/v1/survays`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1218,7 +1218,7 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1404,15 +1404,19 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay: async (id: string, body: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    updateSurvay: async (
+      id: string,
+      survayDraftDto: SurvayDraftDto,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists('updateSurvay', 'id', id);
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('updateSurvay', 'body', body);
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('updateSurvay', 'survayDraftDto', survayDraftDto);
       const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1430,7 +1434,7 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1478,15 +1482,15 @@ export const AdminApiFp = function (configuration?: Configuration) {
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async addSurvay(
-      body: SurvayDraftDto,
+      survayDraftDto: SurvayDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(body, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(survayDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1567,16 +1571,16 @@ export const AdminApiFp = function (configuration?: Configuration) {
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async updateSurvay(
       id: string,
-      body: SurvayDraftDto,
+      survayDraftDto: SurvayDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, body, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, survayDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -1612,12 +1616,12 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay(body: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.addSurvay(body, options).then((request) => request(axios, basePath));
+    addSurvay(survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.addSurvay(survayDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Удаление новости из системы
@@ -1675,12 +1679,12 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay(id: string, body: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.updateSurvay(id, body, options).then((request) => request(axios, basePath));
+    updateSurvay(id: string, survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.updateSurvay(id, survayDraftDto, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -1724,7 +1728,7 @@ export interface AdminApiAddSurvayRequest {
    * @type {SurvayDraftDto}
    * @memberof AdminApiAddSurvay
    */
-  readonly body: SurvayDraftDto;
+  readonly survayDraftDto: SurvayDraftDto;
 }
 
 /**
@@ -1829,7 +1833,7 @@ export interface AdminApiUpdateSurvayRequest {
    * @type {SurvayDraftDto}
    * @memberof AdminApiUpdateSurvay
    */
-  readonly body: SurvayDraftDto;
+  readonly survayDraftDto: SurvayDraftDto;
 }
 
 /**
@@ -1877,7 +1881,7 @@ export class AdminApi extends BaseAPI {
    */
   public addSurvay(requestParameters: AdminApiAddSurvayRequest, options?: AxiosRequestConfig) {
     return AdminApiFp(this.configuration)
-      .addSurvay(requestParameters.body, options)
+      .addSurvay(requestParameters.survayDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1961,7 +1965,7 @@ export class AdminApi extends BaseAPI {
    */
   public updateSurvay(requestParameters: AdminApiUpdateSurvayRequest, options?: AxiosRequestConfig) {
     return AdminApiFp(this.configuration)
-      .updateSurvay(requestParameters.id, requestParameters.body, options)
+      .updateSurvay(requestParameters.id, requestParameters.survayDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -6377,13 +6381,13 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay: async (body: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('addSurvay', 'body', body);
+    addSurvay: async (survayDraftDto: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('addSurvay', 'survayDraftDto', survayDraftDto);
       const localVarPath = `/api/v1/survays`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6401,7 +6405,7 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -6652,15 +6656,19 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay: async (id: string, body: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    updateSurvay: async (
+      id: string,
+      survayDraftDto: SurvayDraftDto,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
       assertParamExists('updateSurvay', 'id', id);
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('updateSurvay', 'body', body);
+      // verify required parameter 'survayDraftDto' is not null or undefined
+      assertParamExists('updateSurvay', 'survayDraftDto', survayDraftDto);
       const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6678,7 +6686,7 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -6770,15 +6778,15 @@ export const SurvaysApiFp = function (configuration?: Configuration) {
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async addSurvay(
-      body: SurvayDraftDto,
+      survayDraftDto: SurvayDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(body, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(survayDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6887,16 +6895,16 @@ export const SurvaysApiFp = function (configuration?: Configuration) {
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async updateSurvay(
       id: string,
-      body: SurvayDraftDto,
+      survayDraftDto: SurvayDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, body, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, survayDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6942,12 +6950,12 @@ export const SurvaysApiFactory = function (configuration?: Configuration, basePa
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay(body: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.addSurvay(body, options).then((request) => request(axios, basePath));
+    addSurvay(survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.addSurvay(survayDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для создания комментария
@@ -7025,12 +7033,12 @@ export const SurvaysApiFactory = function (configuration?: Configuration, basePa
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} body
+     * @param {SurvayDraftDto} survayDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay(id: string, body: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.updateSurvay(id, body, options).then((request) => request(axios, basePath));
+    updateSurvay(id: string, survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
+      return localVarFp.updateSurvay(id, survayDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
@@ -7067,7 +7075,7 @@ export interface SurvaysApiAddSurvayRequest {
    * @type {SurvayDraftDto}
    * @memberof SurvaysApiAddSurvay
    */
-  readonly body: SurvayDraftDto;
+  readonly survayDraftDto: SurvayDraftDto;
 }
 
 /**
@@ -7200,7 +7208,7 @@ export interface SurvaysApiUpdateSurvayRequest {
    * @type {SurvayDraftDto}
    * @memberof SurvaysApiUpdateSurvay
    */
-  readonly body: SurvayDraftDto;
+  readonly survayDraftDto: SurvayDraftDto;
 }
 
 /**
@@ -7255,7 +7263,7 @@ export class SurvaysApi extends BaseAPI {
    */
   public addSurvay(requestParameters: SurvaysApiAddSurvayRequest, options?: AxiosRequestConfig) {
     return SurvaysApiFp(this.configuration)
-      .addSurvay(requestParameters.body, options)
+      .addSurvay(requestParameters.survayDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -7367,7 +7375,7 @@ export class SurvaysApi extends BaseAPI {
    */
   public updateSurvay(requestParameters: SurvaysApiUpdateSurvayRequest, options?: AxiosRequestConfig) {
     return SurvaysApiFp(this.configuration)
-      .updateSurvay(requestParameters.id, requestParameters.body, options)
+      .updateSurvay(requestParameters.id, requestParameters.survayDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
