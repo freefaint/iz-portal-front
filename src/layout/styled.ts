@@ -35,7 +35,7 @@ export const StyledListItemIcon = styled(ListItemIcon)`
 `;
 
 export const StyledListItem = styled(ListItem)`
-  display: block;
+  display: block !important;
 `;
 
 export const StyledListItemButton = styled(ListItemButton)`
