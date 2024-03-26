@@ -2,16 +2,7 @@ import { ChangeEvent, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {
-  Box,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CircularProgress,
-  Collapse,
-  Pagination,
-  Typography,
-} from '@mui/material';
+import { CardActions, CardContent, CardMedia, CircularProgress, Collapse, Pagination, Typography } from '@mui/material';
 import { newsHttpClient as httpClient } from 'api';
 import { RegistryDataContext, RegistryProvider, Service } from 'avrora';
 import Comments, { ICommenting } from 'components/atoms/comments/comments';
@@ -22,6 +13,8 @@ import LikeViever from 'components/atoms/likeViewer/likeViewer';
 import { FlexNews, FullNews, NeutralLink } from 'components/atoms/neutral-link';
 import { FullCard, FullWidthCard, WrapBox } from 'components/atoms/styled';
 import { NewsDto } from 'rest';
+
+import { FullBlock } from './styled';
 
 export function Main() {
   const { id } = useParams();
@@ -67,9 +60,9 @@ const NewsList = () => {
 
   if (!data) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+      <FullBlock>
         <CircularProgress />
-      </Box>
+      </FullBlock>
     );
   }
 

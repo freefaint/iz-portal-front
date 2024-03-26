@@ -22,7 +22,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -31,15 +30,15 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { Block } from 'components/atoms/styled';
 
+import { GapBox, GrowBox, Img, MainPageBox, StyledListItemIcon, StyledListItemText } from './styled';
 import AvatarSrc from '../assets/img/avatar.jpg';
 import LogoSrc from '../assets/img/logo4.png';
 import { NeutralLink } from '../components/atoms/neutral-link';
@@ -140,7 +139,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Block>
       <CssBaseline />
 
       <AppBar position="fixed" color="default" open={open}>
@@ -173,12 +172,12 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
               textDecoration: 'none',
             }}
           >
-            <img style={{ height: '3rem', marginTop: '0.375rem' }} alt="" src={LogoSrc} />
+            <Img alt="" src={LogoSrc} />
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: 'flex' }}></Box>
+          <GrowBox></GrowBox>
 
-          <Box sx={{ flexGrow: 0, display: 'flex', gap: '1rem' }}>
+          <GapBox>
             <Tooltip title="ЦУП">
               <Link target="_blank" to="http://cup/">
                 <IconButton onClick={handleCloseNavMenu}>
@@ -286,7 +285,7 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                 <Typography textAlign="center">Выход</Typography>
               </MenuItem>
             </Menu>
-          </Box>
+          </GapBox>
         </Toolbar>
       </AppBar>
 
@@ -309,17 +308,11 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
+                <StyledListItemIcon open={open}>
                   <Home />
-                </ListItemIcon>
+                </StyledListItemIcon>
 
-                <ListItemText primary={'Главная'} sx={{ opacity: open ? 1 : 0 }} />
+                <StyledListItemText primary={'Главная'} open={open} />
               </ListItemButton>
             </NeutralLink>
 
@@ -331,17 +324,11 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
+                <StyledListItemIcon open={open}>
                   <FaceIcon />
-                </ListItemIcon>
+                </StyledListItemIcon>
 
-                <ListItemText primary={'Сотрудник'} sx={{ opacity: open ? 1 : 0 }} />
+                <StyledListItemText primary={'Сотрудник'} open={open} />
               </ListItemButton>
             </NeutralLink>
 
@@ -353,17 +340,11 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
+                <StyledListItemIcon open={open}>
                   <NotificationsIcon />
-                </ListItemIcon>
+                </StyledListItemIcon>
 
-                <ListItemText primary={'Сотрудники'} sx={{ opacity: open ? 1 : 0 }} />
+                <StyledListItemText primary={'Сотрудники'} open={open} />
               </ListItemButton>
             </NeutralLink>
 
@@ -375,17 +356,11 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
+                <StyledListItemIcon open={open}>
                   <Group />
-                </ListItemIcon>
+                </StyledListItemIcon>
 
-                <ListItemText primary={'Сотрудники'} sx={{ opacity: open ? 1 : 0 }} />
+                <StyledListItemText primary={'Сотрудники'} open={open} />
               </ListItemButton>
             </NeutralLink>
           </ListItem>
@@ -403,28 +378,22 @@ export default function MiniDrawer({ children }: PropsWithChildren) {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
+                <StyledListItemIcon open={open}>
                   <InfoOutlined />
-                </ListItemIcon>
+                </StyledListItemIcon>
 
-                <ListItemText primary={'О компании'} sx={{ opacity: open ? 1 : 0 }} />
+                <StyledListItemText primary={'О компании'} open={open} />
               </ListItemButton>
             </NeutralLink>
           </ListItem>
         </List>
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <MainPageBox component="main">
         <DrawerHeader />
 
         {children}
-      </Box>
-    </Box>
+      </MainPageBox>
+    </Block>
   );
 }

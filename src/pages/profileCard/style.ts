@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-import { ALPHA_DARK_BLUE } from 'styles';
+import { ALPHA_BLACK, ALPHA_DARK_BLUE } from 'styles';
 
 export const Profile = styled.div`
   display: flex;
   justify-content: space-between;
-  border: 0.0625rem solid rgba(0, 0, 0, 0.02);
+  border: 0.0625rem solid ${ALPHA_BLACK};
   border-radius: 1.25rem;
   background: #fff;
   box-shadow: 0rem 0.875rem 2.625rem 0rem ${ALPHA_DARK_BLUE};

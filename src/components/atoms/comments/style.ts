@@ -16,7 +16,6 @@ const CommentsList = styled.div`
 
 const ActionBlock = styled.div`
   display: flex;
-  /* justify-content: space-between; */
   flex-direction: column;
   align-items: start;
 
