@@ -1216,6 +1216,10 @@ components:
           description: ID
           type: string
           format: uuid
+        parentId:
+          description: Parent ID
+          type: string
+          format: uuid
         title:
           description: Заголовок
           type: string
@@ -1280,6 +1284,10 @@ components:
         - date
         - choices
       properties:
+        parentId:
+          description: Parent ID
+          type: string
+          format: uuid
         title:
           description: Заголовок
           type: string
