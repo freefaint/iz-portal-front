@@ -1241,7 +1241,7 @@ components:
         editable:
           description: Можно ли переголосовать
           type: boolean
-        anonimous:
+        anonymous:
           description: Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
           type: boolean
         public:
@@ -1306,7 +1306,7 @@ components:
         maxCount:
           description: Можно ли выбрать несколько вариантов
           type: number
-        anonimous:
+        anonymous:
           description: Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
           type: boolean
         public:

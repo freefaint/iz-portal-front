@@ -931,7 +931,7 @@ export interface SurveyDraftDto {
    * @type {boolean}
    * @memberof SurveyDraftDto
    */
-  anonimous?: boolean;
+  anonymous?: boolean;
   /**
    * Результаты видны пользователям
    * @type {boolean}
@@ -1028,7 +1028,7 @@ export interface SurveyDto {
    * @type {boolean}
    * @memberof SurveyDto
    */
-  anonimous?: boolean;
+  anonymous?: boolean;
   /**
    * Результаты видны пользователям
    * @type {boolean}
