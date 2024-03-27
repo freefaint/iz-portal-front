@@ -398,13 +398,13 @@ export interface Filter {
 }
 
 export const FilterPredicateEnum = {
-  IsYearlyToday: 'IS_YEARLY_TODAY',
+  IsEmpty: 'IS_EMPTY',
+  IsYearlyGte: 'IS_YEARLY_GTE',
+  IsYearlyLte: 'IS_YEARLY_LTE',
   Eq: 'EQ',
-  Contains: 'CONTAINS',
   Lt: 'LT',
-  Lte: 'LTE',
   Gt: 'GT',
-  Gte: 'GTE',
+  Contains: 'CONTAINS',
 } as const;
 
 export type FilterPredicateEnum = (typeof FilterPredicateEnum)[keyof typeof FilterPredicateEnum];
@@ -895,13 +895,19 @@ export interface SurveyDraftDto {
    * @type {string}
    * @memberof SurveyDraftDto
    */
+  type: SurveyDraftDtoTypeEnum;
+  /**
+   * Тип
+   * @type {string}
+   * @memberof SurveyDraftDto
+   */
   title: string;
   /**
    * Заголовок
    * @type {string}
    * @memberof SurveyDraftDto
    */
-  announce: string;
+  announce?: string;
   /**
    * Текст
    * @type {string}
@@ -963,6 +969,14 @@ export interface SurveyDraftDto {
    */
   finishDate?: string;
 }
+
+export const SurveyDraftDtoTypeEnum = {
+  Radiobutton: 'radiobutton',
+  Checkbox: 'checkbox',
+} as const;
+
+export type SurveyDraftDtoTypeEnum = (typeof SurveyDraftDtoTypeEnum)[keyof typeof SurveyDraftDtoTypeEnum];
+
 /**
  *
  * @export
@@ -988,11 +1002,17 @@ export interface SurveyDto {
    */
   title: string;
   /**
+   * Тип
+   * @type {string}
+   * @memberof SurveyDto
+   */
+  type?: SurveyDtoTypeEnum;
+  /**
    * Заголовок
    * @type {string}
    * @memberof SurveyDto
    */
-  announce: string;
+  announce?: string;
   /**
    * Текст
    * @type {string}
@@ -1078,6 +1098,14 @@ export interface SurveyDto {
    */
   updateUserId: string;
 }
+
+export const SurveyDtoTypeEnum = {
+  Radiobutton: 'radiobutton',
+  Checkbox: 'checkbox',
+} as const;
+
+export type SurveyDtoTypeEnum = (typeof SurveyDtoTypeEnum)[keyof typeof SurveyDtoTypeEnum];
+
 /**
  *
  * @export
