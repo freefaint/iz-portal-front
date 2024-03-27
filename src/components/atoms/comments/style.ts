@@ -34,7 +34,7 @@ const Btn = styled(Button)`
 const CommentsBlock = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: 0cap.0625rem solid rgb(54, 55, 56, 0.2);
+  border-bottom: 0.0625rem solid rgb(54, 55, 56, 0.2);
   padding: 0.75rem;
   margin: 0.75rem;
 `;

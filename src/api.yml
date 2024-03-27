@@ -23,7 +23,7 @@ tags:
     description: Методы для работы с сотрудниками
   - name: news
     description: Методы для работы с новостями
-  - name: survays
+  - name: surveys
     description: Методы для работы с опросами
   - name: notice
     description: Методы для работы с объявлениями
@@ -65,12 +65,6 @@ paths:
       summary: Получение данных текущей сессии
       description: Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
       operationId: getUser
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginRequestBody'
       responses:
         '200':
           description: В случае, если мы авторизованы, получаем текущий профиль
@@ -310,7 +304,7 @@ paths:
       description: Эндпоинт для редактирования комментария
       operationId: editNoticeComment
       parameters:
-        - name: cid
+        - name: id
           description: Идентификатор комментария
           in: path
           required: true
@@ -578,13 +572,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommentsListDto'
-  /api/v1/survays:
+  /api/v1/surveys:
     post:
       tags:
-        - survays
+        - surveys
       summary: Получение списка опросов
       description: Эндпоинт для получения списка опросов
-      operationId: searchSurvays
+      operationId: searchSurveys
       requestBody:
         required: true
         content:
@@ -597,34 +591,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SurvaysListDto'
+                $ref: '#/components/schemas/SurveysListDto'
     put:
       tags:
-        - survays
+        - surveys
         - admin
       summary: Добавление опроса
       description: Эндпоинт для создания опроса
-      operationId: addSurvay
+      operationId: addSurvey
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SurvayDraftDto'
+              $ref: '#/components/schemas/SurveyDraftDto'
       responses:
         '200':
           description: 'Опрос'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SurvayDto'
-  /api/v1/survays/{id}:
+                $ref: '#/components/schemas/SurveyDto'
+  /api/v1/surveys/{id}:
     get:
       tags:
-        - survays
+        - surveys
       summary: Получение карточки опроса
       description: Получение всех данных опроса
-      operationId: getSurvayById
+      operationId: getSurveyById
       parameters:
         - name: id
           description: Идентификатор опроса
@@ -639,14 +633,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SurvayDto'
+                $ref: '#/components/schemas/SurveyDto'
     put:
       tags:
-        - survays
+        - surveys
         - admin
       summary: Редактирование опроса
       description: Изменение данных опроса
-      operationId: updateSurvay
+      operationId: updateSurvey
       parameters:
         - name: id
           description: Идентификатор опроса
@@ -660,21 +654,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SurvayDraftDto'
+              $ref: '#/components/schemas/SurveyDraftDto'
       responses:
         '200':
           description: ''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SurvayDto'
+                $ref: '#/components/schemas/SurveyDto'
     delete:
       tags:
-        - survays
+        - surveys
         - admin
       summary: Удаление опроса
       description: Удаление опроса из системы
-      operationId: removeSurvay
+      operationId: removeSurvey
       parameters:
         - name: id
           description: Идентификатор опроса
@@ -686,13 +680,13 @@ paths:
       responses:
         '200':
           description: ok
-  /api/v1/survays/{id}/answers:
+  /api/v1/surveys/{id}/answers:
     post:
       tags:
-        - survays
+        - surveys
       summary: Добавление или удаление ответа
       description: Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
-      operationId: updateSurvayAnswer
+      operationId: updateSurveyAnswer
       parameters:
         - name: id
           description: Идентификатор опроса
@@ -712,10 +706,10 @@ paths:
           description: 'ok'
     get:
       tags:
-        - survays
+        - surveys
       summary: Получение списка ответов на опрос
       description: Эндпоинт для получения списка ответов
-      operationId: getSurvayAnswers
+      operationId: getSurveyAnswers
       parameters:
         - name: id
           description: Идентификатор опроса
@@ -733,108 +727,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AnswerDto'
-  /api/v1/survays/{id}/likes:
-    post:
-      tags:
-        - survays
-        - likes
-      summary: Добавление или удаление лайка
-      description: Если лайка нет, добавится, если есть - удалится
-      operationId: updateSurvayLike
-      parameters:
-        - name: id
-          description: Идентификатор опроса
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: 'Список лайков'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LikesListDto'
-    get:
-      tags:
-        - survays
-        - likes
-      summary: Получение списка лайков опроса
-      description: Эндпоинт для получения списка лайков опроса
-      operationId: getSurvayLikes
-      parameters:
-        - name: id
-          description: Идентификатор опроса
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: 'Список лайков'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LikesListDto'
-  /api/v1/survays/{id}/comments:
-    put:
-      tags:
-        - survays
-        - comments
-      summary: Добавление комментария
-      description: Эндпоинт для создания комментария
-      operationId: addSurvayComment
-      parameters:
-        - name: id
-          description: Идентификатор опроса
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CommentDraftDto'
-      responses:
-        '200':
-          description: 'Комментарий'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommentDto'
-    post:
-      tags:
-        - survays
-        - comments
-      summary: Получение списка комментариев
-      description: Эндпоинт для получения комментариев опроса с параметрами поиска
-      operationId: getSurvayComments
-      parameters:
-        - name: id
-          description: Идентификатор опроса
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestBody'
-      responses:
-        '200':
-          description: 'Список комментариев'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommentsListDto'
   /api/v1/departments:
     get:
       tags:
@@ -1308,7 +1200,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NewsDto'
-    SurvayDto:
+    SurveyDto:
       type: object
       required:
         - id
@@ -1336,12 +1228,12 @@ components:
         img:
           description: Ссылка на картинку
           type: string
-        custom:
-          description: Если вариантов ответа нету, можно ответить текстом
-          type: boolean
-        multiple:
+        minCount:
           description: Можно ли выбрать несколько вариантов
-          type: boolean
+          type: number
+        maxCount:
+          description: Можно ли выбрать несколько вариантов
+          type: number
         editable:
           description: Можно ли переголосовать
           type: boolean
@@ -1380,22 +1272,7 @@ components:
           description: ID последнего последнего пользователя, изменившего новость
           type: string
           format: uuid
-        isLikedByMe:
-          description: Лайкнул ли я новость
-          type: boolean
-        likesCount:
-          description: Количество лайков
-          type: number
-        isViewedByMe:
-          description: Просмотрел ли я новость
-          type: boolean
-        viewsCount:
-          description: Количество просмотров
-          type: number
-        сommentsCount:
-          description: Количество комментариев
-          type: number
-    SurvayDraftDto:
+    SurveyDraftDto:
       type: object
       required:
         - title
@@ -1415,12 +1292,12 @@ components:
         img:
           description: Ссылка на картинку
           type: string
-        custom:
-          description: Если вариантов ответа нету, можно ответить текстом
-          type: boolean
-        multiple:
+        minCount:
           description: Можно ли выбрать несколько вариантов
-          type: boolean
+          type: number
+        maxCount:
+          description: Можно ли выбрать несколько вариантов
+          type: number
         anonimous:
           description: Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
           type: boolean
@@ -1443,7 +1320,7 @@ components:
           description: Дата после которой нельзя будет ответить
           type: string
           format: date
-    SurvaysListDto:
+    SurveysListDto:
       type: object
       required:
         - total
@@ -1456,7 +1333,7 @@ components:
           description: Список элементов
           type: array
           items:
-            $ref: '#/components/schemas/SurvayDto'
+            $ref: '#/components/schemas/SurveyDto'
     NoticeDto:
       type: object
       required:
@@ -1714,6 +1591,9 @@ components:
           description: ID
           type: string
           format: uuid
+        custom:
+          description: Человек сам введет текст ответа
+          type: boolean
         text:
           description: Текст варианта ответа
           type: string
@@ -1722,13 +1602,16 @@ components:
       type: object
       required:
         - id
-        - date
+        - text
         - count
       properties:
         id:
           description: ID
           type: string
           format: uuid
+        custom:
+          description: Человек сам вводит вариант ответа
+          type: boolean
         text:
           description: Текст варианта ответа
           type: string
@@ -1777,9 +1660,8 @@ components:
         text:
           description: Текст ответа, если в опросе свойство custom = true
           type: string
-        choicesIds:
+        choices:
           description: Список ответов
           type: array
           items:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/ChoiceDto'
