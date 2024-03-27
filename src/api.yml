@@ -1004,7 +1004,6 @@ components:
           type: string
           enum:
             - IS_EMPTY
-            - IS_YEARLY_EQ
             - IS_YEARLY_GTE
             - IS_YEARLY_LTE
             - EQ
