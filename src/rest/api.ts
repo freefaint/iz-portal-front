@@ -88,10 +88,10 @@ export interface AnswerDto {
   text?: string;
   /**
    * Список ответов
-   * @type {Array<string>}
+   * @type {Array<ChoiceDto>}
    * @memberof AnswerDto
    */
-  choicesIds: Array<string>;
+  choices?: Array<ChoiceDto>;
 }
 /**
  *
@@ -105,6 +105,12 @@ export interface ChoiceDraftDto {
    * @memberof ChoiceDraftDto
    */
   id?: string;
+  /**
+   * Человек сам введет текст ответа
+   * @type {boolean}
+   * @memberof ChoiceDraftDto
+   */
+  custom?: boolean;
   /**
    * Текст варианта ответа
    * @type {string}
@@ -125,11 +131,17 @@ export interface ChoiceDto {
    */
   id: string;
   /**
+   * Человек сам вводит вариант ответа
+   * @type {boolean}
+   * @memberof ChoiceDto
+   */
+  custom?: boolean;
+  /**
    * Текст варианта ответа
    * @type {string}
    * @memberof ChoiceDto
    */
-  text?: string;
+  text: string;
   /**
    * Сколько проголосовали
    * @type {number}
@@ -869,239 +881,209 @@ export interface RequestBody {
 /**
  *
  * @export
- * @interface SurvayDraftDto
+ * @interface SurveyDraftDto
  */
-export interface SurvayDraftDto {
+export interface SurveyDraftDto {
   /**
    * Заголовок
    * @type {string}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   title: string;
   /**
    * Заголовок
    * @type {string}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   announce: string;
   /**
    * Текст
    * @type {string}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   text?: string;
   /**
    * Ссылка на картинку
    * @type {string}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   img?: string;
   /**
-   * Если вариантов ответа нету, можно ответить текстом
-   * @type {boolean}
-   * @memberof SurvayDraftDto
+   * Можно ли выбрать несколько вариантов
+   * @type {number}
+   * @memberof SurveyDraftDto
    */
-  custom?: boolean;
+  minCount?: number;
   /**
    * Можно ли выбрать несколько вариантов
-   * @type {boolean}
-   * @memberof SurvayDraftDto
+   * @type {number}
+   * @memberof SurveyDraftDto
    */
-  multiple?: boolean;
+  maxCount?: number;
   /**
    * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
    * @type {boolean}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   anonimous?: boolean;
   /**
    * Результаты видны пользователям
    * @type {boolean}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   public?: boolean;
   /**
    * Можно ли переголосовать
    * @type {boolean}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   editable?: boolean;
   /**
    * Варианты ответов
    * @type {Array<ChoiceDraftDto>}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   choices: Array<ChoiceDraftDto>;
   /**
    * Дата новости
    * @type {string}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   date: string;
   /**
    * Дата после которой нельзя будет ответить
    * @type {string}
-   * @memberof SurvayDraftDto
+   * @memberof SurveyDraftDto
    */
   finishDate?: string;
 }
 /**
  *
  * @export
- * @interface SurvayDto
+ * @interface SurveyDto
  */
-export interface SurvayDto {
+export interface SurveyDto {
   /**
    * ID
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   id: string;
   /**
    * Заголовок
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   title: string;
   /**
    * Заголовок
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   announce: string;
   /**
    * Текст
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   text?: string;
   /**
    * Ссылка на картинку
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   img?: string;
   /**
-   * Если вариантов ответа нету, можно ответить текстом
-   * @type {boolean}
-   * @memberof SurvayDto
+   * Можно ли выбрать несколько вариантов
+   * @type {number}
+   * @memberof SurveyDto
    */
-  custom?: boolean;
+  minCount?: number;
   /**
    * Можно ли выбрать несколько вариантов
-   * @type {boolean}
-   * @memberof SurvayDto
+   * @type {number}
+   * @memberof SurveyDto
    */
-  multiple?: boolean;
+  maxCount?: number;
   /**
    * Можно ли переголосовать
    * @type {boolean}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   editable?: boolean;
   /**
    * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
    * @type {boolean}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   anonimous?: boolean;
   /**
    * Результаты видны пользователям
    * @type {boolean}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   public?: boolean;
   /**
    * Варианты ответов
    * @type {Array<ChoiceDto>}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   choices?: Array<ChoiceDto>;
   /**
    * Дата новости
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   date: string;
   /**
    * Дата после которой нельзя будет ответить
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   finishDate?: string;
   /**
    * Дата создания новости
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   createDate: string;
   /**
    * Дата обновления новости
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   updateDate: string;
   /**
    * ID пользователя, создавшего новости
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   createUserId: string;
   /**
    * ID последнего последнего пользователя, изменившего новость
    * @type {string}
-   * @memberof SurvayDto
+   * @memberof SurveyDto
    */
   updateUserId: string;
-  /**
-   * Лайкнул ли я новость
-   * @type {boolean}
-   * @memberof SurvayDto
-   */
-  isLikedByMe?: boolean;
-  /**
-   * Количество лайков
-   * @type {number}
-   * @memberof SurvayDto
-   */
-  likesCount?: number;
-  /**
-   * Просмотрел ли я новость
-   * @type {boolean}
-   * @memberof SurvayDto
-   */
-  isViewedByMe?: boolean;
-  /**
-   * Количество просмотров
-   * @type {number}
-   * @memberof SurvayDto
-   */
-  viewsCount?: number;
-  /**
-   * Количество комментариев
-   * @type {number}
-   * @memberof SurvayDto
-   */
-  сommentsCount?: number;
 }
 /**
  *
  * @export
- * @interface SurvaysListDto
+ * @interface SurveysListDto
  */
-export interface SurvaysListDto {
+export interface SurveysListDto {
   /**
    * Общее количество
    * @type {number}
-   * @memberof SurvaysListDto
+   * @memberof SurveysListDto
    */
   total: number;
   /**
    * Список элементов
-   * @type {Array<SurvayDto>}
-   * @memberof SurvaysListDto
+   * @type {Array<SurveyDto>}
+   * @memberof SurveysListDto
    */
-  items: Array<SurvayDto>;
+  items: Array<SurveyDto>;
 }
 /**
  *
@@ -1194,14 +1176,14 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay: async (survayDraftDto: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'survayDraftDto' is not null or undefined
-      assertParamExists('addSurvay', 'survayDraftDto', survayDraftDto);
-      const localVarPath = `/api/v1/survays`;
+    addSurvey: async (surveyDraftDto: SurveyDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'surveyDraftDto' is not null or undefined
+      assertParamExists('addSurvey', 'surveyDraftDto', surveyDraftDto);
+      const localVarPath = `/api/v1/surveys`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1218,7 +1200,7 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(surveyDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1294,10 +1276,10 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeSurvay: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    removeSurvey: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('removeSurvay', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('removeSurvey', 'id', id);
+      const localVarPath = `/api/v1/surveys/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1404,20 +1386,20 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay: async (
+    updateSurvey: async (
       id: string,
-      survayDraftDto: SurvayDraftDto,
+      surveyDraftDto: SurveyDraftDto,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('updateSurvay', 'id', id);
-      // verify required parameter 'survayDraftDto' is not null or undefined
-      assertParamExists('updateSurvay', 'survayDraftDto', survayDraftDto);
-      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('updateSurvey', 'id', id);
+      // verify required parameter 'surveyDraftDto' is not null or undefined
+      assertParamExists('updateSurvey', 'surveyDraftDto', surveyDraftDto);
+      const localVarPath = `/api/v1/surveys/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -1434,7 +1416,7 @@ export const AdminApiAxiosParamCreator = function (configuration?: Configuration
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(surveyDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1482,15 +1464,15 @@ export const AdminApiFp = function (configuration?: Configuration) {
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async addSurvay(
-      survayDraftDto: SurvayDraftDto,
+    async addSurvey(
+      surveyDraftDto: SurveyDraftDto,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(survayDraftDto, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvey(surveyDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1528,11 +1510,11 @@ export const AdminApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async removeSurvay(
+    async removeSurvey(
       id: string,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.removeSurvay(id, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.removeSurvey(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1571,16 +1553,16 @@ export const AdminApiFp = function (configuration?: Configuration) {
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async updateSurvay(
+    async updateSurvey(
       id: string,
-      survayDraftDto: SurvayDraftDto,
+      surveyDraftDto: SurveyDraftDto,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, survayDraftDto, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvey(id, surveyDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -1616,12 +1598,12 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay(survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.addSurvay(survayDraftDto, options).then((request) => request(axios, basePath));
+    addSurvey(surveyDraftDto: SurveyDraftDto, options?: any): AxiosPromise<SurveyDto> {
+      return localVarFp.addSurvey(surveyDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Удаление новости из системы
@@ -1650,8 +1632,8 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeSurvay(id: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeSurvay(id, options).then((request) => request(axios, basePath));
+    removeSurvey(id: string, options?: any): AxiosPromise<void> {
+      return localVarFp.removeSurvey(id, options).then((request) => request(axios, basePath));
     },
     /**
      * Изменение данных новости
@@ -1679,12 +1661,12 @@ export const AdminApiFactory = function (configuration?: Configuration, basePath
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay(id: string, survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.updateSurvay(id, survayDraftDto, options).then((request) => request(axios, basePath));
+    updateSurvey(id: string, surveyDraftDto: SurveyDraftDto, options?: any): AxiosPromise<SurveyDto> {
+      return localVarFp.updateSurvey(id, surveyDraftDto, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -1718,17 +1700,17 @@ export interface AdminApiAddNoticeRequest {
 }
 
 /**
- * Request parameters for addSurvay operation in AdminApi.
+ * Request parameters for addSurvey operation in AdminApi.
  * @export
- * @interface AdminApiAddSurvayRequest
+ * @interface AdminApiAddSurveyRequest
  */
-export interface AdminApiAddSurvayRequest {
+export interface AdminApiAddSurveyRequest {
   /**
    *
-   * @type {SurvayDraftDto}
-   * @memberof AdminApiAddSurvay
+   * @type {SurveyDraftDto}
+   * @memberof AdminApiAddSurvey
    */
-  readonly survayDraftDto: SurvayDraftDto;
+  readonly surveyDraftDto: SurveyDraftDto;
 }
 
 /**
@@ -1760,15 +1742,15 @@ export interface AdminApiRemoveNoticeRequest {
 }
 
 /**
- * Request parameters for removeSurvay operation in AdminApi.
+ * Request parameters for removeSurvey operation in AdminApi.
  * @export
- * @interface AdminApiRemoveSurvayRequest
+ * @interface AdminApiRemoveSurveyRequest
  */
-export interface AdminApiRemoveSurvayRequest {
+export interface AdminApiRemoveSurveyRequest {
   /**
    * Идентификатор опроса
    * @type {string}
-   * @memberof AdminApiRemoveSurvay
+   * @memberof AdminApiRemoveSurvey
    */
   readonly id: string;
 }
@@ -1816,24 +1798,24 @@ export interface AdminApiUpdateNoticeRequest {
 }
 
 /**
- * Request parameters for updateSurvay operation in AdminApi.
+ * Request parameters for updateSurvey operation in AdminApi.
  * @export
- * @interface AdminApiUpdateSurvayRequest
+ * @interface AdminApiUpdateSurveyRequest
  */
-export interface AdminApiUpdateSurvayRequest {
+export interface AdminApiUpdateSurveyRequest {
   /**
    * Идентификатор опроса
    * @type {string}
-   * @memberof AdminApiUpdateSurvay
+   * @memberof AdminApiUpdateSurvey
    */
   readonly id: string;
 
   /**
    *
-   * @type {SurvayDraftDto}
-   * @memberof AdminApiUpdateSurvay
+   * @type {SurveyDraftDto}
+   * @memberof AdminApiUpdateSurvey
    */
-  readonly survayDraftDto: SurvayDraftDto;
+  readonly surveyDraftDto: SurveyDraftDto;
 }
 
 /**
@@ -1874,14 +1856,14 @@ export class AdminApi extends BaseAPI {
   /**
    * Эндпоинт для создания опроса
    * @summary Добавление опроса
-   * @param {AdminApiAddSurvayRequest} requestParameters Request parameters.
+   * @param {AdminApiAddSurveyRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof AdminApi
    */
-  public addSurvay(requestParameters: AdminApiAddSurvayRequest, options?: AxiosRequestConfig) {
+  public addSurvey(requestParameters: AdminApiAddSurveyRequest, options?: AxiosRequestConfig) {
     return AdminApiFp(this.configuration)
-      .addSurvay(requestParameters.survayDraftDto, options)
+      .addSurvey(requestParameters.surveyDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1916,14 +1898,14 @@ export class AdminApi extends BaseAPI {
   /**
    * Удаление опроса из системы
    * @summary Удаление опроса
-   * @param {AdminApiRemoveSurvayRequest} requestParameters Request parameters.
+   * @param {AdminApiRemoveSurveyRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof AdminApi
    */
-  public removeSurvay(requestParameters: AdminApiRemoveSurvayRequest, options?: AxiosRequestConfig) {
+  public removeSurvey(requestParameters: AdminApiRemoveSurveyRequest, options?: AxiosRequestConfig) {
     return AdminApiFp(this.configuration)
-      .removeSurvay(requestParameters.id, options)
+      .removeSurvey(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1958,14 +1940,14 @@ export class AdminApi extends BaseAPI {
   /**
    * Изменение данных опроса
    * @summary Редактирование опроса
-   * @param {AdminApiUpdateSurvayRequest} requestParameters Request parameters.
+   * @param {AdminApiUpdateSurveyRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof AdminApi
    */
-  public updateSurvay(requestParameters: AdminApiUpdateSurvayRequest, options?: AxiosRequestConfig) {
+  public updateSurvey(requestParameters: AdminApiUpdateSurveyRequest, options?: AxiosRequestConfig) {
     return AdminApiFp(this.configuration)
-      .updateSurvay(requestParameters.id, requestParameters.survayDraftDto, options)
+      .updateSurvey(requestParameters.id, requestParameters.surveyDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -2330,47 +2312,6 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       };
     },
     /**
-     * Эндпоинт для создания комментария
-     * @summary Добавление комментария
-     * @param {string} id Идентификатор опроса
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addSurvayComment: async (
-      id: string,
-      commentDraftDto: CommentDraftDto,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('addSurvayComment', 'id', id);
-      // verify required parameter 'commentDraftDto' is not null or undefined
-      assertParamExists('addSurvayComment', 'commentDraftDto', commentDraftDto);
-      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(commentDraftDto, localVarRequestOptions, configuration);
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
      * @param {string} cid Идентификатор комментария
@@ -2525,47 +2466,6 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
       };
     },
     /**
-     * Эндпоинт для получения комментариев опроса с параметрами поиска
-     * @summary Получение списка комментариев
-     * @param {string} id Идентификатор опроса
-     * @param {RequestBody} requestBody
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayComments: async (
-      id: string,
-      requestBody: RequestBody,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getSurvayComments', 'id', id);
-      // verify required parameter 'requestBody' is not null or undefined
-      assertParamExists('getSurvayComments', 'requestBody', requestBody);
-      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * Эндпоинт для удаления своего комментария
      * @summary Удаление комментария
      * @param {string} id Идентификатор комментария
@@ -2639,22 +2539,6 @@ export const CommentsApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для создания комментария
-     * @summary Добавление комментария
-     * @param {string} id Идентификатор опроса
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async addSurvayComment(
-      id: string,
-      commentDraftDto: CommentDraftDto,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvayComment(id, commentDraftDto, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
      * @param {string} cid Идентификатор комментария
@@ -2717,22 +2601,6 @@ export const CommentsApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для получения комментариев опроса с параметрами поиска
-     * @summary Получение списка комментариев
-     * @param {string} id Идентификатор опроса
-     * @param {RequestBody} requestBody
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getSurvayComments(
-      id: string,
-      requestBody: RequestBody,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayComments(id, requestBody, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      * Эндпоинт для удаления своего комментария
      * @summary Удаление комментария
      * @param {string} id Идентификатор комментария
@@ -2779,17 +2647,6 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
       return localVarFp.addNoticeComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
-     * Эндпоинт для создания комментария
-     * @summary Добавление комментария
-     * @param {string} id Идентификатор опроса
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addSurvayComment(id: string, commentDraftDto: CommentDraftDto, options?: any): AxiosPromise<CommentDto> {
-      return localVarFp.addSurvayComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
-    },
-    /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
      * @param {string} cid Идентификатор комментария
@@ -2831,17 +2688,6 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
      */
     getNoticeComments(id: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
       return localVarFp.getNoticeComments(id, requestBody, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для получения комментариев опроса с параметрами поиска
-     * @summary Получение списка комментариев
-     * @param {string} id Идентификатор опроса
-     * @param {RequestBody} requestBody
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayComments(id: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
-      return localVarFp.getSurvayComments(id, requestBody, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для удаления своего комментария
@@ -2894,27 +2740,6 @@ export interface CommentsApiAddNoticeCommentRequest {
    *
    * @type {CommentDraftDto}
    * @memberof CommentsApiAddNoticeComment
-   */
-  readonly commentDraftDto: CommentDraftDto;
-}
-
-/**
- * Request parameters for addSurvayComment operation in CommentsApi.
- * @export
- * @interface CommentsApiAddSurvayCommentRequest
- */
-export interface CommentsApiAddSurvayCommentRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof CommentsApiAddSurvayComment
-   */
-  readonly id: string;
-
-  /**
-   *
-   * @type {CommentDraftDto}
-   * @memberof CommentsApiAddSurvayComment
    */
   readonly commentDraftDto: CommentDraftDto;
 }
@@ -2997,27 +2822,6 @@ export interface CommentsApiGetNoticeCommentsRequest {
 }
 
 /**
- * Request parameters for getSurvayComments operation in CommentsApi.
- * @export
- * @interface CommentsApiGetSurvayCommentsRequest
- */
-export interface CommentsApiGetSurvayCommentsRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof CommentsApiGetSurvayComments
-   */
-  readonly id: string;
-
-  /**
-   *
-   * @type {RequestBody}
-   * @memberof CommentsApiGetSurvayComments
-   */
-  readonly requestBody: RequestBody;
-}
-
-/**
  * Request parameters for removeNoticeComment operation in CommentsApi.
  * @export
  * @interface CommentsApiRemoveNoticeCommentRequest
@@ -3063,20 +2867,6 @@ export class CommentsApi extends BaseAPI {
   public addNoticeComment(requestParameters: CommentsApiAddNoticeCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
       .addNoticeComment(requestParameters.id, requestParameters.commentDraftDto, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для создания комментария
-   * @summary Добавление комментария
-   * @param {CommentsApiAddSurvayCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof CommentsApi
-   */
-  public addSurvayComment(requestParameters: CommentsApiAddSurvayCommentRequest, options?: AxiosRequestConfig) {
-    return CommentsApiFp(this.configuration)
-      .addSurvayComment(requestParameters.id, requestParameters.commentDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -3133,20 +2923,6 @@ export class CommentsApi extends BaseAPI {
   public getNoticeComments(requestParameters: CommentsApiGetNoticeCommentsRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
       .getNoticeComments(requestParameters.id, requestParameters.requestBody, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для получения комментариев опроса с параметрами поиска
-   * @summary Получение списка комментариев
-   * @param {CommentsApiGetSurvayCommentsRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof CommentsApi
-   */
-  public getSurvayComments(requestParameters: CommentsApiGetSurvayCommentsRequest, options?: AxiosRequestConfig) {
-    return CommentsApiFp(this.configuration)
-      .getSurvayComments(requestParameters.id, requestParameters.requestBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -4020,37 +3796,6 @@ export const LikesApiAxiosParamCreator = function (configuration?: Configuration
       };
     },
     /**
-     * Эндпоинт для получения списка лайков опроса
-     * @summary Получение списка лайков опроса
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayLikes: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getSurvayLikes', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * Если лайка нет, добавится, если есть - удалится
      * @summary Добавление или удаление лайка
      * @param {string} id Идентификатор новости
@@ -4112,37 +3857,6 @@ export const LikesApiAxiosParamCreator = function (configuration?: Configuration
         options: localVarRequestOptions,
       };
     },
-    /**
-     * Если лайка нет, добавится, если есть - удалится
-     * @summary Добавление или удаление лайка
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateSurvayLike: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('updateSurvayLike', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
   };
 };
 
@@ -4182,20 +3896,6 @@ export const LikesApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * Эндпоинт для получения списка лайков опроса
-     * @summary Получение списка лайков опроса
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getSurvayLikes(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayLikes(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      * Если лайка нет, добавится, если есть - удалится
      * @summary Добавление или удаление лайка
      * @param {string} id Идентификатор новости
@@ -4221,20 +3921,6 @@ export const LikesApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.updateNoticeLike(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Если лайка нет, добавится, если есть - удалится
-     * @summary Добавление или удаление лайка
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async updateSurvayLike(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvayLike(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -4268,16 +3954,6 @@ export const LikesApiFactory = function (configuration?: Configuration, basePath
       return localVarFp.getNoticeLikes(id, options).then((request) => request(axios, basePath));
     },
     /**
-     * Эндпоинт для получения списка лайков опроса
-     * @summary Получение списка лайков опроса
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayLikes(id: string, options?: any): AxiosPromise<LikesListDto> {
-      return localVarFp.getSurvayLikes(id, options).then((request) => request(axios, basePath));
-    },
-    /**
      * Если лайка нет, добавится, если есть - удалится
      * @summary Добавление или удаление лайка
      * @param {string} id Идентификатор новости
@@ -4296,16 +3972,6 @@ export const LikesApiFactory = function (configuration?: Configuration, basePath
      */
     updateNoticeLike(id: string, options?: any): AxiosPromise<LikesListDto> {
       return localVarFp.updateNoticeLike(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Если лайка нет, добавится, если есть - удалится
-     * @summary Добавление или удаление лайка
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateSurvayLike(id: string, options?: any): AxiosPromise<LikesListDto> {
-      return localVarFp.updateSurvayLike(id, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -4339,20 +4005,6 @@ export interface LikesApiGetNoticeLikesRequest {
 }
 
 /**
- * Request parameters for getSurvayLikes operation in LikesApi.
- * @export
- * @interface LikesApiGetSurvayLikesRequest
- */
-export interface LikesApiGetSurvayLikesRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof LikesApiGetSurvayLikes
-   */
-  readonly id: string;
-}
-
-/**
  * Request parameters for updateNewsLike operation in LikesApi.
  * @export
  * @interface LikesApiUpdateNewsLikeRequest
@@ -4376,20 +4028,6 @@ export interface LikesApiUpdateNoticeLikeRequest {
    * Идентификатор объявления
    * @type {string}
    * @memberof LikesApiUpdateNoticeLike
-   */
-  readonly id: string;
-}
-
-/**
- * Request parameters for updateSurvayLike operation in LikesApi.
- * @export
- * @interface LikesApiUpdateSurvayLikeRequest
- */
-export interface LikesApiUpdateSurvayLikeRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof LikesApiUpdateSurvayLike
    */
   readonly id: string;
 }
@@ -4430,20 +4068,6 @@ export class LikesApi extends BaseAPI {
   }
 
   /**
-   * Эндпоинт для получения списка лайков опроса
-   * @summary Получение списка лайков опроса
-   * @param {LikesApiGetSurvayLikesRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof LikesApi
-   */
-  public getSurvayLikes(requestParameters: LikesApiGetSurvayLikesRequest, options?: AxiosRequestConfig) {
-    return LikesApiFp(this.configuration)
-      .getSurvayLikes(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
    * Если лайка нет, добавится, если есть - удалится
    * @summary Добавление или удаление лайка
    * @param {LikesApiUpdateNewsLikeRequest} requestParameters Request parameters.
@@ -4468,20 +4092,6 @@ export class LikesApi extends BaseAPI {
   public updateNoticeLike(requestParameters: LikesApiUpdateNoticeLikeRequest, options?: AxiosRequestConfig) {
     return LikesApiFp(this.configuration)
       .updateNoticeLike(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Если лайка нет, добавится, если есть - удалится
-   * @summary Добавление или удаление лайка
-   * @param {LikesApiUpdateSurvayLikeRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof LikesApi
-   */
-  public updateSurvayLike(requestParameters: LikesApiUpdateSurvayLikeRequest, options?: AxiosRequestConfig) {
-    return LikesApiFp(this.configuration)
-      .updateSurvayLike(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
@@ -6373,22 +5983,22 @@ export class NoticeApi extends BaseAPI {
 }
 
 /**
- * SurvaysApi - axios parameter creator
+ * SurveysApi - axios parameter creator
  * @export
  */
-export const SurvaysApiAxiosParamCreator = function (configuration?: Configuration) {
+export const SurveysApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay: async (survayDraftDto: SurvayDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'survayDraftDto' is not null or undefined
-      assertParamExists('addSurvay', 'survayDraftDto', survayDraftDto);
-      const localVarPath = `/api/v1/survays`;
+    addSurvey: async (surveyDraftDto: SurveyDraftDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'surveyDraftDto' is not null or undefined
+      assertParamExists('addSurvey', 'surveyDraftDto', surveyDraftDto);
+      const localVarPath = `/api/v1/surveys`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -6405,48 +6015,7 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для создания комментария
-     * @summary Добавление комментария
-     * @param {string} id Идентификатор опроса
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addSurvayComment: async (
-      id: string,
-      commentDraftDto: CommentDraftDto,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('addSurvayComment', 'id', id);
-      // verify required parameter 'commentDraftDto' is not null or undefined
-      assertParamExists('addSurvayComment', 'commentDraftDto', commentDraftDto);
-      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(commentDraftDto, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(surveyDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -6460,10 +6029,10 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getSurvayAnswers: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    getSurveyAnswers: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('getSurvayAnswers', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}/answers`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('getSurveyAnswers', 'id', id);
+      const localVarPath = `/api/v1/surveys/{id}/answers`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -6491,82 +6060,10 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getSurvayById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    getSurveyById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('getSurvayById', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для получения комментариев опроса с параметрами поиска
-     * @summary Получение списка комментариев
-     * @param {string} id Идентификатор опроса
-     * @param {RequestBody} requestBody
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayComments: async (
-      id: string,
-      requestBody: RequestBody,
-      options: AxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getSurvayComments', 'id', id);
-      // verify required parameter 'requestBody' is not null or undefined
-      assertParamExists('getSurvayComments', 'requestBody', requestBody);
-      const localVarPath = `/api/v1/survays/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration);
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * Эндпоинт для получения списка лайков опроса
-     * @summary Получение списка лайков опроса
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayLikes: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('getSurvayLikes', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('getSurveyById', 'id', id);
+      const localVarPath = `/api/v1/surveys/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -6594,10 +6091,10 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeSurvay: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    removeSurvey: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('removeSurvay', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('removeSurvey', 'id', id);
+      const localVarPath = `/api/v1/surveys/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -6625,10 +6122,10 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    searchSurvays: async (requestBody: RequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+    searchSurveys: async (requestBody: RequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       // verify required parameter 'requestBody' is not null or undefined
-      assertParamExists('searchSurvays', 'requestBody', requestBody);
-      const localVarPath = `/api/v1/survays`;
+      assertParamExists('searchSurveys', 'requestBody', requestBody);
+      const localVarPath = `/api/v1/surveys`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -6656,20 +6153,20 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay: async (
+    updateSurvey: async (
       id: string,
-      survayDraftDto: SurvayDraftDto,
+      surveyDraftDto: SurveyDraftDto,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('updateSurvay', 'id', id);
-      // verify required parameter 'survayDraftDto' is not null or undefined
-      assertParamExists('updateSurvay', 'survayDraftDto', survayDraftDto);
-      const localVarPath = `/api/v1/survays/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('updateSurvey', 'id', id);
+      // verify required parameter 'surveyDraftDto' is not null or undefined
+      assertParamExists('updateSurvey', 'surveyDraftDto', surveyDraftDto);
+      const localVarPath = `/api/v1/surveys/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -6686,7 +6183,7 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(survayDraftDto, localVarRequestOptions, configuration);
+      localVarRequestOptions.data = serializeDataIfNeeded(surveyDraftDto, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -6701,16 +6198,16 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvayAnswer: async (
+    updateSurveyAnswer: async (
       id: string,
       answerDraftDto: AnswerDraftDto,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('updateSurvayAnswer', 'id', id);
+      assertParamExists('updateSurveyAnswer', 'id', id);
       // verify required parameter 'answerDraftDto' is not null or undefined
-      assertParamExists('updateSurvayAnswer', 'answerDraftDto', answerDraftDto);
-      const localVarPath = `/api/v1/survays/{id}/answers`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      assertParamExists('updateSurveyAnswer', 'answerDraftDto', answerDraftDto);
+      const localVarPath = `/api/v1/surveys/{id}/answers`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -6734,75 +6231,28 @@ export const SurvaysApiAxiosParamCreator = function (configuration?: Configurati
         options: localVarRequestOptions,
       };
     },
-    /**
-     * Если лайка нет, добавится, если есть - удалится
-     * @summary Добавление или удаление лайка
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateSurvayLike: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'id' is not null or undefined
-      assertParamExists('updateSurvayLike', 'id', id);
-      const localVarPath = `/api/v1/survays/{id}/likes`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
   };
 };
 
 /**
- * SurvaysApi - functional programming interface
+ * SurveysApi - functional programming interface
  * @export
  */
-export const SurvaysApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = SurvaysApiAxiosParamCreator(configuration);
+export const SurveysApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = SurveysApiAxiosParamCreator(configuration);
   return {
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async addSurvay(
-      survayDraftDto: SurvayDraftDto,
+    async addSurvey(
+      surveyDraftDto: SurveyDraftDto,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvay(survayDraftDto, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для создания комментария
-     * @summary Добавление комментария
-     * @param {string} id Идентификатор опроса
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async addSurvayComment(
-      id: string,
-      commentDraftDto: CommentDraftDto,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvayComment(id, commentDraftDto, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.addSurvey(surveyDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6812,11 +6262,11 @@ export const SurvaysApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getSurvayAnswers(
+    async getSurveyAnswers(
       id: string,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AnswerDto>>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayAnswers(id, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyAnswers(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6826,41 +6276,11 @@ export const SurvaysApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async getSurvayById(
+    async getSurveyById(
       id: string,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayById(id, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для получения комментариев опроса с параметрами поиска
-     * @summary Получение списка комментариев
-     * @param {string} id Идентификатор опроса
-     * @param {RequestBody} requestBody
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getSurvayComments(
-      id: string,
-      requestBody: RequestBody,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentsListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayComments(id, requestBody, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Эндпоинт для получения списка лайков опроса
-     * @summary Получение списка лайков опроса
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getSurvayLikes(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurvayLikes(id, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getSurveyById(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6870,11 +6290,11 @@ export const SurvaysApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async removeSurvay(
+    async removeSurvey(
       id: string,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.removeSurvay(id, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.removeSurvey(id, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6884,27 +6304,27 @@ export const SurvaysApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async searchSurvays(
+    async searchSurveys(
       requestBody: RequestBody,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvaysListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.searchSurvays(requestBody, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveysListDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.searchSurveys(requestBody, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async updateSurvay(
+    async updateSurvey(
       id: string,
-      survayDraftDto: SurvayDraftDto,
+      surveyDraftDto: SurveyDraftDto,
       options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurvayDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvay(id, survayDraftDto, options);
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SurveyDto>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvey(id, surveyDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -6915,58 +6335,33 @@ export const SurvaysApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async updateSurvayAnswer(
+    async updateSurveyAnswer(
       id: string,
       answerDraftDto: AnswerDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvayAnswer(id, answerDraftDto, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * Если лайка нет, добавится, если есть - удалится
-     * @summary Добавление или удаление лайка
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async updateSurvayLike(
-      id: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikesListDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurvayLike(id, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateSurveyAnswer(id, answerDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
 };
 
 /**
- * SurvaysApi - factory interface
+ * SurveysApi - factory interface
  * @export
  */
-export const SurvaysApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-  const localVarFp = SurvaysApiFp(configuration);
+export const SurveysApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+  const localVarFp = SurveysApiFp(configuration);
   return {
     /**
      * Эндпоинт для создания опроса
      * @summary Добавление опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addSurvay(survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.addSurvay(survayDraftDto, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для создания комментария
-     * @summary Добавление комментария
-     * @param {string} id Идентификатор опроса
-     * @param {CommentDraftDto} commentDraftDto
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addSurvayComment(id: string, commentDraftDto: CommentDraftDto, options?: any): AxiosPromise<CommentDto> {
-      return localVarFp.addSurvayComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
+    addSurvey(surveyDraftDto: SurveyDraftDto, options?: any): AxiosPromise<SurveyDto> {
+      return localVarFp.addSurvey(surveyDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка ответов
@@ -6975,8 +6370,8 @@ export const SurvaysApiFactory = function (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getSurvayAnswers(id: string, options?: any): AxiosPromise<Array<AnswerDto>> {
-      return localVarFp.getSurvayAnswers(id, options).then((request) => request(axios, basePath));
+    getSurveyAnswers(id: string, options?: any): AxiosPromise<Array<AnswerDto>> {
+      return localVarFp.getSurveyAnswers(id, options).then((request) => request(axios, basePath));
     },
     /**
      * Получение всех данных опроса
@@ -6985,29 +6380,8 @@ export const SurvaysApiFactory = function (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getSurvayById(id: string, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.getSurvayById(id, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для получения комментариев опроса с параметрами поиска
-     * @summary Получение списка комментариев
-     * @param {string} id Идентификатор опроса
-     * @param {RequestBody} requestBody
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayComments(id: string, requestBody: RequestBody, options?: any): AxiosPromise<CommentsListDto> {
-      return localVarFp.getSurvayComments(id, requestBody, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Эндпоинт для получения списка лайков опроса
-     * @summary Получение списка лайков опроса
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getSurvayLikes(id: string, options?: any): AxiosPromise<LikesListDto> {
-      return localVarFp.getSurvayLikes(id, options).then((request) => request(axios, basePath));
+    getSurveyById(id: string, options?: any): AxiosPromise<SurveyDto> {
+      return localVarFp.getSurveyById(id, options).then((request) => request(axios, basePath));
     },
     /**
      * Удаление опроса из системы
@@ -7016,8 +6390,8 @@ export const SurvaysApiFactory = function (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeSurvay(id: string, options?: any): AxiosPromise<void> {
-      return localVarFp.removeSurvay(id, options).then((request) => request(axios, basePath));
+    removeSurvey(id: string, options?: any): AxiosPromise<void> {
+      return localVarFp.removeSurvey(id, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения списка опросов
@@ -7026,19 +6400,19 @@ export const SurvaysApiFactory = function (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    searchSurvays(requestBody: RequestBody, options?: any): AxiosPromise<SurvaysListDto> {
-      return localVarFp.searchSurvays(requestBody, options).then((request) => request(axios, basePath));
+    searchSurveys(requestBody: RequestBody, options?: any): AxiosPromise<SurveysListDto> {
+      return localVarFp.searchSurveys(requestBody, options).then((request) => request(axios, basePath));
     },
     /**
      * Изменение данных опроса
      * @summary Редактирование опроса
      * @param {string} id Идентификатор опроса
-     * @param {SurvayDraftDto} survayDraftDto
+     * @param {SurveyDraftDto} surveyDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvay(id: string, survayDraftDto: SurvayDraftDto, options?: any): AxiosPromise<SurvayDto> {
-      return localVarFp.updateSurvay(id, survayDraftDto, options).then((request) => request(axios, basePath));
+    updateSurvey(id: string, surveyDraftDto: SurveyDraftDto, options?: any): AxiosPromise<SurveyDto> {
+      return localVarFp.updateSurvey(id, surveyDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
@@ -7048,362 +6422,226 @@ export const SurvaysApiFactory = function (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateSurvayAnswer(id: string, answerDraftDto: AnswerDraftDto, options?: any): AxiosPromise<void> {
-      return localVarFp.updateSurvayAnswer(id, answerDraftDto, options).then((request) => request(axios, basePath));
-    },
-    /**
-     * Если лайка нет, добавится, если есть - удалится
-     * @summary Добавление или удаление лайка
-     * @param {string} id Идентификатор опроса
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateSurvayLike(id: string, options?: any): AxiosPromise<LikesListDto> {
-      return localVarFp.updateSurvayLike(id, options).then((request) => request(axios, basePath));
+    updateSurveyAnswer(id: string, answerDraftDto: AnswerDraftDto, options?: any): AxiosPromise<void> {
+      return localVarFp.updateSurveyAnswer(id, answerDraftDto, options).then((request) => request(axios, basePath));
     },
   };
 };
 
 /**
- * Request parameters for addSurvay operation in SurvaysApi.
+ * Request parameters for addSurvey operation in SurveysApi.
  * @export
- * @interface SurvaysApiAddSurvayRequest
+ * @interface SurveysApiAddSurveyRequest
  */
-export interface SurvaysApiAddSurvayRequest {
+export interface SurveysApiAddSurveyRequest {
   /**
    *
-   * @type {SurvayDraftDto}
-   * @memberof SurvaysApiAddSurvay
+   * @type {SurveyDraftDto}
+   * @memberof SurveysApiAddSurvey
    */
-  readonly survayDraftDto: SurvayDraftDto;
+  readonly surveyDraftDto: SurveyDraftDto;
 }
 
 /**
- * Request parameters for addSurvayComment operation in SurvaysApi.
+ * Request parameters for getSurveyAnswers operation in SurveysApi.
  * @export
- * @interface SurvaysApiAddSurvayCommentRequest
+ * @interface SurveysApiGetSurveyAnswersRequest
  */
-export interface SurvaysApiAddSurvayCommentRequest {
+export interface SurveysApiGetSurveyAnswersRequest {
   /**
    * Идентификатор опроса
    * @type {string}
-   * @memberof SurvaysApiAddSurvayComment
-   */
-  readonly id: string;
-
-  /**
-   *
-   * @type {CommentDraftDto}
-   * @memberof SurvaysApiAddSurvayComment
-   */
-  readonly commentDraftDto: CommentDraftDto;
-}
-
-/**
- * Request parameters for getSurvayAnswers operation in SurvaysApi.
- * @export
- * @interface SurvaysApiGetSurvayAnswersRequest
- */
-export interface SurvaysApiGetSurvayAnswersRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof SurvaysApiGetSurvayAnswers
+   * @memberof SurveysApiGetSurveyAnswers
    */
   readonly id: string;
 }
 
 /**
- * Request parameters for getSurvayById operation in SurvaysApi.
+ * Request parameters for getSurveyById operation in SurveysApi.
  * @export
- * @interface SurvaysApiGetSurvayByIdRequest
+ * @interface SurveysApiGetSurveyByIdRequest
  */
-export interface SurvaysApiGetSurvayByIdRequest {
+export interface SurveysApiGetSurveyByIdRequest {
   /**
    * Идентификатор опроса
    * @type {string}
-   * @memberof SurvaysApiGetSurvayById
+   * @memberof SurveysApiGetSurveyById
    */
   readonly id: string;
 }
 
 /**
- * Request parameters for getSurvayComments operation in SurvaysApi.
+ * Request parameters for removeSurvey operation in SurveysApi.
  * @export
- * @interface SurvaysApiGetSurvayCommentsRequest
+ * @interface SurveysApiRemoveSurveyRequest
  */
-export interface SurvaysApiGetSurvayCommentsRequest {
+export interface SurveysApiRemoveSurveyRequest {
   /**
    * Идентификатор опроса
    * @type {string}
-   * @memberof SurvaysApiGetSurvayComments
+   * @memberof SurveysApiRemoveSurvey
    */
   readonly id: string;
+}
 
+/**
+ * Request parameters for searchSurveys operation in SurveysApi.
+ * @export
+ * @interface SurveysApiSearchSurveysRequest
+ */
+export interface SurveysApiSearchSurveysRequest {
   /**
    *
    * @type {RequestBody}
-   * @memberof SurvaysApiGetSurvayComments
+   * @memberof SurveysApiSearchSurveys
    */
   readonly requestBody: RequestBody;
 }
 
 /**
- * Request parameters for getSurvayLikes operation in SurvaysApi.
+ * Request parameters for updateSurvey operation in SurveysApi.
  * @export
- * @interface SurvaysApiGetSurvayLikesRequest
+ * @interface SurveysApiUpdateSurveyRequest
  */
-export interface SurvaysApiGetSurvayLikesRequest {
+export interface SurveysApiUpdateSurveyRequest {
   /**
    * Идентификатор опроса
    * @type {string}
-   * @memberof SurvaysApiGetSurvayLikes
-   */
-  readonly id: string;
-}
-
-/**
- * Request parameters for removeSurvay operation in SurvaysApi.
- * @export
- * @interface SurvaysApiRemoveSurvayRequest
- */
-export interface SurvaysApiRemoveSurvayRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof SurvaysApiRemoveSurvay
-   */
-  readonly id: string;
-}
-
-/**
- * Request parameters for searchSurvays operation in SurvaysApi.
- * @export
- * @interface SurvaysApiSearchSurvaysRequest
- */
-export interface SurvaysApiSearchSurvaysRequest {
-  /**
-   *
-   * @type {RequestBody}
-   * @memberof SurvaysApiSearchSurvays
-   */
-  readonly requestBody: RequestBody;
-}
-
-/**
- * Request parameters for updateSurvay operation in SurvaysApi.
- * @export
- * @interface SurvaysApiUpdateSurvayRequest
- */
-export interface SurvaysApiUpdateSurvayRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof SurvaysApiUpdateSurvay
+   * @memberof SurveysApiUpdateSurvey
    */
   readonly id: string;
 
   /**
    *
-   * @type {SurvayDraftDto}
-   * @memberof SurvaysApiUpdateSurvay
+   * @type {SurveyDraftDto}
+   * @memberof SurveysApiUpdateSurvey
    */
-  readonly survayDraftDto: SurvayDraftDto;
+  readonly surveyDraftDto: SurveyDraftDto;
 }
 
 /**
- * Request parameters for updateSurvayAnswer operation in SurvaysApi.
+ * Request parameters for updateSurveyAnswer operation in SurveysApi.
  * @export
- * @interface SurvaysApiUpdateSurvayAnswerRequest
+ * @interface SurveysApiUpdateSurveyAnswerRequest
  */
-export interface SurvaysApiUpdateSurvayAnswerRequest {
+export interface SurveysApiUpdateSurveyAnswerRequest {
   /**
    * Идентификатор опроса
    * @type {string}
-   * @memberof SurvaysApiUpdateSurvayAnswer
+   * @memberof SurveysApiUpdateSurveyAnswer
    */
   readonly id: string;
 
   /**
    *
    * @type {AnswerDraftDto}
-   * @memberof SurvaysApiUpdateSurvayAnswer
+   * @memberof SurveysApiUpdateSurveyAnswer
    */
   readonly answerDraftDto: AnswerDraftDto;
 }
 
 /**
- * Request parameters for updateSurvayLike operation in SurvaysApi.
+ * SurveysApi - object-oriented interface
  * @export
- * @interface SurvaysApiUpdateSurvayLikeRequest
- */
-export interface SurvaysApiUpdateSurvayLikeRequest {
-  /**
-   * Идентификатор опроса
-   * @type {string}
-   * @memberof SurvaysApiUpdateSurvayLike
-   */
-  readonly id: string;
-}
-
-/**
- * SurvaysApi - object-oriented interface
- * @export
- * @class SurvaysApi
+ * @class SurveysApi
  * @extends {BaseAPI}
  */
-export class SurvaysApi extends BaseAPI {
+export class SurveysApi extends BaseAPI {
   /**
    * Эндпоинт для создания опроса
    * @summary Добавление опроса
-   * @param {SurvaysApiAddSurvayRequest} requestParameters Request parameters.
+   * @param {SurveysApiAddSurveyRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof SurvaysApi
+   * @memberof SurveysApi
    */
-  public addSurvay(requestParameters: SurvaysApiAddSurvayRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .addSurvay(requestParameters.survayDraftDto, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для создания комментария
-   * @summary Добавление комментария
-   * @param {SurvaysApiAddSurvayCommentRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof SurvaysApi
-   */
-  public addSurvayComment(requestParameters: SurvaysApiAddSurvayCommentRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .addSurvayComment(requestParameters.id, requestParameters.commentDraftDto, options)
+  public addSurvey(requestParameters: SurveysApiAddSurveyRequest, options?: AxiosRequestConfig) {
+    return SurveysApiFp(this.configuration)
+      .addSurvey(requestParameters.surveyDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Эндпоинт для получения списка ответов
    * @summary Получение списка ответов на опрос
-   * @param {SurvaysApiGetSurvayAnswersRequest} requestParameters Request parameters.
+   * @param {SurveysApiGetSurveyAnswersRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof SurvaysApi
+   * @memberof SurveysApi
    */
-  public getSurvayAnswers(requestParameters: SurvaysApiGetSurvayAnswersRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .getSurvayAnswers(requestParameters.id, options)
+  public getSurveyAnswers(requestParameters: SurveysApiGetSurveyAnswersRequest, options?: AxiosRequestConfig) {
+    return SurveysApiFp(this.configuration)
+      .getSurveyAnswers(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Получение всех данных опроса
    * @summary Получение карточки опроса
-   * @param {SurvaysApiGetSurvayByIdRequest} requestParameters Request parameters.
+   * @param {SurveysApiGetSurveyByIdRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof SurvaysApi
+   * @memberof SurveysApi
    */
-  public getSurvayById(requestParameters: SurvaysApiGetSurvayByIdRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .getSurvayById(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для получения комментариев опроса с параметрами поиска
-   * @summary Получение списка комментариев
-   * @param {SurvaysApiGetSurvayCommentsRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof SurvaysApi
-   */
-  public getSurvayComments(requestParameters: SurvaysApiGetSurvayCommentsRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .getSurvayComments(requestParameters.id, requestParameters.requestBody, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Эндпоинт для получения списка лайков опроса
-   * @summary Получение списка лайков опроса
-   * @param {SurvaysApiGetSurvayLikesRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof SurvaysApi
-   */
-  public getSurvayLikes(requestParameters: SurvaysApiGetSurvayLikesRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .getSurvayLikes(requestParameters.id, options)
+  public getSurveyById(requestParameters: SurveysApiGetSurveyByIdRequest, options?: AxiosRequestConfig) {
+    return SurveysApiFp(this.configuration)
+      .getSurveyById(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Удаление опроса из системы
    * @summary Удаление опроса
-   * @param {SurvaysApiRemoveSurvayRequest} requestParameters Request parameters.
+   * @param {SurveysApiRemoveSurveyRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof SurvaysApi
+   * @memberof SurveysApi
    */
-  public removeSurvay(requestParameters: SurvaysApiRemoveSurvayRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .removeSurvay(requestParameters.id, options)
+  public removeSurvey(requestParameters: SurveysApiRemoveSurveyRequest, options?: AxiosRequestConfig) {
+    return SurveysApiFp(this.configuration)
+      .removeSurvey(requestParameters.id, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Эндпоинт для получения списка опросов
    * @summary Получение списка опросов
-   * @param {SurvaysApiSearchSurvaysRequest} requestParameters Request parameters.
+   * @param {SurveysApiSearchSurveysRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof SurvaysApi
+   * @memberof SurveysApi
    */
-  public searchSurvays(requestParameters: SurvaysApiSearchSurvaysRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .searchSurvays(requestParameters.requestBody, options)
+  public searchSurveys(requestParameters: SurveysApiSearchSurveysRequest, options?: AxiosRequestConfig) {
+    return SurveysApiFp(this.configuration)
+      .searchSurveys(requestParameters.requestBody, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Изменение данных опроса
    * @summary Редактирование опроса
-   * @param {SurvaysApiUpdateSurvayRequest} requestParameters Request parameters.
+   * @param {SurveysApiUpdateSurveyRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof SurvaysApi
+   * @memberof SurveysApi
    */
-  public updateSurvay(requestParameters: SurvaysApiUpdateSurvayRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .updateSurvay(requestParameters.id, requestParameters.survayDraftDto, options)
+  public updateSurvey(requestParameters: SurveysApiUpdateSurveyRequest, options?: AxiosRequestConfig) {
+    return SurveysApiFp(this.configuration)
+      .updateSurvey(requestParameters.id, requestParameters.surveyDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    * Если ответ был, и в опросе editable = true, то отрелдактируется, если нет - добавится
    * @summary Добавление или удаление ответа
-   * @param {SurvaysApiUpdateSurvayAnswerRequest} requestParameters Request parameters.
+   * @param {SurveysApiUpdateSurveyAnswerRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
-   * @memberof SurvaysApi
+   * @memberof SurveysApi
    */
-  public updateSurvayAnswer(requestParameters: SurvaysApiUpdateSurvayAnswerRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .updateSurvayAnswer(requestParameters.id, requestParameters.answerDraftDto, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * Если лайка нет, добавится, если есть - удалится
-   * @summary Добавление или удаление лайка
-   * @param {SurvaysApiUpdateSurvayLikeRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof SurvaysApi
-   */
-  public updateSurvayLike(requestParameters: SurvaysApiUpdateSurvayLikeRequest, options?: AxiosRequestConfig) {
-    return SurvaysApiFp(this.configuration)
-      .updateSurvayLike(requestParameters.id, options)
+  public updateSurveyAnswer(requestParameters: SurveysApiUpdateSurveyAnswerRequest, options?: AxiosRequestConfig) {
+    return SurveysApiFp(this.configuration)
+      .updateSurveyAnswer(requestParameters.id, requestParameters.answerDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
