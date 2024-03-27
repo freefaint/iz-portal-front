@@ -1003,13 +1003,14 @@ components:
           description: Метод поиска
           type: string
           enum:
-            - IS_YEARLY_TODAY
+            - IS_EMPTY
+            - IS_YEARLY_EQ
+            - IS_YEARLY_GTE
+            - IS_YEARLY_LTE
             - EQ
-            - CONTAINS
             - LT
-            - LTE
             - GT
-            - GTE
+            - CONTAINS
         value:
           description: Значение
     RequestBody:
@@ -1205,7 +1206,6 @@ components:
       required:
         - id
         - title
-        - announce
         - date
         - createDate
         - updateDate
@@ -1223,6 +1223,12 @@ components:
         title:
           description: Заголовок
           type: string
+        type:
+          description: Тип
+          type: string
+          enum:
+            - radiobutton
+            - checkbox
         announce:
           description: Заголовок
           type: string
@@ -1280,7 +1286,7 @@ components:
       type: object
       required:
         - title
-        - announce
+        - type
         - date
         - choices
       properties:
@@ -1288,8 +1294,14 @@ components:
           description: Parent ID
           type: string
           format: uuid
-        title:
+        type:
           description: Заголовок
+          type: string
+          enum:
+            - radiobutton
+            - checkbox
+        title:
+          description: Тип
           type: string
         announce:
           description: Заголовок
