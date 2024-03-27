@@ -885,6 +885,12 @@ export interface RequestBody {
  */
 export interface SurveyDraftDto {
   /**
+   * Parent ID
+   * @type {string}
+   * @memberof SurveyDraftDto
+   */
+  parentId?: string;
+  /**
    * Заголовок
    * @type {string}
    * @memberof SurveyDraftDto
@@ -969,6 +975,12 @@ export interface SurveyDto {
    * @memberof SurveyDto
    */
   id: string;
+  /**
+   * Parent ID
+   * @type {string}
+   * @memberof SurveyDto
+   */
+  parentId?: string;
   /**
    * Заголовок
    * @type {string}
@@ -4201,7 +4213,7 @@ export const NewsApiAxiosParamCreator = function (configuration?: Configuration)
       assertParamExists('getNewsComments', 'id', id);
       // verify required parameter 'requestBody' is not null or undefined
       assertParamExists('getNewsComments', 'requestBody', requestBody);
-      const localVarPath = `/api/v1/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
+      const localVarPath = `/api/v1/news/{id}/comments`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
