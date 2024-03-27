@@ -186,7 +186,7 @@ const NewsPage = () => {
       <>
         <FullNews isLike={item.like}>
           <FullCard>
-            <CardMedia component="img" height="25rem" image={item.img} alt="Paella dish" />
+            <CardMedia component="img" image={item.img} alt="Paella dish" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {item.title}
