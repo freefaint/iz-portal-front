@@ -65,12 +65,6 @@ paths:
       summary: Получение данных текущей сессии
       description: Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
       operationId: getUser
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginRequestBody'
       responses:
         '200':
           description: В случае, если мы авторизованы, получаем текущий профиль
@@ -310,7 +304,7 @@ paths:
       description: Эндпоинт для редактирования комментария
       operationId: editNoticeComment
       parameters:
-        - name: cid
+        - name: id
           description: Идентификатор комментария
           in: path
           required: true
@@ -1670,4 +1664,4 @@ components:
           description: Список ответов
           type: array
           items:
-            $ref: '#/components/shemas/ChoiceDto'
+            $ref: '#/components/schemas/ChoiceDto'

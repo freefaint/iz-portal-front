@@ -1961,13 +1961,10 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
     /**
      * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
      * @summary Получение данных текущей сессии
-     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUser: async (loginRequestBody: LoginRequestBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'loginRequestBody' is not null or undefined
-      assertParamExists('getUser', 'loginRequestBody', loginRequestBody);
+    getUser: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
       const localVarPath = `/api/v1/user`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1980,12 +1977,9 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-      localVarRequestOptions.data = serializeDataIfNeeded(loginRequestBody, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -2067,15 +2061,13 @@ export const AuthApiFp = function (configuration?: Configuration) {
     /**
      * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
      * @summary Получение данных текущей сессии
-     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getUser(
-      loginRequestBody: LoginRequestBody,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProfileDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(loginRequestBody, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -2117,12 +2109,11 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
     /**
      * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
      * @summary Получение данных текущей сессии
-     * @param {LoginRequestBody} loginRequestBody
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUser(loginRequestBody: LoginRequestBody, options?: any): AxiosPromise<ProfileDto> {
-      return localVarFp.getUser(loginRequestBody, options).then((request) => request(axios, basePath));
+    getUser(options?: any): AxiosPromise<ProfileDto> {
+      return localVarFp.getUser(options).then((request) => request(axios, basePath));
     },
     /**
      * Вход в систему по логину и паролю. Сервер устанавливает куку httpOnly secure с токеном, соответственно лиент не может ей управлять.
@@ -2145,20 +2136,6 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
     },
   };
 };
-
-/**
- * Request parameters for getUser operation in AuthApi.
- * @export
- * @interface AuthApiGetUserRequest
- */
-export interface AuthApiGetUserRequest {
-  /**
-   *
-   * @type {LoginRequestBody}
-   * @memberof AuthApiGetUser
-   */
-  readonly loginRequestBody: LoginRequestBody;
-}
 
 /**
  * Request parameters for login operation in AuthApi.
@@ -2184,14 +2161,13 @@ export class AuthApi extends BaseAPI {
   /**
    * Метод проверяет авторизацию и возвращает то же самое, что вернул бы /login при успешной аутентификации.
    * @summary Получение данных текущей сессии
-   * @param {AuthApiGetUserRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof AuthApi
    */
-  public getUser(requestParameters: AuthApiGetUserRequest, options?: AxiosRequestConfig) {
+  public getUser(options?: AxiosRequestConfig) {
     return AuthApiFp(this.configuration)
-      .getUser(requestParameters.loginRequestBody, options)
+      .getUser(options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2314,21 +2290,21 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
     /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     editNoticeComment: async (
-      cid: string,
+      id: string,
       commentDraftDto: CommentDraftDto,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
-      // verify required parameter 'cid' is not null or undefined
-      assertParamExists('editNoticeComment', 'cid', cid);
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('editNoticeComment', 'id', id);
       // verify required parameter 'commentDraftDto' is not null or undefined
       assertParamExists('editNoticeComment', 'commentDraftDto', commentDraftDto);
-      const localVarPath = `/api/v1/comments/{id}`.replace(`{${'cid'}}`, encodeURIComponent(String(cid)));
+      const localVarPath = `/api/v1/comments/{id}`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -2541,17 +2517,17 @@ export const CommentsApiFp = function (configuration?: Configuration) {
     /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async editNoticeComment(
-      cid: string,
+      id: string,
       commentDraftDto: CommentDraftDto,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentDto>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.editNoticeComment(cid, commentDraftDto, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.editNoticeComment(id, commentDraftDto, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -2649,13 +2625,13 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
     /**
      * Эндпоинт для редактирования комментария
      * @summary Изменение комментария
-     * @param {string} cid Идентификатор комментария
+     * @param {string} id Идентификатор комментария
      * @param {CommentDraftDto} commentDraftDto
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editNoticeComment(cid: string, commentDraftDto: CommentDraftDto, options?: any): AxiosPromise<CommentDto> {
-      return localVarFp.editNoticeComment(cid, commentDraftDto, options).then((request) => request(axios, basePath));
+    editNoticeComment(id: string, commentDraftDto: CommentDraftDto, options?: any): AxiosPromise<CommentDto> {
+      return localVarFp.editNoticeComment(id, commentDraftDto, options).then((request) => request(axios, basePath));
     },
     /**
      * Эндпоинт для получения комментариев новости с параметрами поиска
@@ -2755,7 +2731,7 @@ export interface CommentsApiEditNoticeCommentRequest {
    * @type {string}
    * @memberof CommentsApiEditNoticeComment
    */
-  readonly cid: string;
+  readonly id: string;
 
   /**
    *
@@ -2880,7 +2856,7 @@ export class CommentsApi extends BaseAPI {
    */
   public editNoticeComment(requestParameters: CommentsApiEditNoticeCommentRequest, options?: AxiosRequestConfig) {
     return CommentsApiFp(this.configuration)
-      .editNoticeComment(requestParameters.cid, requestParameters.commentDraftDto, options)
+      .editNoticeComment(requestParameters.id, requestParameters.commentDraftDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
