@@ -999,11 +999,13 @@ components:
         name:
           description: Имя фильтра
           type: string
+        not:
+          description: Инвертировать условие
+          type: boolean
         predicate:
           description: Метод поиска
           type: string
           enum:
-            - IS_EMPTY
             - IS_YEARLY_GTE
             - IS_YEARLY_LTE
             - EQ
@@ -1011,6 +1013,7 @@ components:
             - GT
             - CONTAINS
         value:
+          nullable: true
           description: Значение
     RequestBody:
       type: object

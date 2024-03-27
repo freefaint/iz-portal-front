@@ -384,6 +384,12 @@ export interface Filter {
    */
   name: string;
   /**
+   * Инвертировать условие
+   * @type {boolean}
+   * @memberof Filter
+   */
+  not?: boolean;
+  /**
    * Метод поиска
    * @type {string}
    * @memberof Filter
@@ -394,11 +400,10 @@ export interface Filter {
    * @type {any}
    * @memberof Filter
    */
-  value: any;
+  value: any | null;
 }
 
 export const FilterPredicateEnum = {
-  IsEmpty: 'IS_EMPTY',
   IsYearlyGte: 'IS_YEARLY_GTE',
   IsYearlyLte: 'IS_YEARLY_LTE',
   Eq: 'EQ',
