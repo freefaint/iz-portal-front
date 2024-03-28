@@ -938,23 +938,23 @@ export interface SurveyDraftDto {
    */
   maxCount?: number;
   /**
+   * Можно ли переголосовать
+   * @type {boolean}
+   * @memberof SurveyDraftDto
+   */
+  isEditable?: boolean;
+  /**
    * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
    * @type {boolean}
    * @memberof SurveyDraftDto
    */
-  anonymous?: boolean;
+  isAnonymous?: boolean;
   /**
    * Результаты видны пользователям
    * @type {boolean}
    * @memberof SurveyDraftDto
    */
-  public?: boolean;
-  /**
-   * Можно ли переголосовать
-   * @type {boolean}
-   * @memberof SurveyDraftDto
-   */
-  editable?: boolean;
+  isPublic?: boolean;
   /**
    * Варианты ответов
    * @type {Array<ChoiceDraftDto>}
@@ -1047,19 +1047,19 @@ export interface SurveyDto {
    * @type {boolean}
    * @memberof SurveyDto
    */
-  editable?: boolean;
+  isEditable?: boolean;
   /**
    * Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
    * @type {boolean}
    * @memberof SurveyDto
    */
-  anonymous?: boolean;
+  isAnonymous?: boolean;
   /**
    * Результаты видны пользователям
    * @type {boolean}
    * @memberof SurveyDto
    */
-  public?: boolean;
+  isPublic?: boolean;
   /**
    * Варианты ответов
    * @type {Array<ChoiceDto>}

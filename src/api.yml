@@ -1246,13 +1246,13 @@ components:
         maxCount:
           description: Можно ли выбрать несколько вариантов
           type: number
-        editable:
+        isEditable:
           description: Можно ли переголосовать
           type: boolean
-        anonymous:
+        isAnonymous:
           description: Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
           type: boolean
-        public:
+        isPublic:
           description: Результаты видны пользователям
           type: boolean
         choices:
@@ -1320,14 +1320,14 @@ components:
         maxCount:
           description: Можно ли выбрать несколько вариантов
           type: number
-        anonymous:
+        isEditable:
+          description: Можно ли переголосовать
+          type: boolean
+        isAnonymous:
           description: Анонимный опрос (в результатах не будет видно кто какой вариант выбрал)
           type: boolean
-        public:
+        isPublic:
           description: Результаты видны пользователям
-          type: boolean
-        editable:
-          description: Можно ли переголосовать
           type: boolean
         choices:
           description: Варианты ответов
